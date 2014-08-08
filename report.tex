@@ -1,0 +1,244 @@
+\documentclass[a4paper,11pt,twoside]{report}
+\usepackage[left=2.5cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{ntheorem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newtheorem{def1}{\textbf{Definition}}[chapter]
+\usepackage{indentfirst}
+
+
+\begin{document}
+
+\tableofcontents{}
+
+\chapter{Lambda Calculus}
+The Lambda Calculus is an example of a formal system which consists a language of lambda terms and some auxiliary notions such as \textit{free variables} and \textit{subterms}, and the transformation theory. The core of the theory is the notion of substitution - the driving force behind function application. 
+
+
+\section{$\lambda$-terms}
+
+\noindent The expressions in lambda calculus can be formalized into following: 
+
+
+\begin{def1}
+\normalfont \textbf{($\lambda$-TERMS)} $\lambda$-terms can be defined by the following rules:
+\end{def1}
+
+\begin{itemize}
+\item a variable, $x$, itself is a lambda term
+\item if $M$ is a lambda term, and $x$ is a variable, then $(\lambda x.M)$ is a lambda term
+\item if $M$ and $N$ are both lambda terms, then \textit{(MN)} is a lambda term
+\end{itemize}
+A lambda term is valid if and only if it can be obtained by repeated application of these rules. However, some parentheses can be omitted in certain forms. For example the leftmost, outermost brackets are usually omitted.
+
+\textbf{A lambda abstraction $\lambda x.M$} takes a single input x and returns a term M. Thus, it defines an \textbf{anonymous} function. For example $\lambda x.x^2$ is a lambda abstraction for the function $f(x) = x^2$ using the term $x^2$ for M, then we can say that $f = \lambda x.x^2$. The function is anonymous since we write $(x^2)2$ rather than $f3$.
+
+\textbf{An application $(MN)$} applies the input term N to the function M. For example $(\lambda x.x^2)2$ is an application that applies 2 to the function $f(x) = x^2$, it return $2^2$ which equals 4.
+
+As mentioned above, leftmost, outermost brackets are usually omitted. Therefore, $M_1M_2(M_3M_4)$ stands for $((M_1\cdot M_2)(M_3\cdot M_4))$. Similarly, $\lambda$ can be omitted in repeated abstractions, for example $\lambda x_1x_2.M$ stands for $\lambda x_1.(\lambda x_2.M)$.
+
+\begin{def1}
+\normalfont (free and bound variables) The set of free and bound variables are defined inductively by the following function:
+\end{def1}
+
+\begin{equation*}
+\begin{array}{lcllcl}
+FV(x)           & = & {x}             & BV(x)           &=& \emptyset\\
+FV(\lambda x.M) & = & FV(M_1)\cup {x} & BV(\lambda x.M) &=& FV(M)\backslash y\\  \lambda y.M
+FV(MN)          & = & FV(M)\cup FV(N) & BV(MN)          &=& BV(M) \cup BV(N)
+\end{array}
+\end{equation*}
+
+
+For example, the lambda term $\lambda x.x$ has no free variables but a bound variable $x$. The function $\lambda x.x+y$ only has a single free variable $y$ and a bound variable $x$. 
+Notice that, the sets of bound and free variables are not necessarily disjoint; $x$ occurs both bound and free in:
+\begin{equation*}
+x(\lambda xy.x)
+\end{equation*}
+
+
+\section{Substitution}
+
+\noindent A naive approach to define the substitution operation leads to the problem of \textit{variable capture}. It occurs when we substitute a term containing a free variable into a scope where the variable becomes bound. For example:
+\begin{equation*}
+(\lambda xy.xy)y \neq \lambda y.yy
+\end{equation*} 
+
+The free occurrence of y in the left hand term becomes confused with the bound variable after substitution.To avoid \textit{variable capture}, we define a capture-avoiding susbstiution. The notion $[x:=N]$ indicates the replacement of a variable $x$ by a term $N$:
+
+\begin{equation*}
+\begin{array}{rll}
+x[x:=N]&=N & ~\\
+y[x:=N]&=y,& if\ y\neq x\\
+(\lambda y.M)[x:=N]&=\lambda y.M,& if\ y=x\\
+(\lambda y.M)[x:=N]&=\lambda y.(M[x:=N]),& if\ y\notin FV(N)\ \& \ y\neq x\\
+(\lambda y.M)[x:=N]&=\lambda z.(M[y:=z])[x:=N],& if\ y\in FV(N)\ \& \ y\neq x,z\  new\\
+(M_1M_2)[x:=N] &= (M_1[x:=N])(M_2[x:=N])&
+\end{array}
+\end{equation*}
+
+\begin{def1}\label{def1}
+($\alpha$-equivalent) $M$ is $\alpha$-equivalent to $N$, written $M$ $\equiv_\alpha N$, if $N$ results from $M$ by a series of changes of bound variable.
+\end{def1}
+
+The notion of alpha-equivalent(or congruence) is a basic form of equivalence defined in lambda calculus. It captures the property that the particular choice of a bound variable in a lambda abstraction does not matter. For instance, $\lambda x.x$ and $\lambda y.y$ are $\alpha$-congruent lambda terms which represent the same function. Notice that, the term-variable $x$ and $y$ are not $\alpha$-equivalent terms since they are not bound in a lambda abstraction.
+
+With the property of alpha equivalence, we can define the \textit{$\alpha$-conversion}:
+
+\begin{equation*}
+\lambda x.M =_\alpha \lambda z.(M[z:=x])
+\end{equation*}
+
+In some sense, the $\alpha$-conversion is defined by the spirit of the fifth substitution rule. If we have a function $\lambda x.M$, then we can apply a substitution to this function: $(\lambda x.M)[z:=x]$. According to the fifth substitution rule, it is unfolded to $(\lambda z.M[z:=x])$. Using the $\alpha$-conversion, we can always rename the bound variables of a term. 
+
+\begin{def1}
+(Variable Convention) If $M_1$,...,$M_n$ occur in a certain context then in these terms all bound variables are chosen to be different from free variables.
+\end{def1}
+
+The alpha-conversion is built based on the variable convention. Alpha convertion is used to allow bound variable names to be changed. For example, alpha-conversion of $\lambda x.x$ might get $\lambda y.y$. Terms that differ only by alpha-conversion are called alpha-equivalence(or alpha-congruence) as mentioned in the definition \ref{def1}. By the assumption that free and bound variables are always different(variable convention), and that alpha-conversion will take place whenever a variable is both free and bound. The definition of term substitution becomes:
+\begin{equation*}
+\begin{array}{rll}
+x[x:=N]&=N & ~\\
+y[x:=N]&=y,& if\ y\neq x\\
+(\lambda y.M)[x:=N]&=\lambda y.(M[x:=N])& \\
+(M_1M_2)[x:=N] &= (M_1[x:=N])(M_2[x:=N])&
+\end{array} 
+\end{equation*}
+
+By this definition of term substitution, the \textit{variable capture} is avoided. Since that y is bound in $\lambda y.M$ of the context:
+\begin{equation*}
+\lambda y.M[x:=N]
+\end{equation*}
+y can only be bound in N according to variable convention rule, otherwise, if y is also free in N, it would be renamed by another variable. 
+
+Here is an example of its use:
+\begin{equation*}
+\begin{array}{ll}
+&(\lambda xyz.xzy)(\lambda xz.x)\\
+=& \lambda yz.(\lambda xz.x)zy \\
+=& \lambda yz.(\lambda xw.x)zy\ \ by\ the\ variable\ convention \\
+=& \lambda yz.(\lambda w.z)y\\
+=& \lambda yz.z\\
+\end{array}
+\end{equation*}
+
+\section{$\beta$-reduction}
+
+\noindent There are various notions of reduction for $\lambda$-terms, but the principle one is $\beta$-reduction. $\beta$-reduction is the one-step reduction relation, written as $'\rightarrow _\beta'$. 
+
+\begin{def1}
+($\beta$-reduction) For $\lambda$-terms $M$ and $N$, we say that $M$ $\beta$-reduces in one step to $N$, written as $M \rightarrow _\beta N$:
+\end{def1}
+\begin{equation*}
+(\lambda x.M)N\rightarrow _\beta M[x:=N]
+\end{equation*}
+
+\begin{equation*}
+\frac{M\rightarrow _\beta N}{MZ \rightarrow _\beta NZ}
+\end{equation*}
+\begin{equation*}
+\frac{M\rightarrow _\beta N}{ZM \rightarrow _\beta ZM}
+\end{equation*}
+\begin{equation*}
+\frac{M\rightarrow _\beta N}{\lambda x.M \rightarrow _\beta \lambda x.N}
+\end{equation*}
+
+\noindent The reduction relation, written $'\twoheadrightarrow _\beta'$, is the reflexive, transitive closure of the one-step reduction relation. The one-step reduction relation allows a single step of reduction, while the reduction relation allows many steps. The reflexive transitive closure is defined as follows:
+\begin{equation*}
+\frac{M\rightarrow _\beta N}{M \twoheadrightarrow _\beta N}
+\end{equation*}
+\begin{equation*}
+M \twoheadrightarrow _\beta M
+\end{equation*}
+\begin{equation*}
+\frac{M\twoheadrightarrow _\beta N\ \ \ \ N\twoheadrightarrow _\beta Z}{M \twoheadrightarrow _\beta Z}
+\end{equation*}
+
+For the notion $'M\rightarrow _\beta N'$, it is read as '$M$ $\beta$-reduces to $N$'. The first rule defines that the reduction relation is reflexive to one-step reduction relation, while the third rule indicates the transitivity of reduction relation.
+
+\noindent Finally, the $\beta$-equality, written as '$=_\beta$'. For $\lambda$-terms $A$ and $B$, we say that $A =_\beta B$ if either $A \equiv B$ or there exists a sequence of reduction starting with $A$, ending with $B$. It is the equivalence relation generated by $\twoheadrightarrow _\beta$:
+
+\begin{equation*}
+\frac{M\twoheadrightarrow _\beta N}{M = _\beta N}
+\end{equation*}
+\begin{equation*}
+\frac{M = _\beta N}{N = _\beta M}
+\end{equation*}
+\begin{equation*}
+\frac{M = _\beta N\ \ \ \ N = _\beta Z}{M = _\beta Z}
+\end{equation*}
+
+For the notion $'M = _\beta N'$, we say '$M$ $\beta$-equivalent to $N$'. 
+
+\noindent Following is a simple example which applies $\beta$-reduction:
+
+\begin{equation*}
+\begin{array}{ll}
+&(\lambda x.x^2)3\\
+=& (x^2)[x:=3] \\
+=& 3^2 \\
+=&9 \\
+\end{array}
+\end{equation*}
+
+
+\begin{def1}
+($\beta$-redex) A $\beta$-redex of a $\lambda$-term $M$ is a subterm of M of the form ($\lambda$x.P)Q. A term M is called in $\beta$-normal form if has no $\beta$-redex.
+\end{def1}
+A $\beta$-redex is essentially a candidate for an application of $\beta$-reduction. A term $M$ has a $\beta$-normal form if there exists a term N such that N is in $\beta$-normal form and $M \twoheadrightarrow _\beta N$.
+
+
+
+
+
+
+
+\section{Normal forms}
+
+
+
+
+\section{Reduction strategies}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{The Curry type assignment system}
+
+\chapter{Desgin}
+
+
+
+
+
+
+
+\end{document}
