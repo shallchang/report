@@ -67,13 +67,13 @@ x(\lambda xy.x)
 The free occurrence of y in the left hand term becomes confused with the bound variable after substitution.To avoid \textit{variable capture}, we define a capture-avoiding susbstiution. The notion $[x:=N]$ indicates the replacement of a variable $x$ by a term $N$:
 
 \begin{equation*}
-\begin{array}{rll}
-x[x:=N]&=N & ~\\
-y[x:=N]&=y,& if\ y\neq x\\
-(\lambda y.M)[x:=N]&=\lambda y.M,& if\ y=x\\
-(\lambda y.M)[x:=N]&=\lambda y.(M[x:=N]),& if\ y\notin FV(N)\ \& \ y\neq x\\
-(\lambda y.M)[x:=N]&=\lambda z.(M[y:=z])[x:=N],& if\ y\in FV(N)\ \& \ y\neq x,z\  new\\
-(M_1M_2)[x:=N] &= (M_1[x:=N])(M_2[x:=N])&
+\begin{array}{lrll}
+(1)&x[x:=N]&=N & ~\\
+(2)&y[x:=N]&=y,& if\ y\neq x\\
+(3)&(\lambda y.M)[x:=N]&=\lambda y.M,& if\ y=x\\
+(4)&(\lambda y.M)[x:=N]&=\lambda y.(M[x:=N]),& if\ y\notin FV(N)\ \& \ y\neq x\\
+(5)&(\lambda y.M)[x:=N]&=\lambda z.(M[y:=z])[x:=N],& if\ y\in FV(N)\ \& \ y\neq x,z\  new\\
+(6)&(M_1M_2)[x:=N] &= (M_1[x:=N])(M_2[x:=N])&
 \end{array}
 \end{equation*}
 
@@ -89,7 +89,7 @@ With the property of alpha equivalence, we can define the \textit{$\alpha$-conve
 \lambda x.M =_\alpha \lambda z.(M[z:=x])
 \end{equation*}
 
-In some sense, the $\alpha$-conversion is defined by the spirit of the fifth substitution rule. If we have a function $\lambda x.M$, then we can apply a substitution to this function: $(\lambda x.M)[z:=x]$. According to the fifth substitution rule, it is unfolded to $(\lambda z.M[z:=x])$. Using the $\alpha$-conversion, we can always rename the bound variables of a term. 
+In some sense, the $\alpha$-conversion is defined by the spirit of the (5) substitution rule. If we have a function $\lambda x.M$, then we can apply a substitution to this function: $(\lambda x.M)[z:=x]$. According to the fifth substitution rule, it is unfolded to $(\lambda z.M[z:=x])$. Using the $\alpha$-conversion, we can always rename the bound variables of a term. 
 
 \begin{def1}
 (Variable Convention) If $M_1$,...,$M_n$ occur in a certain context then in these terms all bound variables are chosen to be different from free variables.
@@ -183,30 +183,57 @@ For the notion $'M = _\beta N'$, we say '$M$ $\beta$-equivalent to $N$'.
 
 
 \begin{def1}
-($\beta$-redex) A $\beta$-redex of a $\lambda$-term $M$ is a subterm of M of the form ($\lambda$x.P)Q. A term M is called in $\beta$-normal form if has no $\beta$-redex.
+($\beta$-redex) A $\beta$-redex of a $\lambda$-term $M$ is a subterm of M of the form ($\lambda$x.P)Q. A term M is called in $\beta$-normal form if it has no $\beta$-redex.
 \end{def1}
-A $\beta$-redex is essentially a candidate for an application of $\beta$-reduction. A term $M$ has a $\beta$-normal form if there exists a term N such that N is in $\beta$-normal form and $M \twoheadrightarrow _\beta N$.
+A $\beta$-redex is essentially a candidate for an application of $\beta$-reduction. A term $M$ has a $\beta$-normal form if there exists a term N such that N is in $\beta$-normal form and $M \twoheadrightarrow _\beta N$. 
 
+\section{Head Normal Form}
 
+\noindent A $\lambda$-term in head normal form is generally in the form:
 
+\begin{equation*}
+\lambda x_1\ldots x_n.xM_1\ldots M_m\ \ \ \ \ \ \ \ n,m\geqslant 0
+\end{equation*}
 
-
-
-
-\section{Normal forms}
-
-
+In this case $x$ is called the head variable. If $M \equiv \lambda x_1\ldots x_n.(\lambda x.M_0)M_1\ldots M_m$ where $n\geqslant 0$, $m\geqslant 1$ then the subterm $(\lambda x.M_0)M_1$ is called the head redex of $M$. Following are some examples of $\lambda$-terms in head normal form:
+\begin{equation*}
+(1)\ xM\ \ \ \ (2)\ \lambda x.x\ \ \ \ (3)\ \lambda xy.x((\lambda z.z)y)
+\end{equation*}
+Notice that, an expression in head normal form may contain redexes in argument positions whereas a normal form may not.
 
 
 \section{Reduction strategies}
+\noindent Recall that a term is said to be in $\beta$-normal form if it has no $\beta$-redexes, that is, subterms of the shape ($\lambda$ x.M)N. A term has a $\beta$-normal form if it can be reduced to a term in $\beta$ in $\beta$-normal form. It is clear that if a term has a $\beta$-normal form, then we can get to the $\beta$-normal form by exhaustively reducing all $\beta$-redexes of the term, then reducing all $\beta$-redexes of all resulting terms, and so forth until we get the $\beta$-normal form. A \textbf{$\beta$-reduction strategy} is a function that selects, whenever a term has multiple $\beta$-redexes, which one should be reduced first. If a term is in $\beta$-normal form, then no $\beta$-reduction is to be done. Notice that, a $\beta$-reduction strategy may or may not have the property that adhering to the strategy will ensure that we(eventually) reach a $\beta$-normal form, if one exists. 
+
+In general, there are several different $\beta$-reductions possible for a given term. In this project, there are 5 different reduction strategies studied and implemented: normal order, call-by-name, call-by-value, head reduction, and applicative order. Figure X generally summarizes and compares the property of different strategies: 
+\begin{center}
+\begin{tabular}{|c|c|c|c|}\hline
+Reduction Strategy & Reduction Order & Reach $\beta$-normal form & Form Reached\\ \hline
+Normal Order & leftmost outermost & Yes & normal form\\ \hline
+Call-by-name & leftmost outermost & No  & weak head normal form\\ \hline
+Call-by-value & leftmost innermost & No & weak normal form\\ \hline
+Head Reduction & inside lambda abstractions & No & head normal form\\ \hline
+Applicative Order & leftmost innermost & Yes & normal form\\ \hline
+\end{tabular}
+\end{center}
 
 
+\section{Normal Order Reduction}
 
+The normal order reduction $M\xrightarrow{no} N$ continually applies te rule for $\beta$-reduction on the redex in leftmost outermost position until no more $\beta$-reduction can be performed. At that point, the resulting term is in normal form. When reducing an application $(MN)$, the function term $M$ must be reduced using call-by-name. Since the strategy is outermost, when $M$ is reduced to an abstraction $(\lambda x.P)$, then the redex $((\lambda x.P)N)$ must be reduced before redexes in P.
 
-
-
-
-
+\begin{equation*}
+x \xrightarrow{no}x
+\end{equation*}
+\begin{equation*}
+\frac{M \xrightarrow{no}N}{(\lambda x.M) \xrightarrow{no} (\lambda x.N)}
+\end{equation*}
+\begin{equation*}
+\frac{M \xrightarrow{bn} (\lambda x.P)\ \ \ \ \ \ \ \ \ P[N/x] \xrightarrow{no} Q}{(MN) \xrightarrow{no} Q}
+\end{equation*}
+\begin{equation*}
+\frac{M \xrightarrow{bn} P\neq(\lambda x.R)\ \ \ \ \ \ \ \ \ P[N/x] \xrightarrow{no} Q}{(MN) \xrightarrow{no} Q}
+\end{equation*}
 
 
 
