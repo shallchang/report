@@ -5,7 +5,7 @@
 \usepackage{amssymb}
 \newtheorem{def1}{\textbf{Definition}}[chapter]
 \usepackage{indentfirst}
-
+\usepackage{stmaryrd}
 
 \begin{document}
 
@@ -245,18 +245,17 @@ data Term = Var Name | Abs Name Term | App Term Term
 The normal order reduction $e\xrightarrow{no} e'$ continually applies te rule for $\beta$-reduction on the redex in leftmost outermost position until no more $\beta$-reduction can be performed. At that point, the resulting term is in normal form. When reducing an application $(e_1e_2)$, the function term $e_1$ must be reduced using call-by-name. Since the strategy is outermost, when $e_1$ is reduced to an abstraction $(\lambda x.e)$, then the redex $((\lambda x.e_1)e_2)$ must be reduced before redexes in P.
 
 \begin{equation*}
-x \xrightarrow{no}x
+\llceil x \rrfloor ^{ls} _{no} = x
 \end{equation*}
 \begin{equation*}
-\frac{e \xrightarrow{no}e'}{(\lambda x.e) \xrightarrow{no} (\lambda x.e')}
+\frac{\llceil e \rrfloor ^{ls} _{no} = e'}{\llceil (\lambda x.e) \rrfloor ^{ls} _{no} = (\lambda x.e')}
 \end{equation*}
 \begin{equation*}
-\frac{e_1 \xrightarrow{bn} (\lambda x.e)\ \ \ \ \ \ \ \ \ e[e_2/x] \xrightarrow{no} e'}{(e_1e_2) \xrightarrow{no} e'}
+\frac{\llceil e_1 \rrfloor ^{ls} _{no} = (\lambda x.e)\ \ \ \ \ \ \ \ \ \llceil e[e_2/x] \rrfloor ^{ls} _{no} = e'}{\llceil (e_1e_2) \rrfloor ^{ls} _{no} = e'}
 \end{equation*}
 \begin{equation*}
-\frac{e_1 \xrightarrow{bn} e'_1\neq (\lambda x.e)\ \ \ \ \ \ \ \ e'_1\xrightarrow{no} e''_1\ \ \ \ \ \ \ \ e_2\xrightarrow{no} e'_2}{(e_1e_2 \xrightarrow{no}e''_2e'_2)}
+\frac{\llceil e_1 \rrfloor ^{ls} _{no} = e'_1\neq (\lambda x.e)\ \ \ \ \ \ \ \ \llceil e'_1 \rrfloor ^{ls} _{no} = e''_1\ \ \ \ \ \ \ \ \llceil e_2 \rrfloor ^{ls} _{no} = e'_2}{\llceil (e_1e_2) \rrfloor ^{ls} _{no} = (e''_1e'_2)}
 \end{equation*}
-
 
 \begin{verbatim}
 evalnormal :: Term -> Term
@@ -271,13 +270,13 @@ evalnormal (App x t) | x == evalcbn x = (App x (evalnormal t))
 \subsection{Call-by-Name Reduction}
 
 \begin{equation*}
-x \xrightarrow{cbn}x
+\llceil x \rrfloor ^{ls} _{cbn} = x
 \end{equation*}
 \begin{equation*}
-(\lambda x.e) \xrightarrow{cbn} (\lambda x.e)
+\llceil (\lambda x.e) \rrfloor ^{ls} _{cbn} = (\lambda x.e)
 \end{equation*}
 \begin{equation*}
-\frac{e_1 \xrightarrow{cbn} (\lambda x.e)\ \ \ \ \ \ \ \ \ e[e_2/x] \xrightarrow{cbn} e'}{(e_1e_2) \xrightarrow{cbn} e'}
+\frac{\llceil (\lambda x.e) \rrfloor ^{ls} _{cbn} = (\lambda x.e)\ \ \ \ \ \ \ \ \ \llceil e[e_2/x] \rrfloor ^{ls} _{cbn} = e'}{(e_1e_2) \xrightarrow{cbn} e'}
 \end{equation*}
 \begin{equation*}
 \frac{e_1 \xrightarrow{cbn} e'_1\neq (\lambda x.e)}{(e_1e_2 \xrightarrow{cbn}e'_1e_2)}
