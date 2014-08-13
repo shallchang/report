@@ -6,6 +6,7 @@
 \newtheorem{def1}{\textbf{Definition}}[chapter]
 \usepackage{indentfirst}
 \usepackage{stmaryrd}
+\usepackage{verbatimbox}
 
 \begin{document}
 
@@ -218,8 +219,10 @@ Notice that, an expression in head normal form may contain redexes in argument p
 \section{Reduction strategies}
 \noindent Recall that a term is said to be in $\beta$-normal form if it has no $\beta$-redexes, that is, subterms of the shape ($\lambda$x.M)N. A term has a $\beta$-normal form if it can be reduced to a term in $\beta$ in $\beta$-normal form. It is clear that if a term has a $\beta$-normal form, then we can get to the $\beta$-normal form by exhaustively reducing all $\beta$-redexes of the term, then reducing all $\beta$-redexes of all resulting terms, and so forth until we get the $\beta$-normal form. A \textbf{$\beta$-reduction strategy} is a function that selects, whenever a term has multiple $\beta$-redexes, which one should be reduced first. If a term is in $\beta$-normal form, then no $\beta$-reduction is to be done. Notice that, a $\beta$-reduction strategy may or may not have the property that adhering to the strategy will ensure that we(eventually) reach a $\beta$-normal form, if one exists. 
 
-In general, there are several different $\beta$-reductions possible for a given term. In this project, there are 5 different reduction strategies studied and implemented: normal order, call-by-name, call-by-value, head reduction, and applicative order. Figure X generally summarizes and compares the property of different strategies: 
+In general, there are several different $\beta$-reductions possible for a given term. In this project, there are 5 different reduction strategies studied and implemented: normal order, call-by-name, call-by-value, head reduction, and applicative order. Figure X generally summarizes and compares the property of different strategies:
+ 
 \begin{center}
+\begin{table}[ht!]
 \begin{tabular}{|c|c|c|c|}\hline
 Reduction Strategy & Reduction Order & Reach $\beta$-normal form & Form Reached\\ \hline
 Normal Order & leftmost outermost & Yes & normal form\\ \hline
@@ -228,6 +231,8 @@ Call-by-value & leftmost innermost & No & weak normal form\\ \hline
 Head Reduction & inside lambda abstractions & No & head normal form\\ \hline
 Applicative Order & leftmost innermost & Yes & normal form\\ \hline
 \end{tabular}
+\caption{Reduction Strategies}
+\end{table}
 \end{center}
 Normal order:
 We model lambda terms as Haskell constructed data, representing variable names by character:
@@ -249,18 +254,18 @@ A sequence of computational steps of a valid program is the operational semantic
 Although a reduction strategy may or may not have the property that ensures it reaches a $\beta$-normal form, it would recursively contract the selected redex until no redex(decided by specific reduction strategy) can be contracted. All the following Haskell functions defined conrresponding to the reduction strategy model the small-step semantics. Therefore, in order to recursively reduce a $\lambda$-term, an auxiliary function \verb|recur_eval :: Term -> IO()| is defined:
 
 \begin{verbatim}
-recur_eval :: Term -> IO()
-recur_eval t | evalcbn t == t = putStrLn("")
-             | otherwise = do
-                         putStrLn("==> "++ tostring (evalcbn t))
-                         recur_eval (evalcbn t)
+       recur_eval :: Term -> IO()
+       recur_eval t | evalcbn t == t = putStrLn("")
+                    | otherwise = do
+                                putStrLn("==> "++ tostring (evalcbn t))
+                                recur_eval (evalcbn t)
 \end{verbatim}
 
 The Haskell function above defines the recursive reduction by Call-by-Name strategy. It uses the small-step function defined in Section \ref{subsec:cbn}. The recursion will terminate if the input $\lambda$-term cannot be reduced anymore, otherwise, it would print-out the term after a single step reduction and continue reducing the resulting term.
 
 
 
-\subsection{Normal Order Reduction}
+\subsection{Normal Order Reduction}{\label{subsec:normal}}
 
 The normal order reduction $e\xrightarrow{no} e'$ continually applies te rule for $\beta$-reduction on the redex in leftmost outermost position until no more $\beta$-reduction can be performed. At that point, the resulting term is in normal form. When reducing an application $(e_1e_2)$, the function term $e_1$ must be reduced using call-by-name. Since the strategy is outermost, when $e_1$ is reduced to an abstraction $(\lambda x.e)$, then the redex $((\lambda x.e)e_2)$ must be reduced before redexes in e.
 
@@ -296,15 +301,31 @@ Normal order reduction is \textit{normalizing}, since it reduces the $\lambda$-t
 The corresponding Haskell function \verb|evalnormal :: Term -> Term| below implements the normal order reduction. Notice that, it uses the function evalcbn defined in \ref{subsec:cbn}:
 
 \begin{verbatim}
-evalnormal :: Term -> Term
-evalnormal (Var x) = Var x
-evalnormal (Abs x t) = (Abs x (evalnormal t))
-evalnormal (App (Abs x t) v) = subs t (Var x, v)
-evalnormal (App x t) | x == evalcbn x = (App x (evalnormal t))
-                     | otherwise = (App (evalcbn x) t)
+       evalnormal :: Term -> Term
+       evalnormal (Var x) = Var x
+       evalnormal (Abs x t) = (Abs x (evalnormal t))
+       evalnormal (App (Abs x t) v) = subs t (Var x, v)
+       evalnormal (App x t) | x == evalcbn x = (App x (evalnormal t))
+                            | otherwise = (App (evalcbn x) t)
 \end{verbatim}
 
 The first function clause above handles variables $x$. It is not a $\beta$-reduction step, since a variable is not a redex. It returns itself which indicates no reduction can be done. It also conforms the pattern matching mechanism in Haskell. Similarly, the second function clause handles abstractions $(\lambda x.e)$ and implements the fourth SOS rule. The third function handles applications $(e_1e_2)$ when $e_1$ is an abstraction, then the substitution will take place. It applies an argument to the function and returns the resulting value. Finally, the fourth function handles  applications $(e_1e_2)$ when $e_1$ is not an abstraction. Since the normal reduction is leftmost outermost, it reduces the function $e_1$ first. If $e_1$ cannot be reduced(returns itself), then it goes to the argument $e_2$. 
+
+
+Folllowing is the running example of normal order reduction in Haskell. We use ``/'' to represent the $\lambda$ symbol:
+
+\begin{verbatim}
+           (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
+       ==> (/b.b)((/x.x)(/y.(/z.z)w))
+       ==> (/x.x)(/y.(/z.z)w)
+       ==> /y.(/z.z)w
+       ==> /y.w
+       Reduced to:/y.w
+\end{verbatim}
+
+
+As we can see, it uses leftmost outermost strategy. The leftmost outermost redex $(\lambda a.a)(\lambda b.b)$ is first reduced. Then the whole reduced term is a redex, the argument $((\lambda x.x)(\lambda y.(\lambda z.z)w))$ substitutes the bound variables in the abstraction $(\lambda b.b)$. After that, the same substitution take place. Finally, it reaches into the redex $(\lambda z.z)w$ in the abstraction $\lambda y.(\lambda z.z)w$ and generates the resulting term $\lambda y.w$
+
 
 \subsection{Call-by-Name Reduction}{\label{subsec:cbn}}
 
@@ -341,16 +362,28 @@ The Call-by-Name reduction generates term in weak head normal form. A lambda exp
 The corresponding Haskell function \verb|evalcbn :: Term -> Term| below implements the Call-by-Name reduction:
 
 \begin{verbatim}
-evalcbn :: Term -> Term
-evalcbn (Var x) = Var x
-evalcbn (Abs x t) = (Abs x t)
-evalcbn (App (Abs x t) y) = subs t (Var x, y)
-evalcbn (App x y) | x == evalcbn x = (App x y)
-                  | otherwise = (App (evalcbn x) y) 
+       evalcbn :: Term -> Term
+       evalcbn (Var x) = Var x
+       evalcbn (Abs x t) = (Abs x t)
+       evalcbn (App (Abs x t) y) = subs t (Var x, y)
+       evalcbn (App x y) | x == evalcbn x = (App x y)
+	                     | otherwise = (App (evalcbn x) y) 
 \end{verbatim}
 
 
 The first two function clauses handle the variables and abstractions, it returns itself since they cannot be reduced under Call-by-Name reduction. The third function implements the first SOS rule which performs substitution. The last function implements the second SOS rule: if the function $e_1$ of the application $(e_1e_2)$ cannot be reduced, then the argument $e_2$ will never be reduced. 
+
+The same example in \ref{subsec:normal} run in Haskell by the Call-by-Name strategy is as follows:
+
+\begin{verbatim}
+           (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
+       ==> (/b.b)((/x.x)(/y.(/z.z)w))
+       ==> (/x.x)(/y.(/z.z)w)
+       ==> /y.(/z.z)w
+       Reduced to:/y.(/z.z)w
+\end{verbatim}
+
+It is easy to see that the first three reduction steps are the same as normal order reduction. In this example, it stops at $\lambda y.(\lambda z.z)w$. Since the only difference between normal order and call-by-name is the redex inside abstractions will never be reduced in call-by-name. 
 
 
 \subsection{Call-by-Value Reduction}{\label{subsec:cbv}}
@@ -386,15 +419,27 @@ Call-by-Value: Small-step operational semantics
 Call-by-Value generates terms in weak head normal form only. The implementation of the rules by an Haskell function \verb|evalcbv :: Term -> Term| is as follows:
 
 \begin{verbatim}
-evalcbv :: Term -> Term
-evalcbv (Var x) = Var x
-evalcbv (Abs x t) = (Abs x t)
-evalcbv (App (Abs x t) y) = subs t (Var x, evalcbv y)
-evalcbv (App x y) | x == evalcbn x = (App x (evalcbv y))
-                  | otherwise = (App (evalcbn x) y)  
+        evalcbv :: Term -> Term
+        evalcbv (Var x) = Var x
+        evalcbv (Abs x t) = (Abs x t)
+        evalcbv (App (Abs x t) y) = subs t (Var x, evalcbv y)
+        evalcbv (App x y) | x == evalcbn x = (App x (evalcbv y))
+                          | otherwise = (App (evalcbn x) y)  
 \end{verbatim}
 
 The functions are similar to Call-by-Name, the only difference is the argument is reduced before the substitution take place as indicated in the function clause 3.
+
+The sample example run in Haskell by the Call-by-Value strategy is as follows:
+
+\begin{verbatim}
+            (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
+        ==> (/b.b)((/x.x)(/y.(/z.z)w))
+        ==> (/b.b)(/y.(/z.z)w)
+        ==> /y.(/z.z)w
+        Reduced to:/y.(/z.z)w
+\end{verbatim}
+
+As we can see, the reduction procedure is different from previous. It differs from previous two strategies at the second reduction step. Since the call-by-value reduction always reduces the argument before the substitution take place, it reduces the redex in the argument $((\lambda x.x)(\lambda y.(\lambda z.z)w))$ before it replaces the bound variables in the function $(\lambda b.b)$.    
 
 
 \subsection{Head Reduction}
@@ -431,16 +476,29 @@ Head Reduction: Small-step operational semantics
 The head reduction strategy generates terms in head normal form. Recall that, a term is in head normal form if it has the form: $\lambda x_1\ldots x_n.xM_1\ldots M_m\ \ \ \ n,m\geqslant 0$
 
 \begin{verbatim}
-headreduction :: Term -> Term
-headreduction (Var x) = Var x
-headreduction (Abs x t) = (Abs x (headreduction t))
-headreduction (App (Abs x t) y) = subs t (Var x, y)
-headreduction (App x y) | x == evalcbn x = (App x y)
-                        | otherwise = (App (evalcbn x) y)  
+       headreduction :: Term -> Term
+       headreduction (Var x) = Var x
+       headreduction (Abs x t) = (Abs x (headreduction t))
+       headreduction (App (Abs x t) y) = subs t (Var x, y)
+       headreduction (App x y) | x == evalcbn x = (App x y)
+                               | otherwise = (App (evalcbn x) y)  
 \end{verbatim}
 
 The first 3 function clauses are similar as before, it transfers the semantic rules straght forward into Haskell functions. The last function clause uses Call-by-Name function defined in \ref{subsec:cbn}, because it has to avoid premature reduction of inner redexes. 
 
+
+The sample example run by Head Reduction is as follows:
+
+\begin{verbatim}
+         (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
+     ==> (/b.b)((/x.x)(/y.(/z.z)w))
+     ==> (/x.x)(/y.(/z.z)w)
+     ==> /y.(/z.z)w
+     ==> /y.w
+     Reduced to:/y.w
+\end{verbatim}
+
+The reduction procedure is the same as normal order reduction. Notice that, in the third reduction step, the redex $(\lambda z.z)w$ is a head redex in the abstraction $\lambda y.(\lambda z.z)w$. 
 
 \subsection{Applicative Order Reduction}
 
@@ -480,21 +538,55 @@ Applicative orde reduction always generates terms in normal form. Since it also 
 
 
 \begin{verbatim}
-apporder :: Term -> Term
-apporder (Var x) = Var x
-apporder (Abs x t) = (Abs x (apporder t))
-apporder (App (Abs x t) y) = subs t (Var x, y)
-apporder (App x y) | x == apporder x = (App x (apporder y))
-                   | otherwise = (App (apporder x) y)  
+      apporder :: Term -> Term
+      apporder (Var x) = Var x
+      apporder (Abs x t) = (Abs x (apporder t))
+      apporder (App (Abs x t) y) = subs t (Var x, y)
+      apporder (App x y) | x == apporder x = (App x (apporder y))
+                         | otherwise = (App (apporder x) y)  
 \end{verbatim}
 
 The function clauses are simliar to the Call-by-Value introduced in \ref{subsec:cbv}. The only difference is the redexex inside abstractions are also reduced.
 
 
+The sample example run by Applicative Order reduction in Haskell is as follows:
+
+\begin{verbatim}
+             (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
+         ==> (/b.b)((/x.x)(/y.(/z.z)w))
+         ==> (/x.x)(/y.(/z.z)w)
+         ==> /y.(/z.z)w
+         ==> /y.w
+         Reduced to:/y.w
+\end{verbatim}
+
+It is the same as normal order reduction and the resulting term $\lambda y.w$ is in normal form. Although applicative order reduction always reduces the leftmost innermost redex, there is no redex on leftmost has an inner redex. If we make the leftmost abstraction $(\lambda a.a)$ become $(\lambda a.(\lambda c.c)w)$, then the first reduction step would reduce the inner redex $(\lambda c.c)w$ first:
+
+\begin{verbatim}
+             (/a.(/c.c)w)(/b.b)((/x.x)(/y.(/z.z)w))
+         ==> (/a.w)(/b.b)((/x.x)(/y.(/z.z)w))
+         ==> (/b.b)((/x.x)(/y.(/z.z)w))
+         ==> (/x.x)(/y.(/z.z)w)
+         ==> /y.(/z.z)w
+         ==> /y.w
+         Reduced to:/y.w
+\end{verbatim}
+
+
 \section{Comparisons between Different Reduction Strategies }
 
 
+
+
+
+
+
+
 \chapter{The Curry type assignment system}
+
+A type system consists a set of rules that assign a property called a \textit{type} to the various constructs --- such as variable, expression, functions or modules. On of the most important reason to add type properties to a program is to reduce bugs. 
+
+
 
 \section{The System $\lambda \rightarrow $-Curry}
 \section{Subject Reduction}
