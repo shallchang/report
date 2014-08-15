@@ -3,10 +3,14 @@
 \usepackage{ntheorem}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\newtheorem{def1}{\textbf{Definition}}[chapter]
 \usepackage{indentfirst}
 \usepackage{stmaryrd}
 \usepackage{verbatimbox}
+\usepackage{amsfonts}
+\usepackage{proof}
+
+\newtheorem{def1}{\textbf{Definition}}[chapter]
+\newtheorem{exmp}{\textit{Example}}[section]
 
 \begin{document}
 
@@ -444,7 +448,7 @@ As we can see, the reduction procedure is different from previous. It differs fr
 
 \subsection{Head Reduction}
 
-The head reduction performs reductions inside lambda abstractions, but only in head position. Notice that, the \textit{head reduction} strategy introduced in this project is the same as defined by Barendregt, however it differs from Sessoft's \textit{head spine reduction}. In the leftmost head reduction, only head redexes are reduced. A redex $((\lambda x.e_0)e_1)$ is a \textit{head redex} if it is proceded to the left only by lambda abstractions of non-redexes, as in $\lambda x_1...\lambda x_n.(\lambda x.e_0)e_1...e_m$ when $n \geqslant 0\ and\ m \geqslant 1$.
+The head reduction performs reductions inside lambda abstractions, but only in head position. Notice that, the \textit{head reduction} strategy introduced in this project is the same as defined by Barendregt \cite{barendregt1984lambda}, however it differs from Sessoft's \cite{sestoft2002demonstrating} \textit{head spine reduction}. In the leftmost head reduction, only head redexes are reduced. A redex $((\lambda x.e_0)e_1)$ is a \textit{head redex} if it is proceded to the left only by lambda abstractions of non-redexes, as in $\lambda x_1...\lambda x_n.(\lambda x.e_0)e_1...e_m$ when $n \geqslant 0\ and\ m \geqslant 1$.
 
 
 \begin{equation*}
@@ -584,11 +588,90 @@ It is the same as normal order reduction and the resulting term $\lambda y.w$ is
 
 \chapter{The Curry type assignment system}
 
-A type system consists a set of rules that assign a property called a \textit{type} to the various constructs --- such as variable, expression, functions or modules. On of the most important reason to add type properties to a program is to reduce bugs. 
+A type system consists a set of rules that assign a property called a \textit{type} to the various constructs --- such as variable, expression, functions or modules. There are several reasons to add types to a program, one of the most important reason to add type properties to a program is to reduce bugs. It is possible to build an abstract interpretation of programs by treating terms as objects. The abstractions can be regarded as the interface of objects, by checking whether the interfaces have been connected properly we can decide whether the program is defined in a consistent way. Moreover, type systems provide a form of documentation and improve the readability of a program. Since a program can be abstracted, there are less information in the structure of a program. Furthermore, it also enables independent compilation before the implementation of a program runs. The types of functions and arguments can be checked during the generation of codes. Type-checking during implementation enables dynamic  debugging which largely reduces the debugging workload at run-time. If a program is error-free, it is safe to run:"Typed programs cannot go wrong". It also allows multiple dispatch which is the feature of some objected-oriented programming languages in which a function or method can be dynamically dispatched based on the run time type of more than one of its arguments.
+ 
+An exmaple of a type system is the Java language. A Java program consists of classes which contains a set of function definitions. A function is invoked by an instance of a class that the function belongs to. The interface of a function states the type of the return value, the name of the function and a list of values that are passed to the function. The code of an invoking function states the object instance on which this particular method is to be invoked, and the name of this function along with the names of variables that hold values to pass to it. The Java compiler checks the type of each argument that passed into the function, against the type declared for each varaible in the interface of the invoked function. If the types do not match, the compiler throws a compile-time error.
 
+The lambda calculus as treated in Chapter 1 is referred to as a \textit{type-free} theory. Because every expression may be applied to every other expression. For example, the $\lambda x.x$ may be applied to any argument $x$ and generates the same $x$. 
 
+The typed version of lambda calculus(or called Combinatory Logic, a variant of the lambda calculus) is introduced essentially in Curry\ref{curry1934functionality} and in Church(1940). Types are objects of a syntactic nature and may be assigned to lambda terms. If M is a lambda term and a type A is assigned to M, then we say \textit{`M has type A'}; the notation used is $`M:A'$. For example, in a typed system one has $\lambda x.x : (A \rightarrow A)$, which means the function $\lambda x.x$ should take an argument in type $A$ and return a value of type $A$. In general, $A \rightarrow B$ is the type of functions from $A$ to $B$.
 
 \section{The System $\lambda \rightarrow $-Curry}
+
+In Curry and Feys(1958) and Curry et al. the type assignment theory was modified in a natural way to the lambda calculus assigning elements of a given set $\mathbb{T}$ of types to type free lambda terms. For this reason these calculi are sometimes called systems of type assignment. If the type $\sigma \in \mathbb{T}$ is assigned to the term $M \in \Lambda$ which writes as $\vdash M : \sigma$, sometime with a under subcript such as $\vdash _\lambda$ to denote the particular system. Usually a set of assumptions $\Gamma$ is needed to derive a type assignment write as $\Gamma \vdash M : \sigma$(read as `$\Gamma$ yields $M$ in $\sigma$').
+
+\begin{def1}
+\normalfont (i) The set of $types$, notation $\mathbb{T}$, 
+\end{def1} 
+
+Notation. (i) If $\sigma _1,...,\sigma _n \in \mathbb{T}$ then
+
+\begin{equation*}
+\sigma _1 \rightarrow \sigma _2 \rightarrow ... \rightarrow \sigma _n
+\end{equation*}
+
+\noindent stands for
+\begin{equation*}
+(\sigma _1 \rightarrow (\sigma _2 \rightarrow ... \rightarrow (\sigma _{n-1} \rightarrow \sigma _n)))
+\end{equation*}
+
+\noindent we use association to the right.
+
+     (ii) $\alpha,\beta,\gamma,...$ denote arbitrary type variables.
+
+
+\begin{def1}
+\normalfont (i) A \textit{statement} is of the form $M : \sigma$, where $M\in \Lambda$ and $\sigma \in \mathbb{T}$(pronounced as $`M\ in\ \sigma'$). $M$ is called the $subject$ and $A$ the $predicate$ of $M : A$.  
+\end{def1}
+(ii) A $context$ $\Gamma$ is a set of statements with only distinct (term) variables as subjects; In \cite{svb2001type}, the notion $\Gamma,M:\sigma$ is used for the context $\Gamma \cup \{M:\sigma\}$ where either $M:\sigma \in \Gamma$ or $M$ does not occur in $\Gamma$, and we use $M:\sigma$ as shorthand for $\emptyset,M:\sigma$.
+
+
+\begin{def1}
+\normalfont (CF. [\ref{curry1934functionality}, \ref{curry1972combinatory}]) Curry type assignment and $derivations$ can be defined using following derivation rules.  
+\end{def1}
+
+\begin{equation*}
+(1):\frac{}{\Gamma ,M:\sigma \vdash _cM:\sigma} 
+\end{equation*}
+\begin{equation*}
+(2):\frac{\Gamma ,x:\sigma \vdash _cM:\beta}{\Gamma \vdash _c(\lambda x.M):\sigma \rightarrow \beta} 
+\end{equation*}
+\begin{equation*}
+(3):\frac{\Gamma \vdash _cM_1:\sigma \rightarrow \beta\ \ \ \ \ \Gamma \vdash _cM_2:\sigma}{\Gamma \vdash _c(M_1M_2):\beta} 
+\end{equation*}
+
+\begin{exmp}
+\normalfont (i)Let $\sigma \in \mathbb{T}$. Then $\Gamma \vdash \lambda fx.f(fx):(\sigma \rightarrow \sigma)\rightarrow \sigma \rightarrow \sigma$, is shown by the following derivation:
+\end{exmp}
+
+$$
+\infer[(2)]{\Gamma \vdash \lambda fx.f(fx):(\sigma \rightarrow \sigma)\rightarrow \sigma \rightarrow \sigma}{
+	\infer[(1)]{\Gamma \vdash \lambda x.f(fx):\sigma \rightarrow \sigma}{
+      \infer{\Gamma \vdash f(fx):\sigma}{
+             \infer[(1)]{\Gamma,f:\sigma \rightarrow \sigma \vdash f:\sigma \rightarrow \sigma}{}
+             & 
+             \infer{\Gamma \vdash fx:\sigma}{
+                \infer{\Gamma,f:\sigma \rightarrow \sigma \vdash f:\sigma \rightarrow \sigma}{}
+                &
+                \infer{\Gamma,x:\sigma \vdash x:\sigma}{}
+             }
+         }
+      }		
+	}
+$$
+
+
+(ii)Notice that, we cannot type \textit{`self-application'} $xx$. In order to type the application $xx$, the derivation should be as following:
+
+$$
+\infer{\Gamma \vdash xx:B}{
+    \infer{\Gamma \vdash x:A \rightarrow B}{} 
+    &
+    \infer{\Gamma \vdash x:A}{}
+}
+$$
+
+
 \section{Subject Reduction}
 \section{Properties of $\lambda \rightarrow $}
 
@@ -623,5 +706,9 @@ A type system consists a set of rules that assign a property called a \textit{ty
 \section{Cons}
 
 \chapter{Conclusion}
+
+
+\bibliographystyle{plain}
+\bibliography{ref}
 
 \end{document}
