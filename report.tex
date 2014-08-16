@@ -672,8 +672,79 @@ $$
 $$
 
 
+As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$ and $A$, and either of them can be substituted by the other one. So, $A \rightarrow B \neq A$, and there are two statements of subject $x$ in context $\Gamma$ with distinct predicates. Those two statements would be conflict according to the definition of context. Therefore, the `self-application' is untypable. 
+
+
+
 \section{Subject Reduction}
+
 \section{Properties of $\lambda \rightarrow $}
+
+\begin{def1}
+\normalfont (Type substitution(van Bakel\ref{svb2001type})) The substitution $(\varphi \mapsto C): $, where $\varphi$ is a type variable and $C \in \mathbb{T}$ is defined as following:
+\end{def1}
+
+\begin{equation*}
+\begin{array}{ll}
+(\varphi \mapsto C)\varphi        & = C\\
+(\varphi \mapsto C)\varphi '      & = \varphi ',if\ \varphi '\neq \varphi\\
+(\varphi \mapsto C)A\rightarrow B & = ((\varphi \mapsto C)A)\rightarrow ((\varphi \mapsto C)B)
+\end{array}
+\end{equation*}
+
+
+\begin{def1}
+\normalfont Let $Id_s$ be the substitution that replaces all type variables by themselves:
+\end{def1}
+
+\noindent (i) Robinson's unification algorithm. Unification of Curry types is defined by:
+
+\begin{equation*}
+\begin{array}{llll}
+unify & \varphi            & \varphi          & = (\varphi \mapsto \varphi)\\
+unify & \varphi            & B                & = (\varphi \mapsto B), if\ \varphi does\ not\ occur\ in\ B\\
+unify & A                  & \varphi          & = unify\ \ \varphi\ \ A\\
+unify & (A\rightarrow B)   & (C\rightarrow D) & = S_1\circ S_2\\
+&&&\ \ \ where\ S_1 = unify\ \ A\ \ C\\
+&&&\ \ \ \ \ \ \ \ \ \ \ \ S_2 = unify\ (S_1B)\ (S_1D)
+\end{array}
+\end{equation*}
+
+
+\noindent (ii) UnifyContexts
+
+\begin{equation*}
+\begin{array}{llll}
+UnifyContexts & (\Gamma _0,x:A) & (\Gamma _1,x:B) & = S_1\circ S_2\\
+&&&\ \ \ where\ S_1 = unify\ \ A\ \ B\\
+&&&\ \ \ \ \ \ \ \ \ \ \ \ S_2 = UnifyContexts\ (S_1\Gamma _0)\ (S_1\Gamma _1)\\
+UnifyContexts & (\Gamma _0,x:A) & \Gamma _1 & = UnifyContexts\ \Gamma _0\ \Gamma _1, if\ x\ does\ not\ occur\ in\ \Gamma _1\\
+UnifyContexts & \varnothing & \Gamma _1 & =  Id_s
+\end{array}
+\end{equation*}
+
+
+
+\begin{def1}
+\normalfont (PPC, Principle Pair Algorithm for $\Lambda$)
+\end{def1}
+
+\begin{equation*}
+\begin{array}{llll}
+ppc & x & = & \langle x:\varphi,\varphi \rangle\\
+&&& where\ \ \varphi=fresh\\
+ppc & (\lambda x.M) & = & \langle \Pi,A \rightarrow P \rangle,\ if\ ppcM=\langle \Pi \cup \{x:A\},P \rangle\\
+&&& \langle \Pi,\varphi \rightarrow P \rangle,\ if\ ppcM=\langle \Pi ,P \rangle\ \ \ \ x\not\in \Pi\\
+&&&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ where\ \varphi=fresh\\
+ppc & (MN) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,\varphi \rangle\\
+&&& where\ \ \ \varphi \ \ \ \ \ \ \ \ \ \ \ = fresh\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _1,P_1,\varphi \rangle = ppcM\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _2,P_2,\varphi \rangle = ppcN\\
+&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ \ \ \ \ = unify\ P_1\ \ (P_2 \rightarrow \varphi)\\
+&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ \ \ \ \ = UnifyContexts\ (S_1\Pi _1)\ (S_1\Pi _2)\\
+\end{array}
+\end{equation*}
+
 
 \chapter{A Purely-Functional Programming Language --- Haskell}
 
