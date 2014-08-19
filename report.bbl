@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{barendregt1984lambda}
+Hendrik~Pieter Barendregt.
+\newblock {\em The lambda calculus}, volume~3.
+\newblock North-Holland Amsterdam, 1984.
+
+\bibitem{sestoft2002demonstrating}
+Peter Sestoft.
+\newblock Demonstrating lambda calculus reduction.
+\newblock In {\em The essence of computation}, pages 420--435. Springer, 2002.
+
+\bibitem{svb2001type}
+Steffen van Bakel.
+\newblock Type systems for programming language, course notes.
+\newblock 2001.
+
+\end{thebibliography}

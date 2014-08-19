@@ -1,0 +1,39 @@
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Abstract}{iii}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Acknowledgements}{iv}
+\contentsline {chapter}{\hbox to\@tempdima {\hfil }Introduction}{v}
+\contentsline {chapter}{\numberline {1}Lambda Calculus}{1}
+\contentsline {section}{\numberline {1.1}$\lambda $-terms}{1}
+\contentsline {section}{\numberline {1.2}Substitution}{2}
+\contentsline {section}{\numberline {1.3}$\beta $-reduction}{3}
+\contentsline {section}{\numberline {1.4}Head Normal Form}{4}
+\contentsline {section}{\numberline {1.5}Reduction strategies}{4}
+\contentsline {subsection}{\numberline {1.5.1}Normal Order Reduction}{5}
+\contentsline {subsection}{\numberline {1.5.2}Call-by-Name Reduction}{6}
+\contentsline {subsection}{\numberline {1.5.3}Call-by-Value Reduction}{7}
+\contentsline {subsection}{\numberline {1.5.4}Head Reduction}{8}
+\contentsline {subsection}{\numberline {1.5.5}Applicative Order Reduction}{9}
+\contentsline {section}{\numberline {1.6}Comparisons between Different Reduction Strategies }{10}
+\contentsline {chapter}{\numberline {2}The Curry type assignment system}{11}
+\contentsline {section}{\numberline {2.1}The System $\lambda \rightarrow $-Curry}{11}
+\contentsline {section}{\numberline {2.2}Subject Reduction}{13}
+\contentsline {section}{\numberline {2.3}Properties of $\lambda \rightarrow $}{13}
+\contentsline {chapter}{\numberline {3}A Purely-Functional Programming Language --- Haskell}{14}
+\contentsline {section}{\numberline {3.1}Functional Programming}{14}
+\contentsline {section}{\numberline {3.2}Haskell}{14}
+\contentsline {section}{\numberline {3.3}Model the $\lambda $-calculus and the Curry Type Assignment System in Haskell}{14}
+\contentsline {section}{\numberline {3.4}Issues and Weakness of Implementation in Haskell }{14}
+\contentsline {chapter}{\numberline {4}The $\lambda $-calculus and Curry Type Assignment System Implementation in Java}{15}
+\contentsline {section}{\numberline {4.1}Different operational order between Haskell and Java}{15}
+\contentsline {section}{\numberline {4.2}$\lambda $-calculus Representation}{16}
+\contentsline {subsection}{\numberline {4.2.1}$\lambda $-terms}{16}
+\contentsline {subsection}{\numberline {4.2.2}Interpreter}{17}
+\contentsline {section}{\numberline {4.3}Curry Type Assignment System Representation}{17}
+\contentsline {section}{\numberline {4.4}Auxiliary Functions}{17}
+\contentsline {section}{\numberline {4.5}Syntax and Interpreter}{17}
+\contentsline {chapter}{\numberline {5}GUI development}{19}
+\contentsline {section}{\numberline {5.1}Layout}{19}
+\contentsline {section}{\numberline {5.2}Functionalities}{19}
+\contentsline {chapter}{\numberline {6}Java vs Haskell, Pros and Cons}{20}
+\contentsline {section}{\numberline {6.1}Pros}{20}
+\contentsline {section}{\numberline {6.2}Cons}{20}
+\contentsline {chapter}{\numberline {7}Conclusion}{21}

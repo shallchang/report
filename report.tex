@@ -8,6 +8,8 @@
 \usepackage{verbatimbox}
 \usepackage{amsfonts}
 \usepackage{proof}
+\usepackage{graphicx}
+\usepackage{subfig}
 
 \newtheorem{def1}{\textbf{Definition}}[chapter]
 \newtheorem{exmp}{\textit{Example}}[section]
@@ -220,7 +222,7 @@ In this case $x$ is called the head variable. If $M \equiv \lambda x_1\ldots x_n
 Notice that, an expression in head normal form may contain redexes in argument positions whereas a normal form may not.
 
 
-\section{Reduction strategies}
+\section{Reduction strategies}\label{sec:reductionstrategy}
 \noindent Recall that a term is said to be in $\beta$-normal form if it has no $\beta$-redexes, that is, subterms of the shape ($\lambda$x.M)N. A term has a $\beta$-normal form if it can be reduced to a term in $\beta$ in $\beta$-normal form. It is clear that if a term has a $\beta$-normal form, then we can get to the $\beta$-normal form by exhaustively reducing all $\beta$-redexes of the term, then reducing all $\beta$-redexes of all resulting terms, and so forth until we get the $\beta$-normal form. A \textbf{$\beta$-reduction strategy} is a function that selects, whenever a term has multiple $\beta$-redexes, which one should be reduced first. If a term is in $\beta$-normal form, then no $\beta$-reduction is to be done. Notice that, a $\beta$-reduction strategy may or may not have the property that adhering to the strategy will ensure that we(eventually) reach a $\beta$-normal form, if one exists. 
 
 In general, there are several different $\beta$-reductions possible for a given term. In this project, there are 5 different reduction strategies studied and implemented: normal order, call-by-name, call-by-value, head reduction, and applicative order. Figure X generally summarizes and compares the property of different strategies:
@@ -754,11 +756,173 @@ ppc & (MN) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,\varphi \rangle\\
 \section{Issues and Weakness of Implementation in Haskell }
 
 
+
 \chapter{The $\lambda$-calculus and Curry Type Assignment System Implementation in Java}
+The Java version of implementation is transferred directly from Haskell. However, the semantics and operational order of Haskell is difference from Java, especially the `where' statement of Haskell. The 'where' declaration is called when the defined variables are used, however, in Java, we need to separate a `where' block into parts according to where it is called. An example is shown in Section \ref{sec:hj}. This differece is worth taking care of when transfer the Haskell into Java, otherwise, NullPointerException may occur. 
+
+In all data types, the method toString() has been implemented -- more precisely overridden, as it is a method of the Java primary class\verb| Object|. This function is used to print out the data type as a string. There are more method signatures defined in the interfaces as a reference to instantiable classes. 
+
+\section{Different operational order between Haskell and Java}{\label{sec:hj}}
+As mentioned above, the operaional order of Haskell is different from Java, not only the pattern matching, but also the `where' declarations. Since the code in Haskell cannot be transferred into Java directly, it largely abandoned the simplicity of codes. Following is a piece of code that defines principle pair algorithm:
+\begin{verbatim}
+ppc :: Term -> [Char] -> (PPc, [Char])
+ppc (Abs x y) r | contains (Var x) pi = ((removeItem (Var x, a) pi, (TP a p)), tl1)
+                | otherwise = ((pi, (TP f p)), tl1)
+                            where (f, tl) = fresh r                    (1) 
+                                  ((pi, p), tl1) = ppc y tl            (2)
+                                  (_, a) = search (Var x) pi           (3)
+
+\end{verbatim}
+
+`Guards' are used as an if-then-else block. There are three declarations in the `where' block each with a distinct number. For the first condition of ppc function, declaration (1)(2)(3) are called since all the declared variables are used. In the `otherwise' condition, only declaration (1)(2) are called. In this case, in order to transfer the Haskell function into Java methods, we need to repetitively define the variables which largely reduces the simplicity of codes. 
+
+
+
+
+
+\begin{verbatim}
+public PPC ppc(Term term, String counter){
+     ...
+     else if(term instanceof Abstraction){
+        Variable xv = new Variable(((Abstraction) term).getName());
+        PPC receiver = ppc(((Abstraction) term).getTerm(), counter);
+        if(receiver != null){
+           if(contains(xv, receiver.getSubject())){
+             Type searchType = search(xv, receiver.getSubject()).getPredicate();
+             ArrayList<Statement> original = receiver.getSubject().getContext();
+             ArrayList<Statement> remove = new ArrayList<>();
+
+             for(Statement s: original){
+               if(s.getSubject().equals(xv)) remove.add(s);
+             }
+
+             for(Statement rm: remove){
+                original.remove(rm);
+             }
+
+             TP tp = new TP(searchType, receiver.getPredicate());
+             return new PPC(new Context(original), tp, receiver.getCounter());
+          }
+          else{
+             TVar f = new TVar(receiver.getCounter().substring(0, 1));
+             return new PPC(receiver.getSubject(), new TP(f, receiver.getPredicate()),
+                            receiver.getCounter().substring(1));
+
+          }
+       }
+       else {
+           return null;
+       }
+     }
+     ...
+}
+\end{verbatim}
+
+
+
+ 
+
+
 
 \section{$\lambda$-calculus Representation}
+\subsection{$\lambda$-terms}
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{Term}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:term1}
+\end{figure}
+A Lambda term can either be a variable, an abstraction or an application. An interface `Term' is defined as a reference type, which has three lambda term implementations. This is the generic representation of all lambda terms.
+
+This interface defines the method \verb|equals(Term t)|, which return a boolean states whether it is equal to the input term. This method overrides the \verb|equals(Object o)| method of the Java primary class \verb|Object|. It is essential in the reduction procedure, since we can decide whether a term is reducible by compare the term before reduction and after. If the term is the same as it before reduction, then it cannot be reduced. Therefore, we know when we can stop the reduction procedure.  
+
+As mentioned in Section \ref{sec:reductionstrategy}, there are five reduction strategies enabled in the reducer. So there are five method signatures defined in the interface: \textsf{evaluateNormal(Bool exsub), evaluateCbn(Bool exsub), evaluateCbv(Bool exsub), headReduction(Bool exsub), applicativeOrder(Bool exsub)}. Each of these method refers to a specific reduction strategy as the method name. 
+
+The method \textsf{mirror()} is used to create a mirror term with exactly the same class variables. This method is used when the substitution is performed. For example, if we have a lambda term $\lambda f.(\lambda x.f(xx))(\lambda x.f(xx))$, it is reduced to $\lambda f.f((\lambda x.f(xx))(\lambda x.f(xx)))$. If we do not create a mirror term of $(\lambda x.f(xx))$, both of these two $(\lambda x.f(xx))$ would refer to the same memory space. In other words, the abstraction $(\lambda x.f(xx))$ is used twice to form an application. Therefore, if operations performed on the function, it is also performed on the argument. It is essential to create a mirror term that separate those two terms although they look exactly the same.      
+
+Finally, the \textsf{toString()} method of class \textsf{Object} is overridden to transform a lambda term as a string.  
+
+\subsection{Interpreter}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{LC}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:term1}
+\end{figure}
+
+To allow interactions and inputs from users, the program needs to interpret the input term into a data structure in the system.  
+
+
 
 \section{Curry Type Assignment System Representation}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{Type}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:term1}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{TSub}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:term1}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{TermRaw}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:term1}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{TermType}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:term1}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{LCType}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:term1}
+\end{figure}
+this is the lctype
+
+
+
+\begin{figure}
+\centering
+\begin{minipage}{.3\textwidth}
+\centering
+\includegraphics[scale=0.8]{Statement}
+\caption{Caption for figure 1}
+\label{fig:test1}
+\end{minipage}\hfill
+\begin{minipage}{.3\textwidth}
+\centering
+\includegraphics[scale=0.65]{Context}
+\caption{Caption for figure 2}
+\label{fig:test2}
+\end{minipage}\hfill
+\begin{minipage}{.3\textwidth}
+\centering
+\includegraphics[scale=0.7]{PPC}
+\caption{Caption for figure 3}
+\label{fig:test3}
+\end{minipage}
+\end{figure}
+
+
 
 \section{Auxiliary Functions}
 

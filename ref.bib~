@@ -1,0 +1,7 @@
+@book{barendregt1984lambda,
+  title={The lambda calculus},
+  author={Barendregt, Hendrik Pieter},
+  volume={3},
+  year={1984},
+  publisher={North-Holland Amsterdam}
+}
