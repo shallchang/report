@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  20 AUG 2014 16:27
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  20 AUG 2014 17:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**report.tex
-(./report.tex
+**template.tex
+(./template.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, us
 englishmax, ukenglish, ngerman, german, swissgerman, ngerman-x-2012-05-30, germ
@@ -290,10 +290,135 @@ Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
 (/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write3
 
-Excluding comment 'comment')
-\c@def1=\count116
-\c@exmp=\count117
- (./report.aux
+Excluding comment 'comment') (./qtree.sty
+Package: 2008/12/12 v.3.1bQtree: tree-drawing for linguistics
+Package: qtree 2008/12/12 v.3.1bQtree: tree-drawing for linguistics
+(/usr/share/texlive/texmf-dist/tex/latex/pict2e/pict2e.sty
+Package: pict2e 2011/04/05 v0.2y Improved picture commands (HjG,RN,JT)
+
+(/usr/share/texlive/texmf-dist/tex/latex/pict2e/pict2e.cfg
+File: pict2e.cfg 2011/04/05 v0.1t pict2e configuration for teTeX/TeXLive
+)
+Package pict2e Info: Driver file: pdftex.def on input line 119.
+Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 121.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pict2e/p2e-pdftex.def
+File: p2e-pdftex.def 2011/04/05 v0.1t Driver-dependant file (RN,HjG,JT)
+)
+\pIIe@GRAPH=\toks35
+\@arclen=\dimen162
+\@arcrad=\dimen163
+\@tempdimd=\dimen164
+)
+\c@treecount=\count116
+\c@branchcount=\count117
+\parentbox=\box34
+\treebox=\box35
+\treeboxone=\box36
+\treeboxtwo=\box37
+\treeboxthree=\box38
+\treeboxfour=\box39
+\treeboxfive=\box40
+\treeboxsix=\box41
+\treeboxseven=\box42
+\treeboxeight=\box43
+\treeboxnine=\box44
+\treeboxten=\box45
+\treeboxeleven=\box46
+\treeboxtwelve=\box47
+\treeboxthirteen=\box48
+\treeboxfourteen=\box49
+\treeboxfifteen=\box50
+\treeboxsixteen=\box51
+\treeboxseventeen=\box52
+\treeboxeighteen=\box53
+\treeboxnineteen=\box54
+\treeboxtwenty=\box55
+\treeoffsetone=\skip60
+\treeoffsettwo=\skip61
+\treeoffsetthree=\skip62
+\treeoffsetfour=\skip63
+\treeoffsetfive=\skip64
+\treeoffsetsix=\skip65
+\treeoffsetseven=\skip66
+\treeoffseteight=\skip67
+\treeoffsetnine=\skip68
+\treeoffsetten=\skip69
+\treeoffseteleven=\skip70
+\treeoffsettwelve=\skip71
+\treeoffsetthirteen=\skip72
+\treeoffsetfourteen=\skip73
+\treeoffsetfifteen=\skip74
+\treeoffsetsixteen=\skip75
+\treeoffsetseventeen=\skip76
+\treeoffseteighteen=\skip77
+\treeoffsetnineteen=\skip78
+\treeoffsettwenty=\skip79
+\treeshiftone=\skip80
+\treeshifttwo=\skip81
+\treeshiftthree=\skip82
+\treeshiftfour=\skip83
+\treeshiftfive=\skip84
+\treeshiftsix=\skip85
+\treeshiftseven=\skip86
+\treeshifteight=\skip87
+\treeshiftnine=\skip88
+\treeshiftten=\skip89
+\treeshifteleven=\skip90
+\treeshifttwelve=\skip91
+\treeshiftthirteen=\skip92
+\treeshiftfourteen=\skip93
+\treeshiftfifteen=\skip94
+\treeshiftsixteen=\skip95
+\treeshiftseventeen=\skip96
+\treeshifteighteen=\skip97
+\treeshiftnineteen=\skip98
+\treeshifttwenty=\skip99
+\treewidthone=\skip100
+\treewidthtwo=\skip101
+\treewidththree=\skip102
+\treewidthfour=\skip103
+\treewidthfive=\skip104
+\treewidthsix=\skip105
+\treewidthseven=\skip106
+\treewidtheight=\skip107
+\treewidthnine=\skip108
+\treewidthten=\skip109
+\treewidtheleven=\skip110
+\treewidthtwelve=\skip111
+\treewidththirteen=\skip112
+\treewidthfourteen=\skip113
+\treewidthfifteen=\skip114
+\treewidthsixteen=\skip115
+\treewidthseventeen=\skip116
+\treewidtheighteen=\skip117
+\treewidthnineteen=\skip118
+\treewidthtwenty=\skip119
+\daughteroffsetone=\skip120
+\daughteroffsettwo=\skip121
+\daughteroffsetthree=\skip122
+\daughteroffsetfour=\skip123
+\branchwidthone=\skip124
+\branchwidthtwo=\skip125
+\branchwidththree=\skip126
+\branchwidthfour=\skip127
+\parentoffset=\skip128
+\treeoffset=\skip129
+\daughteroffset=\skip130
+\branchwidth=\skip131
+\parentwidth=\skip132
+\treewidth=\skip133
+\qta=\toks36
+\qtb=\toks37
+\nbranches=\count118
+\qroofx=\count119
+\qroofy=\count120
+\@qrscratchbox=\box56
+)
+\c@def1=\count121
+\c@exmp=\count122
+
+(./template.aux
 
 LaTeX Warning: Label `fig:term1' multiply defined.
 
@@ -307,20 +432,20 @@ LaTeX Warning: Label `fig:term1' multiply defined.
 LaTeX Warning: Label `fig:term1' multiply defined.
 
 )
-\openout1 = `report.aux'.
+\openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -358,17 +483,17 @@ LaTeX Font Info:    ... okay on input line 18.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count118
-\scratchdimen=\dimen162
-\scratchbox=\box34
-\nofMPsegments=\count119
-\nofMParguments=\count120
-\everyMPshowfont=\toks35
-\MPscratchCnt=\count121
-\MPscratchDim=\dimen163
-\MPnumerator=\count122
-\makeMPintoPDFobject=\count123
-\everyMPtoPDFconversion=\toks36
+\scratchcounter=\count123
+\scratchdimen=\dimen165
+\scratchbox=\box57
+\nofMPsegments=\count124
+\nofMParguments=\count125
+\everyMPshowfont=\toks38
+\MPscratchCnt=\count126
+\MPscratchDim=\dimen166
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
+\everyMPtoPDFconversion=\toks39
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -417,7 +542,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
 
-(./report.toc
+(./template.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 5.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
@@ -434,24 +559,25 @@ LaTeX Font Info:    Try loading font information for U+stmry on input line 5.
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write4
-\openout4 = `report.toc'.
+\openout4 = `template.toc'.
 
  [2] [3
 
 ] [4
 
-] [5
+]
+(./chapter1/lambdacalculus.tex [5
 
 ]
 Chapter 1.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 48.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 17.
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 48.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
 
-Overfull \hbox (4.00307pt too wide) in paragraph at lines 58--59
+Overfull \hbox (4.00307pt too wide) in paragraph at lines 27--28
 []\OT1/cmr/m/n/10.95 As men-tioned above, left-most, out-er-most brack-ets are 
 usu-ally omit-ted. There-fore, $\OML/cmm/m/it/10.95 M[]M[]\OT1/cmr/m/n/10.95 (\
 OML/cmm/m/it/10.95 M[]M[]\OT1/cmr/m/n/10.95 )$
@@ -460,62 +586,50 @@ OML/cmm/m/it/10.95 M[]M[]\OT1/cmr/m/n/10.95 )$
 [1
 
 ] [2] [3]
-Overfull \hbox (14.84567pt too wide) in paragraph at lines 232--240
+Overfull \hbox (14.84567pt too wide) in paragraph at lines 201--209
 [][] 
  []
 
 [4] [5] [6]
-Overfull \hbox (15.5929pt too wide) detected at line 420
+Overfull \hbox (15.5929pt too wide) detected at line 389
 []    []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 M []\OT1/cmr/m/n/10.95 )    [](
 \OML/cmm/m/it/10.95 M []\OT1/cmr/m/n/10.95 )   
  []
 
-[7]
-
-LaTeX Warning: Citation `barendregt1984lambda' on page 8 undefined on input lin
-e 453.
-
-
-LaTeX Warning: Citation `sestoft2002demonstrating' on page 8 undefined on input
- line 453.
-
-[8]
-Overfull \hbox (11.67444pt too wide) detected at line 534
+[7] [8]
+Overfull \hbox (11.67444pt too wide) detected at line 503
 []\OT1/cmr/m/n/10.95 ([])    []    [](\OML/cmm/m/it/10.95 P []\OT1/cmr/m/n/10.9
 5 )    
  []
 
-[9] [10]
+[9]) (./chapter2/currytype.tex [10]
 Chapter 2.
 
 LaTeX Warning: Reference `curry1934functionality' on page 11 undefined on input
- line 599.
+ line 9.
 
 [11
 
 ]
 
-LaTeX Warning: Citation `svb2001type' on page 12 undefined on input line 628.
-
-
 LaTeX Warning: Reference `curry1934functionality' on page 12 undefined on input
- line 632.
+ line 42.
 
 
 LaTeX Warning: Reference `curry1972combinatory' on page 12 undefined on input l
-ine 632.
+ine 42.
 
 
-LaTeX Warning: Reference `svb2001type' on page 12 undefined on input line 686.
+LaTeX Warning: Reference `svb2001type' on page 12 undefined on input line 96.
 
-[12] [13]
+[12]) (./chapter3/Haskell.tex [13]
 Chapter 3.
-[14
+) (./chapter4/Java.tex [14
 
 ]
 Chapter 4.
 
-Overfull \hbox (7.6706pt too wide) in paragraph at lines 769--769
+Overfull \hbox (7.6706pt too wide) in paragraph at lines 10--10
 []\OT1/cmtt/m/n/10.95 ppc (Abs x y) r | contains (Var x) pi = ((removeItem (Var
  x, a) pi, (TP a p)), tl1)[] 
  []
@@ -523,93 +637,97 @@ Overfull \hbox (7.6706pt too wide) in paragraph at lines 769--769
 [15
 
 ]
-Overfull \hbox (24.91666pt too wide) in paragraph at lines 808--808
+Overfull \hbox (24.91666pt too wide) in paragraph at lines 49--49
 []             \OT1/cmtt/m/n/10.95 return new PPC(receiver.getSubject(), new TP
 (f, receiver.getPredicate()),[] 
  []
 
-<Term.png, id=81, 574.145pt x 357.335pt>
-File: Term.png Graphic file (type png)
- <use Term.png>
-Package pdftex.def Info: Term.png used on input line 827.
+<pics/Term.png, id=81, 574.145pt x 357.335pt>
+File: pics/Term.png Graphic file (type png)
+ <use pics/Term.png>
+Package pdftex.def Info: pics/Term.png used on input line 68.
 (pdftex.def)             Requested size: 401.89876pt x 250.13278pt.
  [16]
-<LC.png, id=86, 232.87pt x 181.67876pt>
-File: LC.png Graphic file (type png)
- <use LC.png>
-Package pdftex.def Info: LC.png used on input line 847.
+<pics/LC.png, id=86, 232.87pt x 181.67876pt>
+File: pics/LC.png Graphic file (type png)
+ <use pics/LC.png>
+Package pdftex.def Info: pics/LC.png used on input line 88.
 (pdftex.def)             Requested size: 139.72307pt x 109.00809pt.
- [17 <./Term.png> <./LC.png>] <Type.png, id=90, 276.03125pt x 181.67876pt>
-File: Type.png Graphic file (type png)
- <use Type.png>
-Package pdftex.def Info: Type.png used on input line 877.
+ [17 <./pics/Term.png> <./pics/LC.png>] <pics/Type.png, id=90, 276.03125pt x 18
+1.67876pt>
+File: pics/Type.png Graphic file (type png)
+
+<use pics/Type.png>
+Package pdftex.def Info: pics/Type.png used on input line 122.
 (pdftex.def)             Requested size: 193.22055pt x 127.17424pt.
+ <pics/TSub.png, id=91, 233.87375pt x 140.525pt>
+File: pics/TSub.png Graphic file (type png)
 
-<TSub.png, id=91, 233.87375pt x 140.525pt>
-File: TSub.png Graphic file (type png)
- <use TSub.png>
-Package pdftex.def Info: TSub.png used on input line 885.
+<use pics/TSub.png>
+Package pdftex.def Info: pics/TSub.png used on input line 137.
 (pdftex.def)             Requested size: 163.71048pt x 98.3668pt.
+ <pics/TermRaw.png, id=92, 119.44624pt x 61.22874pt>
+File: pics/TermRaw.png Graphic file (type png)
 
-<TermRaw.png, id=92, 119.44624pt x 61.22874pt>
-File: TermRaw.png Graphic file (type png)
- <use TermRaw.png>
-Package pdftex.def Info: TermRaw.png used on input line 893.
+<use pics/TermRaw.png>
+Package pdftex.def Info: pics/TermRaw.png used on input line 145.
 (pdftex.def)             Requested size: 83.61179pt x 42.8598pt.
+ <pics/TermType.png, id=93, 148.555pt x 56.21pt>
+File: pics/TermType.png Graphic file (type png)
 
-<TermType.png, id=93, 148.555pt x 56.21pt>
-File: TermType.png Graphic file (type png)
- <use TermType.png>
-Package pdftex.def Info: TermType.png used on input line 901.
+<use pics/TermType.png>
+Package pdftex.def Info: pics/TermType.png used on input line 153.
 (pdftex.def)             Requested size: 103.98778pt x 39.34673pt.
+ <pics/LCType.png, id=94, 330.23375pt x 201.75375pt>
+File: pics/LCType.png Graphic file (type png)
 
-<LCType.png, id=94, 330.23375pt x 201.75375pt>
-File: LCType.png Graphic file (type png)
- <use LCType.png>
-Package pdftex.def Info: LCType.png used on input line 910.
+<use pics/LCType.png>
+Package pdftex.def Info: pics/LCType.png used on input line 162.
 (pdftex.def)             Requested size: 198.14177pt x 121.05318pt.
+ <pics/Statement.png, id=95, 140.525pt x 130.4875pt>
+File: pics/Statement.png Graphic file (type png)
 
-<Statement.png, id=95, 140.525pt x 130.4875pt>
-File: Statement.png Graphic file (type png)
- <use Statement.png>
-Package pdftex.def Info: Statement.png used on input line 920.
+<use pics/Statement.png>
+Package pdftex.def Info: pics/Statement.png used on input line 172.
 (pdftex.def)             Requested size: 112.42014pt x 104.39012pt.
+ <pics/Context.png, id=96, 240.9pt x 93.34875pt>
+File: pics/Context.png Graphic file (type png)
 
-<Context.png, id=96, 240.9pt x 93.34875pt>
-File: Context.png Graphic file (type png)
- <use Context.png>
-Package pdftex.def Info: Context.png used on input line 926.
+<use pics/Context.png>
+Package pdftex.def Info: pics/Context.png used on input line 178.
 (pdftex.def)             Requested size: 156.58313pt x 60.67595pt.
 
-Overfull \hbox (15.74055pt too wide) in paragraph at lines 926--927
+Overfull \hbox (15.74055pt too wide) in paragraph at lines 178--179
  [][] 
  []
 
-<PPC.png, id=97, 145.54375pt x 146.5475pt>
-File: PPC.png Graphic file (type png)
- <use PPC.png>
-Package pdftex.def Info: PPC.png used on input line 932.
+<pics/PPC.png, id=97, 145.54375pt x 146.5475pt>
+File: pics/PPC.png Graphic file (type png)
+ <use pics/PPC.png>
+Package pdftex.def Info: pics/PPC.png used on input line 184.
 (pdftex.def)             Requested size: 101.87991pt x 102.58253pt.
- [18 <./Type.png> <./TSub.png> <./TermRaw.png>] [19 <./TermType.png> <./LCType.
-png> <./Statement.png> <./Context.png> <./PPC.png>]
+)
+(./chapter5/GUI.tex [18 <./pics/Type.png> <./pics/TSub.png>] [19 <./pics/TermRa
+w.png> <./pics/TermType.png> <./pics/LCType.png>] [20 <./pics/Statement.png> <.
+/pics/Context.png> <./pics/PPC.png>]
 Chapter 5.
-[20
+) (./chapter6/compare.tex [21
 
 ]
 Chapter 6.
-[21
+) (./chapter7/conclusion.tex [22
 
 ]
 Chapter 7.
-(./report.bbl [22
+) (./template.bbl [23
 
 ])
 \tf@thm=\write5
-\openout5 = `report.thm'.
+\openout5 = `template.thm'.
 
- [23
+ [24
 
-] (./report.aux)
+] (./template.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -618,13 +736,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5238 strings out of 494966
- 77240 string characters out of 3178674
- 146773 words of memory out of 3000000
- 8329 multiletter control sequences out of 15000+200000
+ 5598 strings out of 494966
+ 82070 string characters out of 3178674
+ 156042 words of memory out of 3000000
+ 8647 multiletter control sequences out of 15000+200000
  22525 words of font info for 88 fonts, out of 3000000 for 9000
  36 hyphenation exceptions out of 8191
- 44i,25n,42p,1420b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,25n,42p,1449b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
@@ -640,10 +758,10 @@ m/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on report.pdf (28 pages, 401149 bytes).
+Output written on template.pdf (29 pages, 402017 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
+ 172 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
