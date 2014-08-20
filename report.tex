@@ -10,7 +10,8 @@
 \usepackage{proof}
 \usepackage{graphicx}
 \usepackage{subfig}
-
+\usepackage{mathtools}
+\usepackage{comment}
 \newtheorem{def1}{\textbf{Definition}}[chapter]
 \newtheorem{exmp}{\textit{Example}}[section]
 
@@ -19,7 +20,7 @@
 \pagenumbering{roman}
 \tableofcontents
 
-
+\relax
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{\numberline{}Abstract}
@@ -28,7 +29,6 @@
 \addcontentsline{toc}{chapter}{\numberline{}Acknowledgements}
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{\numberline{}Introduction}
-
 
 \chapter{Lambda Calculus}
 \pagenumbering{arabic}
@@ -76,7 +76,7 @@ Notice that, the sets of bound and free variables are not necessarily disjoint; 
 x(\lambda xy.x)
 \end{equation*}
 
-
+\begin{comment}
 \section{Substitution}
 
 \noindent A cursory approach to define the substitution operation leads to the problem of \textit{variable capture}. It occurs when we substitute a term containing a free variable into a scope where the variable becomes bound. For example:
@@ -85,7 +85,7 @@ x(\lambda xy.x)
 \end{equation*} 
 
 The free occurrence of y in the left hand term becomes confused with the bound variable after substitution.To avoid \textit{variable capture}, we define a capture-avoiding susbstiution. The notion $[x:=N]$ indicates the replacement of a variable $x$ by a term $N$:
-
+\end{comment}
 \begin{equation*}
 \begin{array}{lrll}
 (1)&x[x:=N]&=N & ~\\
@@ -818,21 +818,16 @@ public PPC ppc(Term term, String counter){
 }
 \end{verbatim}
 
-
-
- 
-
-
-
 \section{$\lambda$-calculus Representation}
 \subsection{$\lambda$-terms}
-\begin{figure}
+A Lambda term can either be a variable, an abstraction or an application. An interface `Term' is defined as a reference type, which has three lambda term implementations. This is the generic representation of all lambda terms.
+
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.7]{Term}
 \caption{Class diagram of Lambda Calculus data structures}
 \label{fig:term1}
 \end{figure}
-A Lambda term can either be a variable, an abstraction or an application. An interface `Term' is defined as a reference type, which has three lambda term implementations. This is the generic representation of all lambda terms.
 
 This interface defines the method \verb|equals(Term t)|, which return a boolean states whether it is equal to the input term. This method overrides the \verb|equals(Object o)| method of the Java primary class \verb|Object|. It is essential in the reduction procedure, since we can decide whether a term is reducible by compare the term before reduction and after. If the term is the same as it before reduction, then it cannot be reduced. Therefore, we know when we can stop the reduction procedure.  
 
@@ -840,32 +835,52 @@ As mentioned in Section \ref{sec:reductionstrategy}, there are five reduction st
 
 The method \textsf{mirror()} is used to create a mirror term with exactly the same class variables. This method is used when the substitution is performed. For example, if we have a lambda term $\lambda f.(\lambda x.f(xx))(\lambda x.f(xx))$, it is reduced to $\lambda f.f((\lambda x.f(xx))(\lambda x.f(xx)))$. If we do not create a mirror term of $(\lambda x.f(xx))$, both of these two $(\lambda x.f(xx))$ would refer to the same memory space. In other words, the abstraction $(\lambda x.f(xx))$ is used twice to form an application. Therefore, if operations performed on the function, it is also performed on the argument. It is essential to create a mirror term that separate those two terms although they look exactly the same.      
 
-Finally, the \textsf{toString()} method of class \textsf{Object} is overridden to transform a lambda term as a string.  
+Finally, the \textsf{toString()} method of class \textsf{Object} is overridden to transform a lambda term to a string. 
+
+Notice that, in the implementation class \verb|Application|, there is a \textsf{substitution(Term original, Term subfrom, Term subto):Term} method. It is used to substitute bound variables in an abstraction, which is an application function, to the argument. The first parameter of the method is the body of abstraction, the second argument states which bound variable could be substituted and the third argument states what it could be substituted to.
 
 \subsection{Interpreter}
+To allow interactions and inputs from users, the program needs to interpret the input term into a data structure in the system. Figure \ref{fig:inter} illustrates all the methods that used to interpret an input into a lambda term data structure.   
 
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.6]{LC}
-\caption{Class diagram of Lambda Calculus data structures}
-\label{fig:term1}
+\caption{Interpretation methods in LC class}
+\label{fig:inter}
 \end{figure}
 
-To allow interactions and inputs from users, the program needs to interpret the input term into a data structure in the system.  
+The method \textsf{toTerm(String input)} takes a string as input and returns a \textsf{Term}. It calls \textsf{toVar(String input), toAbs(String input)} or \textsf{toApp(String input)} according to type of the outermost term. Then, those three methods iteratively call each other until the whole term is interpreted.   
 
+\textsf{div(String exp)} divides an application into the function and argument. Basically, it return an array with 2 string elements. The method \textsf{toExp(String exp)} is used to remove brackets of applications and returns an expression that is bracker-free. Finally, the most important method \textsf{split(String left, String right, Int n)} implements the bracket removal mechanism. It marks the right most right bracker `)' and find the matching left bracket `(' and extract the term out without brackets.
+
+Since the Java implementation is directly transferred from Haskell, there are also four basic string operations which are Haskell builit-in functions. \textsf{last(String input)} takes a string and returns the last character of the string, it returns itself if the length of input string is 1. \textsf{init(String input)} accepts a string and returns the string without its last character, it returns an empty string if it only contains one character. \textsf{head(String input)} takes a string and returns the first element of the string, it returns itself when the input string length is 1. \textsf{tail(String input)} takes a string and returns the string without its first element, it returns an empty string when the length of input is 1. 
+
+Following is the example of how those Haskell built-in function work:
+
+\begin{verbatim}
+              init "Hello"   "Hell"            head "Haskell"   "H" 
+              init "A"       ""                head "A"         "A"
+\end{verbatim}
+
+\begin{verbatim}
+              last "String"   "g"              tail "Lambda"   "ambda" 
+              last "A"        "A"              tail "A"         ""
+\end{verbatim}
 
 
 \section{Curry Type Assignment System Representation}
 
-\begin{figure}
+
+
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.7]{Type}
-\caption{Class diagram of Lambda Calculus data structures}
-\label{fig:term1}
+\caption{type}
+\label{fig:type}
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.7]{TSub}
 \caption{Class diagram of Lambda Calculus data structures}
@@ -873,7 +888,7 @@ To allow interactions and inputs from users, the program needs to interpret the 
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.7]{TermRaw}
 \caption{Class diagram of Lambda Calculus data structures}
@@ -896,8 +911,6 @@ To allow interactions and inputs from users, the program needs to interpret the 
 \caption{Class diagram of Lambda Calculus data structures}
 \label{fig:term1}
 \end{figure}
-this is the lctype
-
 
 
 \begin{figure}
@@ -921,7 +934,6 @@ this is the lctype
 \label{fig:test3}
 \end{minipage}
 \end{figure}
-
 
 
 \section{Auxiliary Functions}
