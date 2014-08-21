@@ -6,7 +6,7 @@ An exmaple of a type system is the Java language. A Java program consists of cla
 
 The lambda calculus as treated in Chapter 1 is referred to as a \textit{type-free} theory. Because every expression may be applied to every other expression. For example, the $\lambda x.x$ may be applied to any argument $x$ and generates the same $x$. 
 
-The typed version of lambda calculus(or called Combinatory Logic, a variant of the lambda calculus) is introduced essentially in Curry\ref{curry1934functionality} and in Church(1940). Types are objects of a syntactic nature and may be assigned to lambda terms. If M is a lambda term and a type A is assigned to M, then we say \textit{`M has type A'}; the notation used is $`M:A'$. For example, in a typed system one has $\lambda x.x : (A \rightarrow A)$, which means the function $\lambda x.x$ should take an argument in type $A$ and return a value of type $A$. In general, $A \rightarrow B$ is the type of functions from $A$ to $B$.
+The typed version of lambda calculus(or called Combinatory Logic, a variant of the lambda calculus) is introduced essentially in Curry\cite{curry1934functionality} and in Church(1940). Types are objects of a syntactic nature and may be assigned to lambda terms. If M is a lambda term and a type A is assigned to M, then we say \textit{`M has type A'}; the notation used is $`M:A'$. For example, in a typed system one has $\lambda x.x : (A \rightarrow A)$, which means the function $\lambda x.x$ should take an argument in type $A$ and return a value of type $A$. In general, $A \rightarrow B$ is the type of functions from $A$ to $B$.
 
 \section{The System $\lambda \rightarrow $-Curry}
 
@@ -39,7 +39,7 @@ Notation. (i) If $\sigma _1,...,\sigma _n \in \mathbb{T}$ then
 
 
 \begin{def1}
-\normalfont (CF. [\ref{curry1934functionality}, \ref{curry1972combinatory}]) Curry type assignment and $derivations$ can be defined using following derivation rules.  
+\normalfont (CF. [\cite{curry1934functionality}, \cite{curry1972combinatory}]) Curry type assignment and $derivations$ can be defined using following derivation rules.  
 \end{def1}
 
 \begin{equation*}
@@ -92,8 +92,8 @@ As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$
 
 \section{Properties of $\lambda \rightarrow $}
 
-\begin{def1}
-\normalfont (Type substitution(van Bakel\ref{svb2001type})) The substitution $(\varphi \mapsto C): $, where $\varphi$ is a type variable and $C \in \mathbb{T}$ is defined as following:
+\begin{def1}{\label{def:tsub}}
+\normalfont (Type substitution(van Bakel\cite{svb2001type})) The substitution $(\varphi \mapsto C): $, where $\varphi$ is a type variable and $C \in \mathbb{T}$ is defined as following:
 \end{def1}
 
 \begin{equation*}
@@ -105,7 +105,7 @@ As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$
 \end{equation*}
 
 
-\begin{def1}
+\begin{def1}\label{eq:rob}
 \normalfont Let $Id_s$ be the substitution that replaces all type variables by themselves:
 \end{def1}
 
@@ -114,7 +114,7 @@ As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$
 \begin{equation*}
 \begin{array}{llll}
 unify & \varphi            & \varphi          & = (\varphi \mapsto \varphi)\\
-unify & \varphi            & B                & = (\varphi \mapsto B), if\ \varphi does\ not\ occur\ in\ B\\
+unify & \varphi            & B                & = (\varphi \mapsto B), if\ \varphi \ does\ not\ occur\ in\ B\\
 unify & A                  & \varphi          & = unify\ \ \varphi\ \ A\\
 unify & (A\rightarrow B)   & (C\rightarrow D) & = S_1\circ S_2\\
 &&&\ \ \ where\ S_1 = unify\ \ A\ \ C\\
@@ -137,7 +137,7 @@ UnifyContexts & \varnothing & \Gamma _1 & =  Id_s
 
 
 
-\begin{def1}
+\begin{def1}{\label{def:ppc}}
 \normalfont (PPC, Principle Pair Algorithm for $\Lambda$)
 \end{def1}
 

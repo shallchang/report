@@ -30,7 +30,7 @@ As mentioned above, leftmost, outermost brackets are usually omitted. Therefore,
 \normalfont (free and bound variables) The set of free and bound variables are defined inductively by the following function:
 \end{def1}
 
-\begin{equation*}
+\begin{equation*}\label{eq:fv}
 \begin{array}{lcllcl}
 FV(x)           & = & {x}             & BV(x)           &=& \emptyset\\
 FV(\lambda x.M) & = & FV(M_1)\cup {x} & BV(\lambda x.M) &=& FV(M)\backslash y\\  \lambda y.M

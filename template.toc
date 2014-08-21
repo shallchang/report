@@ -27,14 +27,16 @@
 \contentsline {subsection}{\numberline {4.2.1}$\lambda $-terms}{16}
 \contentsline {subsection}{\numberline {4.2.2}Interpreter}{17}
 \contentsline {section}{\numberline {4.3}Curry Type Assignment System Representation}{18}
-\contentsline {subsection}{\numberline {4.3.1}Type variable and Type}{18}
-\contentsline {subsection}{\numberline {4.3.2}Type substitution}{18}
-\contentsline {section}{\numberline {4.4}Auxiliary Functions}{19}
-\contentsline {section}{\numberline {4.5}Syntax and Interpreter}{19}
-\contentsline {chapter}{\numberline {5}GUI development}{21}
-\contentsline {section}{\numberline {5.1}Layout}{21}
-\contentsline {section}{\numberline {5.2}Functionalities}{21}
-\contentsline {chapter}{\numberline {6}Java vs Haskell, Pros and Cons}{22}
-\contentsline {section}{\numberline {6.1}Pros}{22}
-\contentsline {section}{\numberline {6.2}Cons}{22}
-\contentsline {chapter}{\numberline {7}Conclusion}{23}
+\contentsline {subsection}{\numberline {4.3.1}Types}{18}
+\contentsline {subsection}{\numberline {4.3.2}Type substitution}{19}
+\contentsline {subsection}{\numberline {4.3.3}Other data types}{19}
+\contentsline {subsection}{\numberline {4.3.4}Core type assignment mechanism implementation}{20}
+\contentsline {section}{\numberline {4.4}Explicit substitution and garbage collection}{21}
+\contentsline {section}{\numberline {4.5}Syntax}{21}
+\contentsline {chapter}{\numberline {5}GUI development}{22}
+\contentsline {section}{\numberline {5.1}Layout}{22}
+\contentsline {section}{\numberline {5.2}Functionalities}{22}
+\contentsline {chapter}{\numberline {6}Java vs Haskell, Pros and Cons}{23}
+\contentsline {section}{\numberline {6.1}Pros}{23}
+\contentsline {section}{\numberline {6.2}Cons}{23}
+\contentsline {chapter}{\numberline {7}Conclusion}{24}

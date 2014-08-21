@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  20 AUG 2014 17:22
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  21 AUG 2014 21:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -418,20 +418,7 @@ File: p2e-pdftex.def 2011/04/05 v0.1t Driver-dependant file (RN,HjG,JT)
 \c@def1=\count121
 \c@exmp=\count122
 
-(./template.aux
-
-LaTeX Warning: Label `fig:term1' multiply defined.
-
-
-LaTeX Warning: Label `fig:term1' multiply defined.
-
-
-LaTeX Warning: Label `fig:term1' multiply defined.
-
-
-LaTeX Warning: Label `fig:term1' multiply defined.
-
-)
+(./template.aux)
 \openout1 = `template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
@@ -604,25 +591,9 @@ Overfull \hbox (11.67444pt too wide) detected at line 503
 
 [9]) (./chapter2/currytype.tex [10]
 Chapter 2.
-
-LaTeX Warning: Reference `curry1934functionality' on page 11 undefined on input
- line 9.
-
 [11
 
-]
-
-LaTeX Warning: Reference `curry1934functionality' on page 12 undefined on input
- line 42.
-
-
-LaTeX Warning: Reference `curry1972combinatory' on page 12 undefined on input l
-ine 42.
-
-
-LaTeX Warning: Reference `svb2001type' on page 12 undefined on input line 96.
-
-[12]) (./chapter3/Haskell.tex [13]
+] [12]) (./chapter3/Haskell.tex [13]
 Chapter 3.
 ) (./chapter4/Java.tex [14
 
@@ -642,126 +613,121 @@ Overfull \hbox (24.91666pt too wide) in paragraph at lines 49--49
 (f, receiver.getPredicate()),[] 
  []
 
-<pics/Term.png, id=81, 574.145pt x 357.335pt>
+<pics/Term.png, id=81, 525.965pt x 329.23pt>
 File: pics/Term.png Graphic file (type png)
  <use pics/Term.png>
 Package pdftex.def Info: pics/Term.png used on input line 68.
-(pdftex.def)             Requested size: 401.89876pt x 250.13278pt.
+(pdftex.def)             Requested size: 368.17297pt x 230.45941pt.
  [16]
 <pics/LC.png, id=86, 232.87pt x 181.67876pt>
 File: pics/LC.png Graphic file (type png)
  <use pics/LC.png>
-Package pdftex.def Info: pics/LC.png used on input line 88.
+Package pdftex.def Info: pics/LC.png used on input line 90.
 (pdftex.def)             Requested size: 139.72307pt x 109.00809pt.
  [17 <./pics/Term.png> <./pics/LC.png>] <pics/Type.png, id=90, 276.03125pt x 18
 1.67876pt>
 File: pics/Type.png Graphic file (type png)
 
 <use pics/Type.png>
-Package pdftex.def Info: pics/Type.png used on input line 122.
+Package pdftex.def Info: pics/Type.png used on input line 124.
 (pdftex.def)             Requested size: 193.22055pt x 127.17424pt.
- <pics/TSub.png, id=91, 233.87375pt x 140.525pt>
+
+Overfull \hbox (6.45032pt too wide) in paragraph at lines 129--130
+[]\OT1/cmr/m/n/10.95 Type as-sign-ment sys-tem as-signs types to $\OML/cmm/m/it
+/10.95 ^^U$\OT1/cmr/m/n/10.95 -terms. In $\U/msb/m/n/10.95 T$\OT1/cmr/m/n/10.95
+ , a type can ei-ther be a sin-gle type($\OML/cmm/m/it/10.95 A; B; :::$\OT1/cmr
+/m/n/10.95 )
+ []
+
+[18 <./pics/Type.png>] <pics/TSub.png, id=94, 233.87375pt x 140.525pt>
 File: pics/TSub.png Graphic file (type png)
 
 <use pics/TSub.png>
-Package pdftex.def Info: pics/TSub.png used on input line 137.
+Package pdftex.def Info: pics/TSub.png used on input line 147.
 (pdftex.def)             Requested size: 163.71048pt x 98.3668pt.
- <pics/TermRaw.png, id=92, 119.44624pt x 61.22874pt>
-File: pics/TermRaw.png Graphic file (type png)
-
-<use pics/TermRaw.png>
-Package pdftex.def Info: pics/TermRaw.png used on input line 145.
-(pdftex.def)             Requested size: 83.61179pt x 42.8598pt.
- <pics/TermType.png, id=93, 148.555pt x 56.21pt>
-File: pics/TermType.png Graphic file (type png)
-
-<use pics/TermType.png>
-Package pdftex.def Info: pics/TermType.png used on input line 153.
-(pdftex.def)             Requested size: 103.98778pt x 39.34673pt.
- <pics/LCType.png, id=94, 330.23375pt x 201.75375pt>
-File: pics/LCType.png Graphic file (type png)
-
-<use pics/LCType.png>
-Package pdftex.def Info: pics/LCType.png used on input line 162.
-(pdftex.def)             Requested size: 198.14177pt x 121.05318pt.
  <pics/Statement.png, id=95, 140.525pt x 130.4875pt>
 File: pics/Statement.png Graphic file (type png)
 
 <use pics/Statement.png>
-Package pdftex.def Info: pics/Statement.png used on input line 172.
-(pdftex.def)             Requested size: 112.42014pt x 104.39012pt.
+Package pdftex.def Info: pics/Statement.png used on input line 159.
+(pdftex.def)             Requested size: 84.31564pt x 78.29309pt.
  <pics/Context.png, id=96, 240.9pt x 93.34875pt>
 File: pics/Context.png Graphic file (type png)
 
 <use pics/Context.png>
-Package pdftex.def Info: pics/Context.png used on input line 178.
-(pdftex.def)             Requested size: 156.58313pt x 60.67595pt.
+Package pdftex.def Info: pics/Context.png used on input line 165.
+(pdftex.def)             Requested size: 144.5411pt x 56.00967pt.
 
-Overfull \hbox (15.74055pt too wide) in paragraph at lines 178--179
+Overfull \hbox (3.69853pt too wide) in paragraph at lines 165--166
  [][] 
  []
 
 <pics/PPC.png, id=97, 145.54375pt x 146.5475pt>
 File: pics/PPC.png Graphic file (type png)
  <use pics/PPC.png>
-Package pdftex.def Info: pics/PPC.png used on input line 184.
-(pdftex.def)             Requested size: 101.87991pt x 102.58253pt.
-)
-(./chapter5/GUI.tex [18 <./pics/Type.png> <./pics/TSub.png>] [19 <./pics/TermRa
-w.png> <./pics/TermType.png> <./pics/LCType.png>] [20 <./pics/Statement.png> <.
-/pics/Context.png> <./pics/PPC.png>]
+Package pdftex.def Info: pics/PPC.png used on input line 171.
+(pdftex.def)             Requested size: 72.77168pt x 73.27356pt.
+ [19 <./pics/TSub.png> <./pics/Statement.png> <./pics/Context.png> <./pics/PPC.
+png>]
+<pics/LCType.png, id=101, 330.23375pt x 201.75375pt>
+File: pics/LCType.png Graphic file (type png)
+ <use pics/LCType.png>
+Package pdftex.def Info: pics/LCType.png used on input line 189.
+(pdftex.def)             Requested size: 198.14177pt x 121.05318pt.
+
+<pics/TermRaw.png, id=102, 119.44624pt x 61.22874pt>
+File: pics/TermRaw.png Graphic file (type png)
+ <use pics/TermRaw.png>
+Package pdftex.def Info: pics/TermRaw.png used on input line 215.
+(pdftex.def)             Requested size: 83.61179pt x 42.8598pt.
+
+[20 <./pics/LCType.png>]) (./chapter5/GUI.tex [21 <./pics/TermRaw.png>]
 Chapter 5.
-) (./chapter6/compare.tex [21
+) (./chapter6/compare.tex [22
 
 ]
 Chapter 6.
-) (./chapter7/conclusion.tex [22
+) (./chapter7/conclusion.tex [23
 
 ]
 Chapter 7.
-) (./template.bbl [23
+) (./template.bbl [24
 
 ])
 \tf@thm=\write5
 \openout5 = `template.thm'.
 
- [24
+ [25
 
-] (./template.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+] (./template.aux) ) 
 Here is how much of TeX's memory you used:
- 5598 strings out of 494966
- 82070 string characters out of 3178674
- 156042 words of memory out of 3000000
- 8647 multiletter control sequences out of 15000+200000
+ 5600 strings out of 494966
+ 82045 string characters out of 3178674
+ 156103 words of memory out of 3000000
+ 8650 multiletter control sequences out of 15000+200000
  22525 words of font info for 88 fonts, out of 3000000 for 9000
  36 hyphenation exceptions out of 8191
  44i,25n,42p,1449b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/stmaryrd/stmary10.pfb>
-Output written on template.pdf (29 pages, 402017 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
+x12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/sy
+mbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/sym
+bols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/stmaryrd/stma
+ry10.pfb>
+Output written on template.pdf (30 pages, 406403 bytes).
 PDF statistics:
- 172 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
+ 174 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

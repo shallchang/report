@@ -74,7 +74,9 @@ This interface defines the method \verb|equals(Term t)|, which return a boolean 
 
 As mentioned in Section \ref{sec:reductionstrategy}, there are five reduction strategies enabled in the reducer. So there are five method signatures defined in the interface: \textsf{evaluateNormal(Bool exsub), evaluateCbn(Bool exsub), evaluateCbv(Bool exsub), headReduction(Bool exsub), applicativeOrder(Bool exsub)}. Each of these method refers to a specific reduction strategy as the method name. 
 
-The method \textsf{mirror()} is used to create a mirror term with exactly the same class variables. This method is used when the substitution is performed. For example, if we have a lambda term $\lambda f.(\lambda x.f(xx))(\lambda x.f(xx))$, it is reduced to $\lambda f.f((\lambda x.f(xx))(\lambda x.f(xx)))$. If we do not create a mirror term of $(\lambda x.f(xx))$, both of these two $(\lambda x.f(xx))$ would refer to the same memory space. In other words, the abstraction $(\lambda x.f(xx))$ is used twice to form an application. Therefore, if operations performed on the function, it is also performed on the argument. It is essential to create a mirror term that separate those two terms although they look exactly the same.      
+The method \textsf{mirror()} is used to create a mirror term with exactly the same class variables. This method is used when the substitution is performed. For example, if we have a lambda term $\lambda f.(\lambda x.f(xx))(\lambda x.f(xx))$, it is reduced to $\lambda f.f((\lambda x.f(xx))(\lambda x.f(xx)))$. If we do not create a mirror term of $(\lambda x.f(xx))$, both of these two $(\lambda x.f(xx))$ would refer to the same memory space. In other words, the abstraction $(\lambda x.f(xx))$ is used twice to form an application. Therefore, if operations performed on the function, it is also performed on the argument. It is essential to create a mirror term that separate those two terms although they look exactly the same.
+
+The method \textsf{freeVar()} is used to get all the free variables of a $\lambda$-term. It is used to perform $\alpha$-conversion when we substitute bound variables in an abstraction. The free variables are defined in Definition \ref{eq:fv}.       
 
 Finally, the \textsf{toString()} method of class \textsf{Object} is overridden to transform a lambda term to a string. 
 
@@ -115,79 +117,103 @@ Following is the example of how those Haskell built-in function work:
 
 
 
-\subsection{Type variable and Type}
+\subsection{Types}{\label{subsec:types}}
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.7]{pics/Type}
-\caption{type}
+\caption{Class diagram of type representation}
 \label{fig:type}
 \end{figure}
 
-A type variable is a single type that ranged from A to Z. A type is represented as a tree structure. For example, the type $(A\rightarrow B)\rightarrow C$ is represented as \textsf{TP(TP (TVar A)(TVar B))(TVar C)}. Or in a more intuitionistic way:
+Type assignment system assigns types to $\lambda$-terms. In $\mathbb{T}$, a type can either be a single type($A,B,...$) or a complex type($A\rightarrow B$). Since the complex type is formed by single types, it can be represented using the binary tree structure, where single types are leafs and complex types are branches. For example, the type $(A\rightarrow B)\rightarrow C$ is represented as \textsf{TP(TP (TVar A)(TVar B))(TVar C)}, or in a more intuitionistic way:
 
-\Tree [.TP [.TP A B ] C ]
+\Tree 
+[.TP [.TP A B ] C ]
 
-
+Illustrated in Figure \ref{fig:type}, the interface \textsf{Type} is defined as a reference type. It defines two basic method signatures: \textsf{equals(Type type)} and \textsf{toString()} which override the primary methods in \textsf{Object}. There are two implementation class: \textsf{TVar} and \textsf{TP} which stand for single type and complex type. \textsf{TVar} contains a class variable \textsf{name} which states the type name. It implements method signatures defined in the interface and a get method that returns the type name. The implementation class \textsf{TP} is similar to a \textsf{Node} of a tree structure, which contains two class variables: left branch and right branch. Method signatures and get methods are implemented in the class.
 
 \subsection{Type substitution}
+
+Principal types for $\lambda$-terms are defined using the notion of unification of types that defined by Definition \ref{eq:rob}. Similar to types structure in Section \ref{subsec:types}, a type substitution can either be a single substitution($\varphi  \mapsto B$) or a complex substitution($S_1 \circ S_2$). It could also be represented as a binary tree structure. For example, when we unify $(A\rightarrow B)\rightarrow C$ and $(A\rightarrow D)\rightarrow E$, we would get the complex substitution$((A \mapsto A)\circ (B \mapsto D))\circ (C \mapsto E)$ which also can be represented as a binary tree:
+
+\Tree 
+[.So [.So $(A\mapsto A)$ $(B\mapsto D)$ ] $(C\mapsto E)$ ]
+
+As shown in Figure \ref{fig:tsub}, an interface \textsf{TSub} is needed as a reference type. It doesnt have any method signatures, operation on substitutions are defined as auxiliary function in class \textsf{LC}.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.7]{pics/TSub}
-\caption{Class diagram of Lambda Calculus data structures}
-\label{fig:term1}
+\caption{Class diagram of type substitutions representation}
+\label{fig:tsub}
+\end{figure}
+\subsection{Other data types}
+
+The Curry type assignment system defines other concepts besides types and substitutions. Statement is essential to describe the type assigned to a $\lambda$-term; Context is used to collect all statements used for free variables of a term when typing that term; and PPC is a data type that stores context and the type assigned to that term typed. 
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}{.3\textwidth}
+\centering
+\includegraphics[scale=0.6]{pics/Statement}
+\caption{Class diagram of Statement}
+\label{fig:statement}
+\end{minipage}\hfill
+\begin{minipage}{.3\textwidth}
+\centering
+\includegraphics[scale=0.6]{pics/Context}
+\caption{Class diagram of Context}
+\label{fig:context}
+\end{minipage}\hfill
+\begin{minipage}{.3\textwidth}
+\centering
+\includegraphics[scale=0.5]{pics/PPC}
+\caption{Class diagram of PPC}
+\label{fig:ppc}
+\end{minipage}
 \end{figure}
 
+The \textsf{Statement} class has two attributes which are subject and predicate. It contains basic get method that return \textsf{private} attributes, and it also overrides the \textsf{toString()} method to transform a \textsf{Statement} into a string as ``subject : predicate''
+
+The \textsf{Context} class only contains an \textsf{ArrayList} of \textsf{Statement} as attribute. A context could have none statement if all the variables are bound. The \textsf{toString()} method returns the context a string in the format: ``statement1, statement2, ...'' 
+
+The \textsf{PPC} class, storing principle pair algorithm results, is a little more complex. As defined in Definition \ref{def:ppc}, the ppc function return a context and the type assigned to the term typed as $\langle$context, type$\rangle$. A PPC instance, stores the result of ppc function, therefore it contains two attributes as context and type. In additional, it also has a counter attribute. Since principle pair algorithm always create \textsf{fresh} types, we should keep track of what type names are available that have not been used. It basically states all the available type names.   
+
+\subsection{Core type assignment mechanism implementation}
+
+The Curry type assignment implementation is built based on the lambda calculus implementation. As it extends more operation on $\lambda$-terms for type assignment, there are more auxiliary methods defined in class \textsf{LC}. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.6]{pics/LCType}
+\caption{Class diagram of Lambda Calculus data structures}
+\label{fig:lctype}
+\end{figure}
+
+
+The methods listed in Figure \ref{fig:lctype} are the core type assignment mechanism implementations. The top-level method is \textsf{ppc(Term term, String counter)}, when a term comes in and needs to be typed, the ppc method is called and it iteratively calls other auxiliary methods. Finally, it will return a \textsf{PPC} instance which contains a context and the typed assigned. 
+
+Given a type substitution and a type, the method \textsf{typeSubs(TSub, Type)} substitutes all the type variables according to the subsitution. It implements the type substitution defined in Definition \ref{def:tsub}. Notice that, since a \textsf{TSub} can either be a single substitution \textsf{Sub} or a complex \textsf{So} as defined in Section \ref{fig:tsub}, it calls \textsf{So(So, Type)} method that implements the \textsf{So} substitution described in Definition \ref{def:tsub} (b). 
+
+The method \textsf{contextSub(TSub, Context)} implements the context substitution defined in Definition \ref{eq:rob} (c). 
+
+The method \textsf{unify(Type, Type)} implements the type unification algorithm defined in Definition \ref{def:tsub}. And \textsf{unifyContext(Context, Context)} implements the context unification in Definition \ref{eq:rob} (ii). It should be mentioned that, since $Id_s$ stands for the substitution that replaces all type variables by themselves, it could be simplified as a substitution that only contains the substitution $(A\mapsto A)$. We do not care what the type $A$ is and whether it is a valid type variable, becuase the substitution $(A\mapsto A)$ would not affect any unifications. 
+
+The \textsf{search(Term, Context)} methods is an auxiliary method that given a $\lambda$-term and a context, it returns the corresponding statement of that term in the context. This method is used in two places. Firstly, it is used when we want to unify the context $\Gamma_0$ and $\Gamma_1$. We need to find the statements with the same subject in these two context and unify them. Therefore, when we traverse through the context $\Gamma_0$, the search method is neccessary to find the corresponding statement in $\Gamma_1$. Secondly, it is used in the principal pair algorithm when we type an abstraction. The temporary type assigned to bound variables should be removed from the context. Therefore, given a variable, the search method can find the corresponding statement and further be removed.  
+
+The method \textsf{contains(Term, Context)} takes a $\lambda$-term and a context as arguments and return a boolean states whether the context contains a statement for the term.
+
+\textsf{ppc(Term, String)} is the core principal pair algorithm implementation method. The definition of principal pair algorithm can be found in Definition \ref{def:ppc}. The second argument in \textsf{String} type is the counter of all available type names. 
+
+Finally, the method \textsf{occur(Type, Type)} is used to decide whether a type occurs in another. It is used in the second type unificatin algorithm defined in Definition \ref{eq:rob}.
+
+\section{Explicit substitution and garbage collection}
 
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.7]{pics/TermRaw}
 \caption{Class diagram of Lambda Calculus data structures}
-\label{fig:term1}
+\label{fig:termraw}
 \end{figure}
-
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.7]{pics/TermType}
-\caption{Class diagram of Lambda Calculus data structures}
-\label{fig:term1}
-\end{figure}
-
-
-
-\begin{figure}
-\centering
-\includegraphics[scale=0.6]{pics/LCType}
-\caption{Class diagram of Lambda Calculus data structures}
-\label{fig:term1}
-\end{figure}
-
-
-\begin{figure}
-\centering
-\begin{minipage}{.3\textwidth}
-\centering
-\includegraphics[scale=0.8]{pics/Statement}
-\caption{Caption for figure 1}
-\label{fig:test1}
-\end{minipage}\hfill
-\begin{minipage}{.3\textwidth}
-\centering
-\includegraphics[scale=0.65]{pics/Context}
-\caption{Caption for figure 2}
-\label{fig:test2}
-\end{minipage}\hfill
-\begin{minipage}{.3\textwidth}
-\centering
-\includegraphics[scale=0.7]{pics/PPC}
-\caption{Caption for figure 3}
-\label{fig:test3}
-\end{minipage}
-\end{figure}
-
-
-\section{Auxiliary Functions}
-
-\section{Syntax and Interpreter}
+\section{Syntax}

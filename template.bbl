@@ -5,6 +5,18 @@ Hendrik~Pieter Barendregt.
 \newblock {\em The lambda calculus}, volume~3.
 \newblock North-Holland Amsterdam, 1984.
 
+\bibitem{curry1934functionality}
+Haskell~B Curry.
+\newblock Functionality in combinatory logic.
+\newblock {\em Proceedings of the National Academy of Sciences of the United
+  States of America}, 20(11):584, 1934.
+
+\bibitem{curry1972combinatory}
+Haskell~Brooks Curry, Robert Feys, William Craig, J~Roger Hindley, and
+  Jonathan~P Seldin.
+\newblock {\em Combinatory logic}, volume~2.
+\newblock North-Holland Amsterdam, 1972.
+
 \bibitem{sestoft2002demonstrating}
 Peter Sestoft.
 \newblock Demonstrating lambda calculus reduction.
