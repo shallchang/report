@@ -5,6 +5,13 @@ Hendrik~Pieter Barendregt.
 \newblock {\em The lambda calculus}, volume~3.
 \newblock North-Holland Amsterdam, 1984.
 
+\bibitem{bloo1995preservation}
+Roel Bloo and Kristoffer~H Rose.
+\newblock Preservation of strong normalisation in named lambda calculi with
+  explicit substitution and garbage collection.
+\newblock In {\em In CSN-95: Computer Science in the Netherlands}. Citeseer,
+  1995.
+
 \bibitem{curry1934functionality}
 Haskell~B Curry.
 \newblock Functionality in combinatory logic.
@@ -16,6 +23,11 @@ Haskell~Brooks Curry, Robert Feys, William Craig, J~Roger Hindley, and
   Jonathan~P Seldin.
 \newblock {\em Combinatory logic}, volume~2.
 \newblock North-Holland Amsterdam, 1972.
+
+\bibitem{sestoft1996}
+Peter Sestoft.
+\newblock Standard ml on the web server: Visualizing lambda calculus reduction.
+\newblock 1996.
 
 \bibitem{sestoft2002demonstrating}
 Peter Sestoft.

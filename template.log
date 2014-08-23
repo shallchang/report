@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  21 AUG 2014 21:52
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  23 AUG 2014 22:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -578,24 +578,52 @@ Overfull \hbox (14.84567pt too wide) in paragraph at lines 201--209
  []
 
 [4] [5] [6]
-Overfull \hbox (15.5929pt too wide) detected at line 389
+Overfull \hbox (15.5929pt too wide) detected at line 393
 []    []\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 M []\OT1/cmr/m/n/10.95 )    [](
 \OML/cmm/m/it/10.95 M []\OT1/cmr/m/n/10.95 )   
  []
 
 [7] [8]
-Overfull \hbox (11.67444pt too wide) detected at line 503
+Overfull \hbox (11.67444pt too wide) detected at line 510
 []\OT1/cmr/m/n/10.95 ([])    []    [](\OML/cmm/m/it/10.95 P []\OT1/cmr/m/n/10.9
 5 )    
  []
 
-[9]) (./chapter2/currytype.tex [10]
-Chapter 2.
-[11
+[9]
+Overfull \hbox (17.28491pt too wide) in paragraph at lines 577--578
+\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 MN\OT1/cmr/m/n/10.95 )(\OML/cmm/m/it/10
+.95 PQ\OT1/cmr/m/n/10.95 )$; ex-plicit sub-sti-tu-tion is given high-est prece-
+dence so $\OML/cmm/m/it/10.95 ^^Ux:MNP\OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/10.95 
+x \OT1/cmr/m/n/10.95 := \OML/cmm/m/it/10.95 Q\OMS/cmsy/m/n/10.95 i$ \OT1/cmr/m/
+n/10.95 is $\OML/cmm/m/it/10.95 ^^Ux:\OT1/cmr/m/n/10.95 ((\OML/cmm/m/it/10.95 M
+N\OT1/cmr/m/n/10.95 )(\OML/cmm/m/it/10.95 P\OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/1
+0.95 x \OT1/cmr/m/n/10.95 :=
+ []
 
-] [12]) (./chapter3/Haskell.tex [13]
+
+Overfull \hbox (36.63092pt too wide) detected at line 591
+[][]
+ []
+
+[10]
+Overfull \hbox (1.9219pt too wide) in paragraph at lines 636--636
+[]                  \OT1/cmtt/m/n/10.95 (1)           (\x.(\y.x)x)(\z.q)       
+    whole term is a redex 
+ []
+
+
+Overfull \hbox (47.9114pt too wide) in paragraph at lines 652--652
+[]                  \OT1/cmtt/m/n/10.95 (1)           (\x.(\y.x)x)(\z.q)      r
+educe the innermost redex (\y.x)x 
+ []
+
+) (./chapter2/currytype.tex [11]
+Chapter 2.
+[12
+
+] [13]) (./chapter3/Haskell.tex [14]
 Chapter 3.
-) (./chapter4/Java.tex [14
+) (./chapter4/Java.tex [15
 
 ]
 Chapter 4.
@@ -605,7 +633,7 @@ Overfull \hbox (7.6706pt too wide) in paragraph at lines 10--10
  x, a) pi, (TP a p)), tl1)[] 
  []
 
-[15
+[16
 
 ]
 Overfull \hbox (24.91666pt too wide) in paragraph at lines 49--49
@@ -613,18 +641,18 @@ Overfull \hbox (24.91666pt too wide) in paragraph at lines 49--49
 (f, receiver.getPredicate()),[] 
  []
 
-<pics/Term.png, id=81, 525.965pt x 329.23pt>
+<pics/Term.png, id=84, 525.965pt x 329.23pt>
 File: pics/Term.png Graphic file (type png)
  <use pics/Term.png>
 Package pdftex.def Info: pics/Term.png used on input line 68.
 (pdftex.def)             Requested size: 368.17297pt x 230.45941pt.
- [16]
-<pics/LC.png, id=86, 232.87pt x 181.67876pt>
+ [17]
+<pics/LC.png, id=89, 232.87pt x 181.67876pt>
 File: pics/LC.png Graphic file (type png)
  <use pics/LC.png>
 Package pdftex.def Info: pics/LC.png used on input line 90.
 (pdftex.def)             Requested size: 139.72307pt x 109.00809pt.
- [17 <./pics/Term.png> <./pics/LC.png>] <pics/Type.png, id=90, 276.03125pt x 18
+ [18 <./pics/Term.png> <./pics/LC.png>] <pics/Type.png, id=93, 276.03125pt x 18
 1.67876pt>
 File: pics/Type.png Graphic file (type png)
 
@@ -639,19 +667,19 @@ Overfull \hbox (6.45032pt too wide) in paragraph at lines 129--130
 /m/n/10.95 )
  []
 
-[18 <./pics/Type.png>] <pics/TSub.png, id=94, 233.87375pt x 140.525pt>
+[19 <./pics/Type.png>] <pics/TSub.png, id=97, 233.87375pt x 140.525pt>
 File: pics/TSub.png Graphic file (type png)
 
 <use pics/TSub.png>
 Package pdftex.def Info: pics/TSub.png used on input line 147.
 (pdftex.def)             Requested size: 163.71048pt x 98.3668pt.
- <pics/Statement.png, id=95, 140.525pt x 130.4875pt>
+ <pics/Statement.png, id=98, 140.525pt x 130.4875pt>
 File: pics/Statement.png Graphic file (type png)
 
 <use pics/Statement.png>
 Package pdftex.def Info: pics/Statement.png used on input line 159.
 (pdftex.def)             Requested size: 84.31564pt x 78.29309pt.
- <pics/Context.png, id=96, 240.9pt x 93.34875pt>
+ <pics/Context.png, id=99, 240.9pt x 93.34875pt>
 File: pics/Context.png Graphic file (type png)
 
 <use pics/Context.png>
@@ -662,49 +690,93 @@ Overfull \hbox (3.69853pt too wide) in paragraph at lines 165--166
  [][] 
  []
 
-<pics/PPC.png, id=97, 145.54375pt x 146.5475pt>
+<pics/PPC.png, id=100, 145.54375pt x 146.5475pt>
 File: pics/PPC.png Graphic file (type png)
  <use pics/PPC.png>
 Package pdftex.def Info: pics/PPC.png used on input line 171.
 (pdftex.def)             Requested size: 72.77168pt x 73.27356pt.
- [19 <./pics/TSub.png> <./pics/Statement.png> <./pics/Context.png> <./pics/PPC.
+ [20 <./pics/TSub.png> <./pics/Statement.png> <./pics/Context.png> <./pics/PPC.
 png>]
-<pics/LCType.png, id=101, 330.23375pt x 201.75375pt>
+<pics/LCType.png, id=105, 330.23375pt x 201.75375pt>
 File: pics/LCType.png Graphic file (type png)
  <use pics/LCType.png>
 Package pdftex.def Info: pics/LCType.png used on input line 189.
 (pdftex.def)             Requested size: 198.14177pt x 121.05318pt.
 
-<pics/TermRaw.png, id=102, 119.44624pt x 61.22874pt>
+<pics/TermRaw.png, id=106, 119.44624pt x 61.22874pt>
 File: pics/TermRaw.png Graphic file (type png)
  <use pics/TermRaw.png>
 Package pdftex.def Info: pics/TermRaw.png used on input line 215.
 (pdftex.def)             Requested size: 83.61179pt x 42.8598pt.
 
-[20 <./pics/LCType.png>]) (./chapter5/GUI.tex [21 <./pics/TermRaw.png>]
+[21 <./pics/LCType.png>]) (./chapter5/GUI.tex [22 <./pics/TermRaw.png>]
 Chapter 5.
-) (./chapter6/compare.tex [22
+<pics/GUILax.png, id=113, 722.7pt x 432.61626pt>
+File: pics/GUILax.png Graphic file (type png)
+ <use pics/GUILax.png>
+Package pdftex.def Info: pics/GUILax.png used on input line 9.
+(pdftex.def)             Requested size: 469.47049pt x 281.03221pt.
+ [23
 
-]
+ <./pics/GUILax.png>] <pics/normalize.png, id=117, 1105.12875pt x 245.91875pt>
+File: pics/normalize.png Graphic file (type png)
+
+<use pics/normalize.png>
+Package pdftex.def Info: pics/normalize.png used on input line 37.
+(pdftex.def)             Requested size: 469.47049pt x 104.46716pt.
+ <pics/single1.png, id=118, 1105.12875pt x 226.8475pt>
+File: pics/single1.png Graphic file (type png)
+
+<use pics/single1.png>
+Package pdftex.def Info: pics/single1.png used on input line 50.
+(pdftex.def)             Requested size: 469.47049pt x 96.36563pt.
+ [24 <./pics/normalize.png>]
+<pics/single2.png, id=122, 1107.13625pt x 200.75pt>
+File: pics/single2.png Graphic file (type png)
+ <use pics/single2.png>
+Package pdftex.def Info: pics/single2.png used on input line 59.
+(pdftex.def)             Requested size: 469.47049pt x 85.12616pt.
+
+<pics/single3.png, id=123, 1106.1325pt x 227.85126pt>
+File: pics/single3.png Graphic file (type png)
+ <use pics/single3.png>
+Package pdftex.def Info: pics/single3.png used on input line 68.
+(pdftex.def)             Requested size: 469.47049pt x 96.70512pt.
+
+<pics/nonterminate.png, id=124, 1105.12875pt x 602.25pt>
+File: pics/nonterminate.png Graphic file (type png)
+
+<use pics/nonterminate.png>
+Package pdftex.def Info: pics/nonterminate.png used on input line 82.
+(pdftex.def)             Requested size: 469.47049pt x 255.83798pt.
+
+<pics/explicit.png, id=125, 1105.12875pt x 346.29375pt>
+File: pics/explicit.png Graphic file (type png)
+
+<use pics/explicit.png>
+Package pdftex.def Info: pics/explicit.png used on input line 91.
+(pdftex.def)             Requested size: 469.47049pt x 147.10684pt.
+) (./chapter6/compare.tex [25 <./pics/single1.png> <./pics/single2.png> <./pics
+/single3.png>] [26 <./pics/nonterminate.png> <./pics/explicit.png>]
 Chapter 6.
-) (./chapter7/conclusion.tex [23
+) (./chapter7/conclusion.tex [27
 
 ]
 Chapter 7.
-) (./template.bbl [24
+) (./template.bbl [28
 
 ])
 \tf@thm=\write5
 \openout5 = `template.thm'.
 
- [25
+ [29
 
 ] (./template.aux) ) 
 Here is how much of TeX's memory you used:
- 5600 strings out of 494966
- 82045 string characters out of 3178674
- 156103 words of memory out of 3000000
- 8650 multiletter control sequences out of 15000+200000
+ 5646 strings out of 494966
+ 82861 string characters out of 3178674
+ 159197 words of memory out of 3000000
+ 8689 multiletter control sequences out of 15000+200000
  22525 words of font info for 88 fonts, out of 3000000 for 9000
  36 hyphenation exceptions out of 8191
  44i,25n,42p,1449b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -724,10 +796,10 @@ nts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/sy
 mbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/sym
 bols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/stmaryrd/stma
 ry10.pfb>
-Output written on template.pdf (30 pages, 406403 bytes).
+Output written on template.pdf (34 pages, 621861 bytes).
 PDF statistics:
- 174 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
+ 194 PDF objects out of 1000 (max. 8388607)
+ 124 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

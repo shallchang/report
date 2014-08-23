@@ -32,9 +32,9 @@ As mentioned above, leftmost, outermost brackets are usually omitted. Therefore,
 
 \begin{equation*}\label{eq:fv}
 \begin{array}{lcllcl}
-FV(x)           & = & {x}             & BV(x)           &=& \emptyset\\
-FV(\lambda x.M) & = & FV(M_1)\cup {x} & BV(\lambda x.M) &=& FV(M)\backslash y\\  \lambda y.M
-FV(MN)          & = & FV(M)\cup FV(N) & BV(MN)          &=& BV(M) \cup BV(N)
+FV(x)           & = & \{x\}             & BV(x)           &=& \emptyset\\
+FV(\lambda x.M) & = & FV(M)\backslash \{x\} & BV(\lambda x.M) &=& BV(M)\cup \{x\}\\
+FV(MN)          & = & FV(M)\cup FV(N) & BV(MN)          &=& BV(M)\cup BV(N)
 \end{array}
 \end{equation*}
 
@@ -286,8 +286,9 @@ The corresponding Haskell function \verb|evalnormal :: Term -> Term| below imple
 
 The first function clause above handles variables $x$. It is not a $\beta$-reduction step, since a variable is not a redex. It returns itself which indicates no reduction can be done. It also conforms the pattern matching mechanism in Haskell. Similarly, the second function clause handles abstractions $(\lambda x.e)$ and implements the fourth SOS rule. The third function handles applications $(e_1e_2)$ when $e_1$ is an abstraction, then the substitution will take place. It applies an argument to the function and returns the resulting value. Finally, the fourth function handles  applications $(e_1e_2)$ when $e_1$ is not an abstraction. Since the normal reduction is leftmost outermost, it reduces the function $e_1$ first. If $e_1$ cannot be reduced(returns itself), then it goes to the argument $e_2$. 
 
-
-Folllowing is the running example of normal order reduction in Haskell. We use ``/'' to represent the $\lambda$ symbol:
+\begin{exmp}
+\normalfont Folllowing is the running example of normal order reduction in Haskell. We use ``/'' to represent the $\lambda$ symbol:
+\end{exmp}
 
 \begin{verbatim}
            (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
@@ -348,7 +349,10 @@ The corresponding Haskell function \verb|evalcbn :: Term -> Term| below implemen
 
 The first two function clauses handle the variables and abstractions, it returns itself since they cannot be reduced under Call-by-Name reduction. The third function implements the first SOS rule which performs substitution. The last function implements the second SOS rule: if the function $e_1$ of the application $(e_1e_2)$ cannot be reduced, then the argument $e_2$ will never be reduced. 
 
-The same example in \ref{subsec:normal} run in Haskell by the Call-by-Name strategy is as follows:
+\begin{exmp}
+\normalfont The same example in \ref{subsec:normal} run in Haskell by the Call-by-Name strategy is as follows:
+\end{exmp}
+
 
 \begin{verbatim}
            (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
@@ -404,7 +408,9 @@ Call-by-Value generates terms in weak head normal form only. The implementation 
 
 The functions are similar to Call-by-Name, the only difference is the argument is reduced before the substitution take place as indicated in the function clause 3.
 
-The sample example run in Haskell by the Call-by-Value strategy is as follows:
+\begin{exmp}
+\normalfont The sample example run in Haskell by the Call-by-Value strategy is as follows:
+\end{exmp}
 
 \begin{verbatim}
             (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
@@ -461,8 +467,9 @@ The head reduction strategy generates terms in head normal form. Recall that, a 
 
 The first 3 function clauses are similar as before, it transfers the semantic rules straght forward into Haskell functions. The last function clause uses Call-by-Name function defined in \ref{subsec:cbn}, because it has to avoid premature reduction of inner redexes. 
 
-
-The sample example run by Head Reduction is as follows:
+\begin{exmp}
+\normalfont The sample example run by Head Reduction is as follows:
+\end{exmp}
 
 \begin{verbatim}
          (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
@@ -523,8 +530,9 @@ Applicative orde reduction always generates terms in normal form. Since it also 
 
 The function clauses are simliar to the Call-by-Value introduced in \ref{subsec:cbv}. The only difference is the redexex inside abstractions are also reduced.
 
-
-The sample example run by Applicative Order reduction in Haskell is as follows:
+\begin{exmp}
+\normalfont The sample example run by Applicative Order reduction in Haskell is as follows:
+\end{exmp}
 
 \begin{verbatim}
              (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
@@ -549,3 +557,121 @@ It is the same as normal order reduction and the resulting term $\lambda y.w$ is
 
 
 \section{Comparisons between Different Reduction Strategies }
+
+
+
+\section{$\lambda$-calculus with Explicit Substitution and Garbage Collection}
+
+We currently have introduced the untyped $\lambda$-calculus with implicit substitution. When we perform $\beta$-reduction on an application whose function is an abstraciton, the substitution is done in 1 step: that is, all unbound occurrences of variable $x$ are substituted by the argument by `magic'. It gives less details about how the substitution is done. 
+
+In Bloo et al. \cite{bloo1995preservation}, a new $\lambda$-calculus with explicit substitution and garbage collection is introduced and studied. It retains the use of traditional veriable names, specifying terms modulo renaming and includes reduction rules for \textit{explicit garbage collection}. It is a conservative extension of the ordinary $\lambda$-calculus from several properties. The $\lambda$xgc-calculus with syntactic reductions for explicit substitution and garbage collection is represented.    
+
+\noindent The set of $\lambda$xgc-terms $\Lambda$x, ranged over by $MNPQ$, is formally defined by: 
+\begin{def1}
+\normalfont \textbf{($\lambda$xgc-terms)}. $\lambda$xgc-terms are the the class satisfing the following grammar: 
+\end{def1}
+\begin{equation*}
+M ::= \ x\ |\ \lambda x.M\ |\ MN\ |\ M\langle x:=N\rangle
+\end{equation*}
+
+where the letters $xyzvw$ range over an infinite set of variables. The $\lambda$xgc-calculus follows the parenthese omission of original $\lambda$-calculus and write $\lambda$xy.M for $\lambda x.(\lambda y.M)$ and $MN(PQ)$ for $(MN)(PQ)$; explicit substitution is given highest precedence so $\lambda x.MNP\langle x:=Q\rangle $ is $\lambda x.((MN)(P\langle x:=N\rangle )$.
+
+The $\lambda$xgc-terms include as a subset the ordinary $\lambda$-terms $\Lambda$; a $\lambda$xgc-terms is `pure' if it is also a $\lambda$-term, \textit{i.e.}, if it has no subterms of the form $M\langle x:=N\rangle$.
+
+\begin{def1}
+\normalfont (free and bound variables of $\lambda$-xgc-terms) The set of free and bound variables are defined inductively by the following function:
+\end{def1}
+\begin{equation*}\label{eq:fvxgc}
+\begin{array}{lcllcl}
+FV_{xgc}(x)           & = & \{x\}             & BV_{xgc}(x)           &=& \emptyset\\
+FV_{xgc}(\lambda x.M) & = & FV_{xgc}(M)\backslash \{x\} & BV_{xgc}(\lambda x.M) &=& BV(M)\cup \{x\}\\
+FV_{xgc}(MN)          & = & FV_{xgc}(M)\cup FV_{xgc}(N) & BV_{xgc}(MN)          &=& BV_{xgc}(M)\cup BV_{xgc}(N)\\
+FV_{xgc}(M\langle x:=N\rangle)          & = & (FV_{xgc}(M)\backslash \{x\})\cup FV_{xgc}(N) & BV_{xgc}(M\langle x:=N\rangle)    &=& BV_{xgc}(M)\cup BV_{xgc}(N)
+\end{array}
+\end{equation*}
+
+The last free and bound variable set definition of substitution is new. Since $M\langle x:=N\rangle$ will replace all free occurence of $x$ in $M$ with $N$, $x$ would disappaer so it is not free nor bound. The replacement does not affect the bound variables in $M$ and $N$, so the bound variable of $M\langle x:=N\rangle$ is the union of free variables in $M$ and $N$.
+
+\begin{def1}
+\normalfont \textbf{($\lambda$xgc-term concepts)}. 
+\end{def1}
+
+\begin{itemize}
+\item \textbf{($\alpha$-equivalent)} Two terms are $\alpha$-equivalent, written $M\equiv N$, is as for $\lambda$-calculus plus (the new) $M\langle x:=N\rangle \equiv P\langle y:=Q\rangle$ if $N \equiv Q$ and $M[x:=z]\equiv P[y:=z]$ for $z \notin FV(M)$
+\item \textbf{(Garbage)} The substitution $\langle x:=N\rangle$ in $M\langle x:=N\rangle$ is called \textit{garbage} if $x \notin FV(M)$
+\end{itemize}
+
+
+
+\begin{def1}
+\normalfont \textbf{(`raw' reduction step of xgc)}
+\end{def1}
+
+\begin{itemize}
+\item \textbf{Substitution generation}, $\overrightarrow{b}$, is 
+\begin{equation}
+\tag{b}
+(\lambda x.M)N \rightarrow M\langle x:=N\rangle
+\end{equation}
+\item \textbf{Explicit Substitution}, $\overrightarrow{x}$ is
+\begin{align*} 
+\tag{xv} x\langle x:=N\rangle & \rightarrow N \\
+\tag{xvgc} x\langle y:=N\rangle & \rightarrow x \ \ \ \ if\ x\ \not\equiv y \\
+\tag{xab} (\lambda x.M)\langle y:=N\rangle & \rightarrow \lambda x.M\langle y:=N\rangle \\
+\tag{xap} (M_1M_2)\langle y:=N\rangle & \rightarrow M_2\langle y:=N\rangle M_2\langle y:=N\rangle
+\end{align*}
+\item \textbf{Garbage Collection}, $\overrightarrow{gc}$, is
+\begin{equation}
+\tag{gc}
+M\langle x:=N\rangle \rightarrow M\ \ \ \ \ \ if\ x\notin FV(M)
+\end{equation}
+\item $\overrightarrow{x}$ is the union of $\overrightarrow{x}$ and $\overrightarrow{gc}$.
+\end{itemize}
+
+
+\begin{exmp}
+\normalfont The sample run of normal order reduction with explicit substitution and garbage collection is as following(`\' as $\lambda$):
+\end{exmp}
+\begin{verbatim}
+                  (1)           (\x.(\y.x)x)(\z.q)           whole term is a redex
+                  (2)       ==> ((\y.x)x)<x:=\z.q>           xgc-reduction
+                  (3)       ==> ((\y.x)<x:=\z.q>)(x<x:=\z.q>)
+                  (4)       ==> (\y.x<x:=\z.q>)(x<x:=\z.q>)
+                  (5)       ==> (\y.\z.q)(x<x:=\z.q>)
+                  (6)       ==> (\z.q)<y:=x<x:=\z.q>>
+                  (7)       ==> \z.q<y:=x<x:=\z.q>>          garbage collection
+                  (8)       ==> \z.q
+\end{verbatim}
+
+Recall that, the normal order reduction reduces the leftmost outermost redex first. At the beginning, the whole term \verb|(\x.(\y.x)x)(\z.q)| is a redex, and the function of the application is an abstraction. Therefore, the \textit{substitution generation} $\overrightarrow{b}$ is performed. Further, the substitution is pushed into the application and multiple explicit substitution steps are performed. At step (5), another \textit{substitution generation} $\overrightarrow{b}$ is performed and the substitution is pushed into the abstraction \verb|\z.q| at step (7). Finally, since there is no free occurrence of $y$ in \verb|\z.q|, the substitution \verb|<y:=x<x:=\z.q>>| is the garbage and removed.
+
+\begin{exmp}
+\normalfont Below is another sample run by applicative order reduction with explicit substitution and garbage collection:
+\end{exmp}
+\begin{verbatim}
+                  (1)           (\x.(\y.x)x)(\z.q)      reduce the innermost redex (\y.x)x
+                  (2)       ==> (\x.x<y:=x>)(\z.q)      xgc-reduction
+                  (3)       ==> (\x.x)(\z.q)
+                  (4)       ==> x<x:=\z.q>
+                  (5)       ==> \z.q
+\end{verbatim}
+
+Recall that, the applicative order reduction reduces the leftmost innermost redex first. The redex \verb|(\y.x)x| is the leftmost and innermost redex at beginning. Therefore, the \textit{substitution generation} is performed inside the function. Since there is no free occurrence of $y$ in $x$, the substitution \verb|<y:=x>| is the garbage. At step (3), another \textit{substitution generation} is performed and finally we get the term \verb|\z.q|. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

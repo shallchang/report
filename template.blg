@@ -3,47 +3,49 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: template.aux
 The style file: plain.bst
 Database file #1: ref.bib
+Warning--empty booktitle in sestoft1996
+Warning--empty publisher in sestoft1996
 Warning--empty booktitle in svb2001type
 Warning--empty publisher in svb2001type
-You've used 5 entries,
+You've used 7 entries,
             2118 wiz_defined-function locations,
-            526 strings with 4623 characters,
-and the built_in function-call counts, 1517 in all, are:
-= -- 142
-> -- 56
+            535 strings with 4927 characters,
+and the built_in function-call counts, 2039 in all, are:
+= -- 190
+> -- 76
 < -- 3
-+ -- 24
-- -- 18
-* -- 90
-:= -- 253
-add.period$ -- 16
-call.type$ -- 5
-change.case$ -- 22
++ -- 32
+- -- 24
+* -- 115
+:= -- 340
+add.period$ -- 23
+call.type$ -- 7
+change.case$ -- 31
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 73
-empty$ -- 135
-format.name$ -- 18
-if$ -- 324
+cite$ -- 11
+duplicate$ -- 101
+empty$ -- 189
+format.name$ -- 24
+if$ -- 438
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 7
-newline$ -- 28
-num.names$ -- 10
-pop$ -- 37
+int.to.str$ -- 7
+missing$ -- 9
+newline$ -- 38
+num.names$ -- 14
+pop$ -- 56
 preamble$ -- 1
-purify$ -- 19
+purify$ -- 26
 quote$ -- 0
-skip$ -- 45
+skip$ -- 57
 stack$ -- 0
-substring$ -- 67
-swap$ -- 15
+substring$ -- 77
+swap$ -- 17
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
-warning$ -- 2
-while$ -- 14
-width$ -- 6
-write$ -- 56
-(There were 2 warnings)
+type$ -- 24
+warning$ -- 4
+while$ -- 18
+width$ -- 8
+write$ -- 76
+(There were 4 warnings)
