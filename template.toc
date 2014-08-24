@@ -13,35 +13,37 @@
 \contentsline {subsection}{\numberline {1.4.5}Applicative Order Reduction}{9}
 \contentsline {section}{\numberline {1.5}Comparisons between Different Reduction Strategies }{10}
 \contentsline {section}{\numberline {1.6}$\lambda $-calculus with Explicit Substitution and Garbage Collection}{10}
-\contentsline {chapter}{\numberline {2}The Curry type assignment system}{12}
-\contentsline {section}{\numberline {2.1}The System $\lambda \rightarrow $-Curry}{12}
-\contentsline {section}{\numberline {2.2}Subject Reduction}{14}
-\contentsline {section}{\numberline {2.3}Properties of $\lambda \rightarrow $}{14}
-\contentsline {chapter}{\numberline {3}A Purely-Functional Programming Language --- Haskell}{15}
-\contentsline {section}{\numberline {3.1}Functional Programming}{15}
-\contentsline {section}{\numberline {3.2}Haskell}{15}
-\contentsline {section}{\numberline {3.3}Model the $\lambda $-calculus and the Curry Type Assignment System in Haskell}{15}
-\contentsline {section}{\numberline {3.4}Issues and Weakness of Implementation in Haskell }{15}
-\contentsline {chapter}{\numberline {4}The $\lambda $-calculus and Curry Type Assignment System Implementation in Java}{16}
-\contentsline {section}{\numberline {4.1}Different operational order between Haskell and Java}{16}
-\contentsline {section}{\numberline {4.2}$\lambda $-calculus Representation}{17}
-\contentsline {subsection}{\numberline {4.2.1}$\lambda $-terms}{17}
-\contentsline {subsection}{\numberline {4.2.2}Interpreter}{18}
-\contentsline {section}{\numberline {4.3}Curry Type Assignment System Representation}{19}
-\contentsline {subsection}{\numberline {4.3.1}Types}{19}
-\contentsline {subsection}{\numberline {4.3.2}Type substitution}{20}
-\contentsline {subsection}{\numberline {4.3.3}Other data types}{20}
-\contentsline {subsection}{\numberline {4.3.4}Core type assignment mechanism implementation}{21}
-\contentsline {section}{\numberline {4.4}Explicit substitution and garbage collection}{22}
-\contentsline {section}{\numberline {4.5}Syntax}{22}
-\contentsline {chapter}{\numberline {5}GUI development}{23}
-\contentsline {section}{\numberline {5.1}Layout}{23}
-\contentsline {section}{\numberline {5.2}Functionalities}{24}
-\contentsline {subsection}{\numberline {5.2.1}Normalize}{24}
-\contentsline {subsection}{\numberline {5.2.2}Single-step}{25}
-\contentsline {subsection}{\numberline {5.2.3}Deal with non-terminate terms in trace environment}{25}
-\contentsline {subsection}{\numberline {5.2.4}Explicit Substitution}{25}
-\contentsline {chapter}{\numberline {6}Java vs Haskell, Pros and Cons}{27}
-\contentsline {section}{\numberline {6.1}Pros}{27}
-\contentsline {section}{\numberline {6.2}Cons}{27}
-\contentsline {chapter}{\numberline {7}Conclusion}{28}
+\contentsline {subsection}{\numberline {1.6.1}Normal Reduction vs Explicit Substitution}{12}
+\contentsline {chapter}{\numberline {2}The Curry type assignment system}{13}
+\contentsline {section}{\numberline {2.1}The System $\lambda \rightarrow $-Curry}{13}
+\contentsline {section}{\numberline {2.2}Subject Reduction}{15}
+\contentsline {section}{\numberline {2.3}Properties of $\lambda \rightarrow $}{15}
+\contentsline {chapter}{\numberline {3}A Purely-Functional Programming Language --- Haskell}{16}
+\contentsline {section}{\numberline {3.1}Functional Programming}{16}
+\contentsline {section}{\numberline {3.2}Haskell}{16}
+\contentsline {section}{\numberline {3.3}Model the $\lambda $-calculus and the Curry Type Assignment System in Haskell}{16}
+\contentsline {section}{\numberline {3.4}Issues and Weakness of Implementation in Haskell }{16}
+\contentsline {chapter}{\numberline {4}The $\lambda $-calculus and Curry Type Assignment System Implementation in Java}{17}
+\contentsline {section}{\numberline {4.1}Different operational order between Haskell and Java}{17}
+\contentsline {section}{\numberline {4.2}$\lambda $-calculus Representation}{18}
+\contentsline {subsection}{\numberline {4.2.1}$\lambda $-terms}{18}
+\contentsline {subsection}{\numberline {4.2.2}Interpreter}{19}
+\contentsline {section}{\numberline {4.3}Curry Type Assignment System Representation}{20}
+\contentsline {subsection}{\numberline {4.3.1}Types}{20}
+\contentsline {subsection}{\numberline {4.3.2}Type substitution}{21}
+\contentsline {subsection}{\numberline {4.3.3}Other data types}{21}
+\contentsline {subsection}{\numberline {4.3.4}Core type assignment mechanism implementation}{22}
+\contentsline {section}{\numberline {4.4}Explicit substitution and garbage collection}{23}
+\contentsline {section}{\numberline {4.5}Syntax}{23}
+\contentsline {chapter}{\numberline {5}GUI development}{24}
+\contentsline {section}{\numberline {5.1}Layout}{24}
+\contentsline {section}{\numberline {5.2}Functionalities}{25}
+\contentsline {subsection}{\numberline {5.2.1}`Normalize' tracer}{25}
+\contentsline {subsection}{\numberline {5.2.2}`Trace' tracer}{26}
+\contentsline {subsection}{\numberline {5.2.3}`Single-step' tracer}{26}
+\contentsline {subsection}{\numberline {5.2.4}Deal with non-terminating terms by trace}{27}
+\contentsline {subsection}{\numberline {5.2.5}Explicit Substitution}{28}
+\contentsline {chapter}{\numberline {6}Java vs Haskell, Pros and Cons}{29}
+\contentsline {section}{\numberline {6.1}Pros}{29}
+\contentsline {section}{\numberline {6.2}Cons}{29}
+\contentsline {chapter}{\numberline {7}Conclusion}{30}

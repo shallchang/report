@@ -24,6 +24,11 @@ Haskell~Brooks Curry, Robert Feys, William Craig, J~Roger Hindley, and
 \newblock {\em Combinatory logic}, volume~2.
 \newblock North-Holland Amsterdam, 1972.
 
+\bibitem{hankin1994lambda}
+Chris Hankin.
+\newblock Lambda calculi: a guide for computer scientists.
+\newblock 1994.
+
 \bibitem{sestoft1996}
 Peter Sestoft.
 \newblock Standard ml on the web server: Visualizing lambda calculus reduction.

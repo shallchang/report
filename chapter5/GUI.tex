@@ -28,27 +28,39 @@ Haskell has at least four toolkits for programming a graphical interface: wxHask
 
 \section{Functionalities}
 
-In this section, the functionalities of the GUI would be shown by some sample runs. We mainly test the difference in different output environment: normalize, trace, and single-step. Moreover, the improvements compared to Sestoft's lambda term reducer would be shown by example. Here, we will not give any examples on the differences between outputs by different reduction strategies, since it has already been shown in Chapter 1. 
+In this section, the functionalities of the GUI would be shown by some sample runs. We mainly test the difference in different tracers: normalize, trace, and single-step. Moreover, the improvements compared to Sestoft's lambda term reducer would be shown by example. Here, we will not give any examples on the differences between outputs by different reduction strategies, since it has already been shown in Chapter 1. 
 
-\subsection{Normalize}
+\subsection{`Normalize' tracer}
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{pics/normalize}
-\caption{Sample run in normalize environment}
+\caption{Sample run in normalize tracer}
 \label{fig:normalize}
 \end{figure}
 
-When `normalize' option is selected, the reducer tries to normalize the input $\lambda$-term with a specific reduction strategy. In other words, it reduces the input term with a reduction strategy until no more $\beta$-reduction can be performed. The intermediate terms and the reduction procedure would not be shown in this case. It outputs the final term reached and displays the total $\beta$-reduction performed. On the right output area, the type assignment result is displayed. It is displayed in the derivation format: context $\vdash$ statement, which means the statement is derivable from the context. Recall that, the context is used to collect all statements used for the free variables of a term when typing that term. In this example, only $q$ is free others are all bound. 
+When `normalize' tracer is selected, the reducer tries to normalize the input $\lambda$-term with a specific reduction strategy. In other words, it reduces the input term with a reduction strategy until no more $\beta$-reduction can be performed. The intermediate terms and the reduction procedure would not be shown in this case. It outputs the final term reached and displays the total $\beta$-reduction performed. On the right output area, the type assignment result is displayed. It is displayed in the derivation format: context $\vdash$ statement, which means the statement is derivable from the context. Recall that, the context is used to collect all statements used for the free variables of a term when typing that term. In this example, only $q$ is free others are all bound. 
 
-\subsection{Single-step}
+\subsection{`Trace' tracer}
 
-The `single-step' option performs $\beta$-reduction once per time and user can control whether continue or abort. 
+The tracer `trace', as its name, trace over the reduction procedure and display every reduction steps, intermediate terms and corresponding type assigned to that term.    
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{pics/trace}
+\caption{Sample run using `trace' tracer}
+\label{fig:tracer}
+\end{figure}
+
+
+\subsection{`Single-step' tracer}
+
+The `single-step' tracer performs $\beta$-reduction once per time and user can control whether continue or abort. 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{pics/single1}
-\caption{Sample run in single-step environment}
+\caption{Sample run in single-step tracer}
 \label{fig:s1}
 \end{figure}
 
@@ -57,7 +69,7 @@ As shown in Figure \ref{fig:s1}, after the `start' button is pressed, a single $
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{pics/single2}
-\caption{Sample run in single-step environment--second step}
+\caption{Sample run by single-step tracer--second step}
 \label{fig:s2}
 \end{figure}
 
@@ -66,25 +78,44 @@ Each time the `next' button is pressed, a single $\beta$-reduction would be perf
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{pics/single3}
-\caption{Sample run in single-step environment--final result}
+\caption{Sample run in single-step tracer--final result}
 \label{fig:s3}
 \end{figure}
 
 When there is no $\beta$-reduction to perform on the $\lambda$-term, the reduction procedure stops and both `next' and `abort' buttons are disabled.
 
-\subsection{Deal with non-terminating terms in trace environment}
+The `single-step' tracer in Sestoft's implementation is slightly different from this implementation. As shown in Figure \ref{fig:sstf}, Sestoft's reducer highlights the redex in the term and let the user to click on the redex to perform next reduction step. The highlight of redex in the term is useful since it shows which redex the reducer chooses to reduce next. However, it gives less details of the reduction as a complete procedure. The user may not remember the reduction procedure since previous intermediate terms are not displayed. Therefore, in this project, the whole procedure is shown and each single-step reduction adds a new line in the procedure. The final output of reduction is the same as `trace', except that each intermediate terms are also typed.
 
-In Sestoft's implementation, the engine enters an infinite loop and stuck when the input term is non-terminating and the output environment is `trace'. There is no intermediate terms or steps displayed, so the user would not know what is happending and what the problem is. In this project, when the input term is non-terminating and the tracer is `trace', all the intermediate steps would be displayed.   
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.5]{pics/sestoft1}
+\hfill
+\includegraphics[scale=0.6]{pics/sestoft2}
+\hfill
+\includegraphics[scale=0.6]{pics/sestoft3}
+\hfill
+\includegraphics[scale=0.6]{pics/sestoft4}
+\hfill
+\caption{Sestoft's lambda term reducer using `single-step' tracer}
+\label{fig:sstf}
+\end{figure}
 
+   
+
+\subsection{Deal with non-terminating terms by trace}
+
+In Sestoft's implementation, the engine enters an infinite loop and stuck when the input term is non-terminating and the tracer is `trace'. There is no intermediate terms or steps displayed, so the user would not know what is happending and what the problem is. In this project, when the input term is non-terminating and the tracer is `trace', all the intermediate steps would be displayed. As we can see from Figure \ref{fig:nt}, the left output area is a a scroll pane, where the user can scroll down to view the whole procedure. Notice that, the input term \verb|\f.(\x.f(xx))(\x.f(xx))| is untypable since there is a self-application $xx$, the reason why it cannot be typed could be found in Example \ref{exp}.   
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{pics/nonterminate}
-\caption{Sample run of a non-terminate term in trace environment}
+\caption{Sample run of a non-terminate term by trace}
 \label{fig:nt}
 \end{figure}
 
 \subsection{Explicit Substitution}
+
+Figure \ref{fig:explicit} illustrates the output when explicit substitution is enabled. 
 
 \begin{figure}[ht]
 \centering

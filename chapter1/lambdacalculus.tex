@@ -27,7 +27,7 @@ A lambda term is valid if and only if it can be obtained by repeated application
 As mentioned above, leftmost, outermost brackets are usually omitted. Therefore, $M_1M_2(M_3M_4)$ stands for $((M_1\cdot M_2)(M_3\cdot M_4))$. Similarly, $\lambda$ can be omitted in repeated abstractions, for example $\lambda x_1x_2.M$ stands for $\lambda x_1.(\lambda x_2.M)$.
 
 \begin{def1}
-\normalfont (free and bound variables) The set of free and bound variables are defined inductively by the following function:
+\normalfont \textbf{(free and bound variables)} The set of free and bound variables are defined inductively by the following function:
 \end{def1}
 
 \begin{equation*}\label{eq:fv}
@@ -67,7 +67,7 @@ The free occurrence of y in the left hand term becomes confused with the bound v
 \end{equation*}
 
 \begin{def1}\label{def1}
-($\alpha$-equivalent) $M$ is $\alpha$-equivalent to $N$, written $M$ $\equiv_\alpha N$, if $N$ results from $M$ by a series of changes of bound variable.
+\normalfont \textbf{($\alpha$-equivalent)} \textit{$M$ is $\alpha$-equivalent to $N$, written $M$ $\equiv_\alpha N$, if $N$ results from $M$ by a series of changes of bound variable.}
 \end{def1}
 
 The notion of alpha-equivalent(or congruence) is a basic form of equivalence defined in lambda calculus. It captures the property that the particular choice of a bound variable in a lambda abstraction does not matter. For instance, $\lambda x.x$ and $\lambda y.y$ are $\alpha$-congruent lambda terms which represent the same function. Notice that, the term-variable $x$ and $y$ are not $\alpha$-equivalent terms since they are not bound in a lambda abstraction.
@@ -81,7 +81,7 @@ With the property of alpha equivalence, we can define the \textit{$\alpha$-conve
 In some sense, the $\alpha$-conversion is defined by the spirit of the (5) substitution rule. If we have a function $\lambda x.M$, then we can apply a substitution to this function: $(\lambda x.M)[z:=x]$. According to the fifth substitution rule, it is unfolded to $(\lambda z.M[z:=x])$. Using the $\alpha$-conversion, we can always rename the bound variables of a term. 
 
 \begin{def1}
-(Variable Convention) If $M_1$,...,$M_n$ occur in a certain context then in these terms all bound variables are chosen to be different from free variables.
+\normalfont \textbf{(Variable Convention\cite{hankin1994lambda})} \textit{If $M_1$,...,$M_n$ occur in a certain context then in these terms all bound variables are chosen to be different from free variables.}
 \end{def1}
 
 The alpha-conversion is built based on the variable convention. Alpha convertion is used to allow bound variable names to be changed. For example, alpha-conversion of $\lambda x.x$ might get $\lambda y.y$. Terms that differ only by alpha-conversion are called alpha-equivalence(or alpha-congruence) as mentioned in the definition \ref{def1}. By the assumption that free and bound variables are always different(variable convention), and that alpha-conversion will take place whenever a variable is both free and bound. The definition of term substitution becomes:
@@ -608,12 +608,12 @@ The last free and bound variable set definition of substitution is new. Since $M
 \end{def1}
 
 \begin{itemize}
-\item \textbf{Substitution generation}, $\overrightarrow{b}$, is 
+\item \textbf{Substitution generation}, $\xrightarrow[b]{}$, is 
 \begin{equation}
 \tag{b}
 (\lambda x.M)N \rightarrow M\langle x:=N\rangle
 \end{equation}
-\item \textbf{Explicit Substitution}, $\overrightarrow{x}$ is
+\item \textbf{Explicit Substitution}, $\xrightarrow[x]{}$ is
 \begin{align*} 
 \tag{xv} x\langle x:=N\rangle & \rightarrow N \\
 \tag{xvgc} x\langle y:=N\rangle & \rightarrow x \ \ \ \ if\ x\ \not\equiv y \\
@@ -625,7 +625,8 @@ The last free and bound variable set definition of substitution is new. Since $M
 \tag{gc}
 M\langle x:=N\rangle \rightarrow M\ \ \ \ \ \ if\ x\notin FV(M)
 \end{equation}
-\item $\overrightarrow{x}$ is the union of $\overrightarrow{x}$ and $\overrightarrow{gc}$.
+\item $\xrightarrow[xgc]{}$ is the union of $\xrightarrow[x]{}$ and $\xrightarrow[gc]{}$.
+\item $\xrightarrow[bxgc]{}$ is the union of $\xrightarrow[b]{}$ and $\xrightarrow[xgc]{}$.
 \end{itemize}
 
 
@@ -658,12 +659,34 @@ Recall that, the normal order reduction reduces the leftmost outermost redex fir
 
 Recall that, the applicative order reduction reduces the leftmost innermost redex first. The redex \verb|(\y.x)x| is the leftmost and innermost redex at beginning. Therefore, the \textit{substitution generation} is performed inside the function. Since there is no free occurrence of $y$ in $x$, the substitution \verb|<y:=x>| is the garbage. At step (3), another \textit{substitution generation} is performed and finally we get the term \verb|\z.q|. 
 
+\subsection{Normal Reduction vs Explicit Substitution}
+
+As might be expected, it takes more reduction steps to reduce a $\lambda$-term to normal form using $\xrightarrow[bxgc]{}$ than it takes using $\xrightarrow[\beta]{}$. To illustrate the differences, we use normal order reduction and list the number of steps required to normalize the term by both normal reduction and explicit substitution. There is also a line chart to demonstrate the gap between those two methods. We firstly use some simple terms that cost several steps and then we use the term in form $\lambda v.(\lambda x.I(Ix))(Iv)$; we gradually enlarge the term $I$, and the reduction steps needed grows.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|}\hline
+$\lambda$-term & Normal Reduction & Explicit Substitution\\ \hline
+$(\lambda x.x)y$ & 1 & 2\\ \hline
+$(\lambda abc.ac(bc))(\lambda xy.x)$ & 3 & 12\\ \hline
+$I = \lambda y.y$ & 4 & 14\\ \hline
+$(\lambda fx.f(fx))(\lambda fx.f(fx))$ & 6 & 81\\ \hline
+$I = (\lambda yw.w)z$ & 7 & 27\\ \hline
+$I = (\lambda ywv.wv)z$ & 9 & 71\\ \hline
+$I = (\lambda ywvs.wvs)z$ & 11 & 127\\ \hline
+\end{tabular}
+\caption{Reduction steps needed for normal reduction and explicit substitution}
+\label{tb:diff}
+\end{table}
+
+In Table \ref{tb:diff},we have listed 7 terms from simple to complex. The simple application $(\lambda x.x)y$ only takes one reduction step that substitutes the free occurrence of $x$ in $x[y/x]$ by $y$.  
 
 
-
-
-
-
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{pics/steps}
+\caption{Reduction steps needed for normal reduction and explicit substitution}
+\label{fig:termraw}
+\end{figure}
 
 
 
