@@ -210,7 +210,7 @@ Applicative Order & leftmost innermost & Yes & normal form\\ \hline
 \end{table}
 \end{center}
 Normal order:
-We model lambda terms as Haskell constructed data, representing variable names by character:
+Lambda terms are modeled as Haskell constructed data, representing variable names by character:
 
 \begin{verbatim}
 type Name = Char  
@@ -562,7 +562,9 @@ It is the same as normal order reduction and the resulting term $\lambda y.w$ is
 
 \section{$\lambda$-calculus with Explicit Substitution and Garbage Collection}
 
-We currently have introduced the untyped $\lambda$-calculus with implicit substitution. When we perform $\beta$-reduction on an application whose function is an abstraciton, the substitution is done in 1 step: that is, all unbound occurrences of variable $x$ are substituted by the argument by `magic'. It gives less details about how the substitution is done. 
+We currently have introduced the untyped $\lambda$-calculus with implicit substitution. When we perform $\beta$-reduction on an application $(\lambda x.xz)y$ whose function is an abstraciton, the substitution is done in 1 single step: that is, all unbound occurrences of variable $x$ are substituted by the argument $y$. However, as a term becomes complex, it gives less details about how the substitution is done. In this section, a new calculi with explicit substitution built based on ordinary $\lambda$-calculus is introduced. It generates substitutions and treats them as a $\lambda$xgc-term. A set of explicit substitution rules are defined to reduce a term into normal form.  
+
+\subsection{The explicit substitution calculi}
 
 In Bloo et al. \cite{bloo1995preservation}, a new $\lambda$-calculus with explicit substitution and garbage collection is introduced and studied. It retains the use of traditional veriable names, specifying terms modulo renaming and includes reduction rules for \textit{explicit garbage collection}. It is a conservative extension of the ordinary $\lambda$-calculus from several properties. The $\lambda$xgc-calculus with syntactic reductions for explicit substitution and garbage collection is represented.    
 
@@ -650,16 +652,19 @@ Recall that, the normal order reduction reduces the leftmost outermost redex fir
 \normalfont Below is another sample run by applicative order reduction with explicit substitution and garbage collection:
 \end{exmp}
 \begin{verbatim}
-                  (1)           (\x.(\y.x)x)(\z.q)      reduce the innermost redex (\y.x)x
-                  (2)       ==> (\x.x<y:=x>)(\z.q)      xgc-reduction
-                  (3)       ==> (\x.x)(\z.q)
-                  (4)       ==> x<x:=\z.q>
-                  (5)       ==> \z.q
+             (1)           (\x.(\y.x)x)(\z.q)      reduce the innermost redex (\y.x)x
+             (2)       ==> (\x.x<y:=x>)(\z.q)      xgc-reduction
+             (3)       ==> (\x.x)(\z.q)
+             (4)       ==> x<x:=\z.q>
+             (5)       ==> \z.q
 \end{verbatim}
 
 Recall that, the applicative order reduction reduces the leftmost innermost redex first. The redex \verb|(\y.x)x| is the leftmost and innermost redex at beginning. Therefore, the \textit{substitution generation} is performed inside the function. Since there is no free occurrence of $y$ in $x$, the substitution \verb|<y:=x>| is the garbage. At step (3), another \textit{substitution generation} is performed and finally we get the term \verb|\z.q|. 
 
-\subsection{Normal Reduction vs Explicit Substitution}
+\subsection{Type assignment in explicit substitution calculi}
+
+
+\section{Reduction vs Explicit Substitution}
 
 As might be expected, it takes more reduction steps to reduce a $\lambda$-term to normal form using $\xrightarrow[bxgc]{}$ than it takes using $\xrightarrow[\beta]{}$. To illustrate the differences, we use normal order reduction and list the number of steps required to normalize the term by both normal reduction and explicit substitution. There is also a line chart to demonstrate the gap between those two methods. We firstly use some simple terms that cost several steps and then we use the term in form $\lambda v.(\lambda x.I(Ix))(Iv)$; we gradually enlarge the term $I$, and the reduction steps needed grows.
 
@@ -674,19 +679,24 @@ $(\lambda fx.f(fx))(\lambda fx.f(fx))$ & 6 & 81\\ \hline
 $I = (\lambda yw.w)z$ & 7 & 27\\ \hline
 $I = (\lambda ywv.wv)z$ & 9 & 71\\ \hline
 $I = (\lambda ywvs.wvs)z$ & 11 & 127\\ \hline
+$I = (\lambda ywvsd.wvsd)z$ & 13 & 200\\ \hline
 \end{tabular}
 \caption{Reduction steps needed for normal reduction and explicit substitution}
 \label{tb:diff}
 \end{table}
 
-In Table \ref{tb:diff},we have listed 7 terms from simple to complex. The simple application $(\lambda x.x)y$ only takes one reduction step that substitutes the free occurrence of $x$ in $x[y/x]$ by $y$.  
+In Table \ref{tb:diff}, we have listed 7 terms from simple to complex. The simple application $(\lambda x.x)y$ only takes one reduction step that substitutes the free occurrence of $x$ in $x[y/x]$ by $y$. The explicit substitution takes two steps for substitution generation and substitution. The second term $(\lambda abc.ac(bc))(\lambda xy.x)$ needs more steps for explicit substitution since it has to push the substitution into abstraction and further into application until it reaches a variable. The sample run of this term with explicit substitution can also be found in Figure \ref{fig:explicit}. When we reduce the term $(\lambda fx.f(fx))(\lambda fx.f(fx))$ with explicit substitution, it need 81 steps whereas all the $\beta$-reduction paths of it only consists 6 steps. Finally, we use a series of terms in the form $\lambda v.(\lambda x.I(Ix))(Iv)$. We gradually enlarge the term $I$ to increase the number of $\beta$-reduction steps and to evaluate the gap between two calculus. As it illustrated in the table, the number of steps needed for explicit substitution grows larger than the square of normal $\beta$-reduction when $I = (\lambda ywvs.wvs)z$. When $I = (\lambda ywvsd.wvsd)z$, the number of steps by explicit substitution is 200 which is much larger than the square of the number of $\beta$-reductions 13.
+
+We can see that, the number of steps needed by explicit substitution mainly depends on the number of $\beta$-reduction required and the structure of abstraction's body. It needs more steps to push a substitution into an application if the structure is complex. For example, the $\lambda$xgc-term $(xyz)\langle x:=z\rangle$ needs 2 steps to push the substitution into the application $xyz$:  $(xy)\langle x:=z\rangle z\langle x:=z\rangle$ and then $x\langle x:=z\rangle y\langle x:=z\rangle z\langle x:=z\rangle$. If an application is only consisted of $n$ variables, then it need $n-1$ steps to push a substitution into it, and it also takes $n$ steps to reduce each $\lambda$xgc-term in form $x\langle x:=y\rangle$. It needs more steps if the application also contains complex abstractions. 
 
 
 \begin{figure}[ht]
-\includegraphics[width=\textwidth]{pics/steps}
+\includegraphics[width=\textwidth]{pics/zhang}
 \caption{Reduction steps needed for normal reduction and explicit substitution}
 \label{fig:termraw}
 \end{figure}
+
+The figure above illustrates the difference of the number of steps needed between normal $\beta$-reduction and xgc. As the term $I$ grows larger, the number of steps in normal $\beta$-reduction grows linearly, while xgc grows approximately exponentially. We can see that the steps needed for term $(\lambda fx.f(fx))(\lambda fx.f(fx))$ is more than the steps when $I = (\lambda ywv.wv)z$. The number of steps mainly depends on the free occurrences of bound variables in an abstraction. For the term $(\lambda fx.f(fx))$, the free occurrence of $f$ and $x$ in $f(fx)$ make repeated substitution and increase the number of reduction steps.  
 
 
 

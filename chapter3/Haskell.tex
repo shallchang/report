@@ -1,7 +1,76 @@
 \chapter{A Purely-Functional Programming Language --- Haskell}
 
+This chapter will introduce functional programming and a purely-functional programming language-Haskell. It will demonstrate how the lambda calculus and Curry type assignment system is implemented in Haskell by self-defined data types, pattern matching, list processing, and recursive functions. As an implementation and usable software, the issues and weaknesses would also be discussed in this chapter. 
 \section{Functional Programming}
+Functional programming uses functions, other than objects or procedures, as the fundamental building blocks of a program. It is a programming paradigm that treats computation as the evaluation of expressions and avoids mutable data and state, in contrast with imperative programming where programs are composed of statements which change global state when executed. Functional programming has its roots in lambda calculus. Lambda calculus provides a theoretical framework for describing functions and their evaluation. Although it is a mathematical abstraction rather than a programming language, it forms the basis of almost all functional programming languages. There are several functional programming languages such as Miranda, Haskell, and OCaml that is defined based on lambda calculus. 
 \section{Haskell}
+Haskell is an advanced purely-functional programming language, which has non-strict semantcis and strong static typing. In imperative languages(C, C++, Java...), a sequence of tasks are generated and executed in a program. When they are executed, it can change state. It has a control flow structures for doing some action several times. In purely functional programming, we do not need to tell the computer what to do but rather to tell it what each function is. It also cannot set a variables to something and then set it to something else later. In purely functional languages, a function has no side-effects. The only task for a function is to take the arguments, perform operations, and return the result.  
+
+Haskell is lazy, which means that it will not execute functions and calculate things unless it is specifically told to do so. If you compile and run a haskell program, it does not call any functions nor perform any execution. The only thing you can do is call a specific function(it may call other functions) and pass parameters into it, then that function is executed and a result is returned.   
+
+Haskell is statically typed. When we compile a haskell program, the compiler knows which variable is a number, which is a string and so on. That means errors can be found at compile time. Haskell uses a type system that has type inference. That means we do not have to explicitly label every piece of code with a type because the type system can automatically type it. Type inference also allows the code to be more general. If we add two parameters together without explicitly stating their types, the function will work on any two parameters that can be added as numbers. 
+
+Haskell is elegant and concise, because it uses a lot of high level concepts. Haskell programs are usually shorter than their imperative language equivalents. In addition, shorter programs are easier to develop than longer ones and have less bugs. 
+
+In this project, Haskell is self-studied thanks to the course note of COMP120.1 of Imperial College. In this section, some main features of Haskell would be introduced by examples.
+
+\subsection{Pattern Matching}
+Pattern matching consists of listing patterns to which some data should conform and then checking to see if it does conform to any of them and deconstructing the data according to those patterns. When defining functions, we can define separate function bodies for different patterns. This leads to really neat code that is simple and readable. We can pattern match on any data type. A successful match binds the formal parameters in the pattern. The matching process itself occurs ``top-down'' and ``left-right''. Failure of a pattern anywhere in one function body results in failure of the whole matching process, and the next function body is then tried to match. For instance, if [2, 3] is matched against [1, a], then 2 fails to match with 1, so the result is a failed match. Following is another example that defines a function using pattern matching:
+
+\begin{verbatim}
+                     factorial :: (Integral a) => a -> a  
+                     factorial 1 = 1
+                     factorial n = n * factorial (n-1)
+\end{verbatim}
+
+The code above defines a funtion that calculate the factorial of the input. It uses pattern matching that lists all the possible patterns that can be matched. Here, only two cases, 1 or n. It firstly matches the first function body to check whether the input is 1; if not, goes to next function body and calls itself again.   
+
+\subsection{Guards}
+
+Patterns are used to specify data should form to some form and deconstruct it, whereas guards are used to check whether some properties of an argument are true or false. It is similar to an if statement, and more likely to a `swtich' block in Java. Following is an example of using guards:
+\begin{verbatim}
+                     max :: (Ord a) => a -> a -> a
+                     max a b | a > b     = a
+                             | otherwise = b
+\end{verbatim}
+The function above returns the maximum value between the inputs $a$ and $b$. Notice that, `Ord' here enables ordering on a general type a, so we can apply `>' `<' to compare two variables in type a.
+
+\subsection{Where}
+
+The `where' block is used to simplify complex codes with newly defined variables. It avoids repeated expressions: an expression is only calculated onece and it is binded to a name than then the name can be referred to instead of the whole expression. 
+
+\begin{verbatim}
+                    divA :: Float -> Char
+                    divA a | a/2 <= 10  = 'A' 
+                           | a/2 <= 20  = 'B'
+                           | a/2 <= 30  = 'C'
+                           | otherwise  = 'D'
+\end{verbatim}
+
+The function above firstly calculte the input parameter $a$ divided by 2, and decides which sector it is in and returns a character. It repeatly defines the expression \verb|a/2| for three times. We can avoid that by using `where' statement as below: 
+\begin{verbatim}
+                    divA :: Float -> Char
+                    divA a | b > 10  = 'A' 
+                           | b > 20  = 'B'
+                           | b > 30  = 'C'
+                           | otherwise = 'D'
+                           where b = a/2
+\end{verbatim}
+
+As we can see, it improves the readability by giving names to an expression and can accelerate programs since expressions like \verb|a/2| is calculated only once. Mention that, these names like \verb|b| are visible across the guards. 
+
+\subsection{Self-defined Types}
+
+We can also create our own data types in a very straight forward way. One way is to use the \textbf{data} keyword.
+
+\begin{verbatim}
+        data Bool = False | True
+\end{verbatim} 
+
+\verb|data| means that we are defining a new data type. The part one the left of \verb|=| denotes the type name, which is \verb|Bool|. The parts after the \verb|=| are value constructors. They specify the different values that this type can have. 
+
+
+
 \section{Model the $\lambda$-calculus and the Curry Type Assignment System in Haskell}
 \section{Issues and Weakness of Implementation in Haskell }
 
