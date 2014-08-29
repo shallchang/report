@@ -138,21 +138,45 @@ UnifyContexts & \varnothing & \Gamma _1 & =  Id_s
 
 
 \begin{def1}{\label{def:ppc}}
-\normalfont (PPC, Principle Pair Algorithm for $\Lambda$)
+\normalfont  Principle  Pair  Algorithm  for  $\Lambda$
 \end{def1}
 
 \begin{equation*}
 \begin{array}{llll}
-ppc & x & = & \langle x:\varphi,\varphi \rangle\\
+pp_c & x & = & \langle x:\varphi,\varphi \rangle\\
 &&& where\ \ \varphi=fresh\\
-ppc & (\lambda x.M) & = & \langle \Pi,A \rightarrow P \rangle,\ if\ ppcM=\langle \Pi \cup \{x:A\},P \rangle\\
-&&& \langle \Pi,\varphi \rightarrow P \rangle,\ if\ ppcM=\langle \Pi ,P \rangle\ \ \ \ x\not\in \Pi\\
+pp_c & (\lambda x.M) & = & \langle \Pi,A \rightarrow P \rangle,\ if\ pp_cM=\langle \Pi \cup \{x:A\},P \rangle\\
+&&& \langle \Pi,\varphi \rightarrow P \rangle,\ if\ pp_cM=\langle \Pi ,P \rangle\ \ \ \ x\not\in \Pi\\
 &&&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ where\ \varphi=fresh\\
-ppc & (MN) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,\varphi \rangle\\
-&&& where\ \ \ \varphi \ \ \ \ \ \ \ \ \ \ \ = fresh\\
-&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _1,P_1,\varphi \rangle = ppcM\\
-&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _2,P_2,\varphi \rangle = ppcN\\
-&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ \ \ \ \ = unify\ P_1\ \ (P_2 \rightarrow \varphi)\\
-&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ \ \ \ \ = UnifyContexts\ (S_1\Pi _1)\ (S_1\Pi _2)\\
+pp_c & (MN) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,\varphi \rangle\\
+&&& where\ \ \ \varphi \ \ \ \ \ \ \ = fresh\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _1,P_1\rangle = pp_cM\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _2,P_2\rangle = pp_cN\\
+&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ = unify\ P_1\ \ (P_2 \rightarrow \varphi)\\
+&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ = UnifyContexts\ (S_1\Pi _1)\ (S_1\Pi _2)\\
 \end{array}
 \end{equation*}
+
+
+\begin{def1}{\label{def:ppcxgc}}
+\normalfont  Principle  Pair  Algorithm  for  $\Lambda$x
+\end{def1}
+
+\begin{equation*}
+\begin{array}{llll}
+pp_c & (M\langle x:=N\rangle) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,P_1 \rangle\\
+&&& where\ \ P_3 \ \ \ \ \ \ \ = fresh \ \ \ \ \ \ \ \ \ \ \ \ \ if\ x\ \not\in FV(M)\\
+&&& \ \ \ \ \ \ \ \ \ \ \Pi _1 \ \ \ \ \ \ \ = \Pi _3 \cup \{x:P_3\}\ \ \ if\ x\ \in FV(M)\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _1,P_1\rangle = pp_c\ M\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _2,P_2\rangle = pp_c\ N\\
+&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ \ = unify\ P_2\ \ P_3\\
+&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ \ = UnifyContexts\ (S_1\Pi _1)\ (S_1\Pi _2)\\
+\end{array}
+\end{equation*}
+
+\begin{equation*}
+(4):\frac{\Gamma, {x:\sigma} \vdash M:\beta\ \ \ \ \ \Gamma \vdash _cN:\sigma}{\Gamma \vdash _cM\langle x:=N\rangle \beta} 
+\end{equation*}
+
+
+

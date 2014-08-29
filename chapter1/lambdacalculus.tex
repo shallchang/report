@@ -401,9 +401,9 @@ Call-by-Value generates terms in weak head normal form only. The implementation 
         evalcbv :: Term -> Term
         evalcbv (Var x) = Var x
         evalcbv (Abs x t) = (Abs x t)
-        evalcbv (App (Abs x t) y) = subs t (Var x, evalcbv y)
-        evalcbv (App x y) | x == evalcbn x = (App x (evalcbv y))
-                          | otherwise = (App (evalcbn x) y)  
+        evalcbv (App (Abs x t) y) = subs t (Var x, y)
+        evalcbv (App x y) | x == evalcbv x = (App x (evalcbv y))
+                          | otherwise = (App (evalcbv x) y)  
 \end{verbatim}
 
 The functions are similar to Call-by-Name, the only difference is the argument is reduced before the substitution take place as indicated in the function clause 3.
@@ -588,11 +588,11 @@ The $\lambda$xgc-terms include as a subset the ordinary $\lambda$-terms $\Lambda
 FV_{xgc}(x)           & = & \{x\}             & BV_{xgc}(x)           &=& \emptyset\\
 FV_{xgc}(\lambda x.M) & = & FV_{xgc}(M)\backslash \{x\} & BV_{xgc}(\lambda x.M) &=& BV(M)\cup \{x\}\\
 FV_{xgc}(MN)          & = & FV_{xgc}(M)\cup FV_{xgc}(N) & BV_{xgc}(MN)          &=& BV_{xgc}(M)\cup BV_{xgc}(N)\\
-FV_{xgc}(M\langle x:=N\rangle)          & = & (FV_{xgc}(M)\backslash \{x\})\cup FV_{xgc}(N) & BV_{xgc}(M\langle x:=N\rangle)    &=& BV_{xgc}(M)\cup BV_{xgc}(N)
+FV_{xgc}(M\langle x:=N\rangle)          & = & (FV_{xgc}(M)\backslash \{x\})\cup FV_{xgc}(N) & BV_{xgc}(M\langle x:=N\rangle)    &=& BV_{xgc}(M)\cup {x} \cup BV_{xgc}(N)
 \end{array}
 \end{equation*}
 
-The last free and bound variable set definition of substitution is new. Since $M\langle x:=N\rangle$ will replace all free occurence of $x$ in $M$ with $N$, $x$ would disappaer so it is not free nor bound. The replacement does not affect the bound variables in $M$ and $N$, so the bound variable of $M\langle x:=N\rangle$ is the union of free variables in $M$ and $N$.
+The last free and bound variable set definition of substitution is new. All the free occurrences of $x$ in $M$ is actually bounded by $x$ in the substitution $\langle x:=N\rangle$. 
 
 \begin{def1}
 \normalfont \textbf{($\lambda$xgc-term concepts)}. 
@@ -633,20 +633,19 @@ M\langle x:=N\rangle \rightarrow M\ \ \ \ \ \ if\ x\notin FV(M)
 
 
 \begin{exmp}
-\normalfont The sample run of normal order reduction with explicit substitution and garbage collection is as following(`\' as $\lambda$):
+\normalfont The sample run of normal order reduction with explicit substitution and garbage collection is as following(`$\backslash$' as $\lambda$):
 \end{exmp}
 \begin{verbatim}
                   (1)           (\x.(\y.x)x)(\z.q)           whole term is a redex
                   (2)       ==> ((\y.x)x)<x:=\z.q>           xgc-reduction
                   (3)       ==> ((\y.x)<x:=\z.q>)(x<x:=\z.q>)
                   (4)       ==> (\y.x<x:=\z.q>)(x<x:=\z.q>)
-                  (5)       ==> (\y.\z.q)(x<x:=\z.q>)
-                  (6)       ==> (\z.q)<y:=x<x:=\z.q>>
-                  (7)       ==> \z.q<y:=x<x:=\z.q>>          garbage collection
-                  (8)       ==> \z.q
+                  (5)       ==> (x<x:=\z.q>)<y:=x<x:=\z.q>>  garbage collection
+                  (6)       ==> x<x:=\z.q>
+                  (7)       ==> \z.q          
 \end{verbatim}
 
-Recall that, the normal order reduction reduces the leftmost outermost redex first. At the beginning, the whole term \verb|(\x.(\y.x)x)(\z.q)| is a redex, and the function of the application is an abstraction. Therefore, the \textit{substitution generation} $\overrightarrow{b}$ is performed. Further, the substitution is pushed into the application and multiple explicit substitution steps are performed. At step (5), another \textit{substitution generation} $\overrightarrow{b}$ is performed and the substitution is pushed into the abstraction \verb|\z.q| at step (7). Finally, since there is no free occurrence of $y$ in \verb|\z.q|, the substitution \verb|<y:=x<x:=\z.q>>| is the garbage and removed.
+Recall that, the normal order reduction reduces the leftmost outermost redex first. At the beginning, the whole term \verb|(\x.(\y.x)x)(\z.q)| is a redex, and the function of the application is an abstraction. Therefore, the \textit{substitution generation} $\overrightarrow{b}$ is performed. Further, the substitution is pushed into the application and multiple explicit substitution steps are performed. At step (4), another \textit{substitution generation} $\overrightarrow{b}$ is performed Since there is no free occurrence of $y$ in \verb|x<x:=\z.q>|, the substitution \verb|<y:=x<x:=\z.q>>| is the garbage and removed. Finally, the free occurrence of $x$ is substituted by \verb|\z.q|.
 
 \begin{exmp}
 \normalfont Below is another sample run by applicative order reduction with explicit substitution and garbage collection:
@@ -664,7 +663,9 @@ Recall that, the applicative order reduction reduces the leftmost innermost rede
 \subsection{Type assignment in explicit substitution calculi}
 
 
-\section{Reduction vs Explicit Substitution}
+\section{Normal $\beta$-reduction vs Explicit Substitution ans garbage collection}
+
+\subsection{$\beta$-reduction vs Explicit Substitution}
 
 As might be expected, it takes more reduction steps to reduce a $\lambda$-term to normal form using $\xrightarrow[bxgc]{}$ than it takes using $\xrightarrow[\beta]{}$. To illustrate the differences, we use normal order reduction and list the number of steps required to normalize the term by both normal reduction and explicit substitution. There is also a line chart to demonstrate the gap between those two methods. We firstly use some simple terms that cost several steps and then we use the term in form $\lambda v.(\lambda x.I(Ix))(Iv)$; we gradually enlarge the term $I$, and the reduction steps needed grows.
 
@@ -699,7 +700,7 @@ We can see that, the number of steps needed by explicit substitution mainly depe
 The figure above illustrates the difference of the number of steps needed between normal $\beta$-reduction and xgc. As the term $I$ grows larger, the number of steps in normal $\beta$-reduction grows linearly, while xgc grows approximately exponentially. We can see that the steps needed for term $(\lambda fx.f(fx))(\lambda fx.f(fx))$ is more than the steps when $I = (\lambda ywv.wv)z$. The number of steps mainly depends on the free occurrences of bound variables in an abstraction. For the term $(\lambda fx.f(fx))$, the free occurrence of $f$ and $x$ in $f(fx)$ make repeated substitution and increase the number of reduction steps.  
 
 
-
+\subsection{$\beta$-reduction vs Explicit Substitution and garbage collection}
 
 
 
