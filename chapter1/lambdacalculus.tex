@@ -537,27 +537,16 @@ The function clauses are simliar to the Call-by-Value introduced in \ref{subsec:
 \begin{verbatim}
              (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
          ==> (/b.b)((/x.x)(/y.(/z.z)w))
-         ==> (/x.x)(/y.(/z.z)w)
-         ==> /y.(/z.z)w
+         ==> (/b.b)((/x.x)(/y.w))
+         ==> (/b.b)(/y.w)
          ==> /y.w
          Reduced to:/y.w
 \end{verbatim}
 
-It is the same as normal order reduction and the resulting term $\lambda y.w$ is in normal form. Although applicative order reduction always reduces the leftmost innermost redex, there is no redex on leftmost has an inner redex. If we make the leftmost abstraction $(\lambda a.a)$ become $(\lambda a.(\lambda c.c)w)$, then the first reduction step would reduce the inner redex $(\lambda c.c)w$ first:
-
-\begin{verbatim}
-             (/a.(/c.c)w)(/b.b)((/x.x)(/y.(/z.z)w))
-         ==> (/a.w)(/b.b)((/x.x)(/y.(/z.z)w))
-         ==> (/b.b)((/x.x)(/y.(/z.z)w))
-         ==> (/x.x)(/y.(/z.z)w)
-         ==> /y.(/z.z)w
-         ==> /y.w
-         Reduced to:/y.w
-\end{verbatim}
+Since applicative order reduction reduces the leftmost innermost redex first, it firstly reduces the redex \verb|(/a.a)(/b.b)|. It always reduces the arguments before the function, so it reduces the argument \verb|((/x.x)(/y.(/z.z)w))| until it contains no redex(in normal form). When the argument is in the normal form \verb|(/y.w)|, the substitution takes place and finally it reaches the normalized term \verb|(/y.w)|.
 
 
 \section{Comparisons between Different Reduction Strategies }
-
 
 
 \section{$\lambda$-calculus with Explicit Substitution and Garbage Collection}
@@ -617,10 +606,11 @@ The last free and bound variable set definition of substitution is new. All the 
 \end{equation}
 \item \textbf{Explicit Substitution}, $\xrightarrow[x]{}$ is
 \begin{align*} 
-\tag{xv} x\langle x:=N\rangle & \rightarrow N \\
-\tag{xvgc} x\langle y:=N\rangle & \rightarrow x \ \ \ \ if\ x\ \not\equiv y \\
-\tag{xab} (\lambda x.M)\langle y:=N\rangle & \rightarrow \lambda x.M\langle y:=N\rangle \\
-\tag{xap} (M_1M_2)\langle y:=N\rangle & \rightarrow M_2\langle y:=N\rangle M_2\langle y:=N\rangle
+\tag{xv} x\langle x:=N\rangle & \rightarrow N &\\
+\tag{xvgc} x\langle y:=N\rangle & \rightarrow x  &if\ x\ \neq y \\
+\tag{xaba} (\lambda x.M)\langle y:=N\rangle & \rightarrow \lambda z.M[x:=z] \langle y:=N\rangle\ \ \ \ \ \ &if\ x \in FV(N)\ \& \ x\neq y, z\ new\\
+\tag{xab} (\lambda x.M)\langle y:=N\rangle & \rightarrow \lambda x.M\langle y:=N\rangle\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ &if\ x\not\in FV(N)\ \& \ x\neq y \\
+\tag{xap} (M_1M_2)\langle y:=N\rangle & \rightarrow M_2\langle y:=N\rangle M_2\langle y:=N\rangle&\\
 \end{align*}
 \item \textbf{Garbage Collection}, $\overrightarrow{gc}$, is
 \begin{equation}
@@ -660,14 +650,15 @@ Recall that, the normal order reduction reduces the leftmost outermost redex fir
 
 Recall that, the applicative order reduction reduces the leftmost innermost redex first. The redex \verb|(\y.x)x| is the leftmost and innermost redex at beginning. Therefore, the \textit{substitution generation} is performed inside the function. Since there is no free occurrence of $y$ in $x$, the substitution \verb|<y:=x>| is the garbage. At step (3), another \textit{substitution generation} is performed and finally we get the term \verb|\z.q|. 
 
-\subsection{Type assignment in explicit substitution calculi}
-
 
 \section{Normal $\beta$-reduction vs Explicit Substitution ans garbage collection}
 
-\subsection{$\beta$-reduction vs Explicit Substitution}
+As might be expected, it takes more reduction steps to reduce a $\lambda$-term to normal form using $\xrightarrow[bxgc]{}$ than it takes using $\xrightarrow[\beta]{}$. In this section, it compares the difference between the number of reduction steps needed by normal $\beta$-reduction and the explicit substitution and garbage collection. In addition, it is separated into two parts: $\beta$-reduction versus explicit substitution(to see the number of steps increased), and explicit substitution versus $\xrightarrow[bxgc]{}$(to demonstrate the efficiency improved by gargage collection).
 
-As might be expected, it takes more reduction steps to reduce a $\lambda$-term to normal form using $\xrightarrow[bxgc]{}$ than it takes using $\xrightarrow[\beta]{}$. To illustrate the differences, we use normal order reduction and list the number of steps required to normalize the term by both normal reduction and explicit substitution. There is also a line chart to demonstrate the gap between those two methods. We firstly use some simple terms that cost several steps and then we use the term in form $\lambda v.(\lambda x.I(Ix))(Iv)$; we gradually enlarge the term $I$, and the reduction steps needed grows.
+
+\subsection{$\xrightarrow[\beta ]{}$ vs $\xrightarrow[bx]{}$}
+
+To illustrate the differences, we use normal order reduction and list the number of steps required to normalize the term by normal reduction and explicit substitution. There is also a line chart to demonstrate the gap between these two methods. We firstly use some simple terms that cost several steps and then we use the term in the form $\lambda v.(\lambda x.I(Ix))(Iv)$; we gradually enlarge the term $I$, then the reduction steps needed grows.
 
 \begin{table}[ht]
 \centering
@@ -676,36 +667,67 @@ $\lambda$-term & Normal Reduction & Explicit Substitution\\ \hline
 $(\lambda x.x)y$ & 1 & 2\\ \hline
 $(\lambda abc.ac(bc))(\lambda xy.x)$ & 3 & 12\\ \hline
 $I = \lambda y.y$ & 4 & 14\\ \hline
-$(\lambda fx.f(fx))(\lambda fx.f(fx))$ & 6 & 81\\ \hline
+$(\lambda fx.f(fx))(\lambda fx.f(fx))$ & 6 & 45\\ \hline
 $I = (\lambda yw.w)z$ & 7 & 27\\ \hline
-$I = (\lambda ywv.wv)z$ & 9 & 71\\ \hline
-$I = (\lambda ywvs.wvs)z$ & 11 & 127\\ \hline
-$I = (\lambda ywvsd.wvsd)z$ & 13 & 200\\ \hline
+$I = (\lambda ywv.wv)z$ & 9 & 67\\ \hline
+$I = (\lambda ywvs.wvs)z$ & 11 & 123\\ \hline
+$I = (\lambda ywvsd.wvsd)z$ & 13 & 195\\ \hline
 \end{tabular}
 \caption{Reduction steps needed for normal reduction and explicit substitution}
 \label{tb:diff}
 \end{table}
 
-In Table \ref{tb:diff}, we have listed 7 terms from simple to complex. The simple application $(\lambda x.x)y$ only takes one reduction step that substitutes the free occurrence of $x$ in $x[y/x]$ by $y$. The explicit substitution takes two steps for substitution generation and substitution. The second term $(\lambda abc.ac(bc))(\lambda xy.x)$ needs more steps for explicit substitution since it has to push the substitution into abstraction and further into application until it reaches a variable. The sample run of this term with explicit substitution can also be found in Figure \ref{fig:explicit}. When we reduce the term $(\lambda fx.f(fx))(\lambda fx.f(fx))$ with explicit substitution, it need 81 steps whereas all the $\beta$-reduction paths of it only consists 6 steps. Finally, we use a series of terms in the form $\lambda v.(\lambda x.I(Ix))(Iv)$. We gradually enlarge the term $I$ to increase the number of $\beta$-reduction steps and to evaluate the gap between two calculus. As it illustrated in the table, the number of steps needed for explicit substitution grows larger than the square of normal $\beta$-reduction when $I = (\lambda ywvs.wvs)z$. When $I = (\lambda ywvsd.wvsd)z$, the number of steps by explicit substitution is 200 which is much larger than the square of the number of $\beta$-reductions 13.
+In Table \ref{tb:diff}, it lists 8 terms from simple to complex. The simple application $(\lambda x.x)y$ only takes one reduction step that substitutes the free occurrence of $x$ in $x[y/x]$ by $y$. The explicit substitution takes two steps: substitution generation and substitution. The second term $(\lambda abc.ac(bc))(\lambda xy.x)$ needs more steps for explicit substitution since it has to push the substitution into abstraction and further into application until it reaches a variable. The sample run of this term with explicit substitution can also be found in Figure \ref{fig:explicit}. When the term $(\lambda fx.f(fx))(\lambda fx.f(fx))$ is normalized with explicit substitution, it needs 45 steps whereas all the $\beta$-reduction paths of it only consists 6 steps. Finally, a series of terms in the form $\lambda v.(\lambda x.I(Ix))(Iv)$ are used. We gradually enlarge the term $I$ to increase the number of $\beta$-reduction steps and to evaluate the gap between two calculus. As it illustrated in the table, the number of steps needed for explicit substitution grows larger than the square of normal $\beta$-reduction when $I = (\lambda ywvs.wvs)z$. When $I = (\lambda ywvsd.wvsd)z$, the number of steps by explicit substitution is 195 which is much larger than the square of the number of $\beta$-reductions 13.
 
-We can see that, the number of steps needed by explicit substitution mainly depends on the number of $\beta$-reduction required and the structure of abstraction's body. It needs more steps to push a substitution into an application if the structure is complex. For example, the $\lambda$xgc-term $(xyz)\langle x:=z\rangle$ needs 2 steps to push the substitution into the application $xyz$:  $(xy)\langle x:=z\rangle z\langle x:=z\rangle$ and then $x\langle x:=z\rangle y\langle x:=z\rangle z\langle x:=z\rangle$. If an application is only consisted of $n$ variables, then it need $n-1$ steps to push a substitution into it, and it also takes $n$ steps to reduce each $\lambda$xgc-term in form $x\langle x:=y\rangle$. It needs more steps if the application also contains complex abstractions. 
+We can see that, the number of steps needed by explicit substitution mainly depends on the number of $\beta$-reduction required and the structure of abstraction's body. It needs more steps to push a substitution into an application if the structure is complex. For example, the $\lambda$xgc-term $(xyz)\langle x:=z\rangle$ needs 2 steps to push the substitution into the application $xyz$:  $(xy)\langle x:=z\rangle z\langle x:=z\rangle$ and then $x\langle x:=z\rangle y\langle x:=z\rangle z\langle x:=z\rangle$. If an application only contains $n$ variables, then it needs $n-1$ steps to push a substitution into it, and it also takes $n$ steps to reduce each $\lambda$xgc-term in form $x\langle x:=y\rangle$. It needs more steps if the application also contains abstractions with complex body. 
 
 
 \begin{figure}[ht]
-\includegraphics[width=\textwidth]{pics/zhang}
-\caption{Reduction steps needed for normal reduction and explicit substitution}
-\label{fig:termraw}
+\includegraphics[width=\textwidth]{pics/zhang_01}
+\caption{Reduction steps needed for normal $\beta$-reduction and explicit substitution}
+\label{fig:betax}
 \end{figure}
 
-The figure above illustrates the difference of the number of steps needed between normal $\beta$-reduction and xgc. As the term $I$ grows larger, the number of steps in normal $\beta$-reduction grows linearly, while xgc grows approximately exponentially. We can see that the steps needed for term $(\lambda fx.f(fx))(\lambda fx.f(fx))$ is more than the steps when $I = (\lambda ywv.wv)z$. The number of steps mainly depends on the free occurrences of bound variables in an abstraction. For the term $(\lambda fx.f(fx))$, the free occurrence of $f$ and $x$ in $f(fx)$ make repeated substitution and increase the number of reduction steps.  
+The figure above illustrates the difference in the number of steps needed between normal $\beta$-reduction and $\xrightarrow[bx]{}$. As the term $I$ grows larger, the number of steps in normal $\beta$-reduction grows linearly, while xgc grows approximately exponentially. We can see that the $\beta$-reduction steps needed for term $(\lambda fx.f(fx))(\lambda fx.f(fx))$ is less than the steps needed when $I = (\lambda yw.w)z$, however, the number of explicit substitution steps is larger. The number of reduction steps mainly depends on the free occurrences of bound variables in an abstraction. For the term $(\lambda fx.f(fx))$, the free occurrence of $f$ and $x$ in $f(fx)$ lead to repeated substitution and increase the number of reduction steps.  
 
 
-\subsection{$\beta$-reduction vs Explicit Substitution and garbage collection}
+\subsection{$\xrightarrow[\beta ]{}$ vs $\xrightarrow[bx]{}$ vs $\xrightarrow[bxgc]{}$}
+
+The explicit garbage collection simplifies several proofs. For the $\lambda$xgc-term $(xy)\langle z:=M\rangle$, since there is no free occurence of $z$ in the term $xy$, so the substitution $\langle z:=M\rangle$ can be removed. Then it no longer needs to be pushed into the application $xy$ which costs more explicit substitution steps. The following table and chart would show the number of steps decreased, or in other words, the efficiency improved by garbage collection.  
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|}\hline
+$\lambda$-term & Normal Reduction & Explicit Substitution & bxgc\\ \hline
+$(\lambda x.x)y$ & 1 & 2 & 2\\ \hline
+$(\lambda abc.ac(bc))(\lambda xy.x)$ & 3 & 12 & 12\\ \hline
+$I = \lambda y.y$ & 4 & 14 & 12\\ \hline
+$(\lambda fx.f(fx))(\lambda fx.f(fx))$ & 6 & 45 & 45\\ \hline
+$I = (\lambda yw.w)z$ & 7 & 27 & 18\\ \hline
+$I = (\lambda ywv.wv)z$ & 9 & 67 & 35\\ \hline
+$I = (\lambda ywvs.wvs)z$ & 11 & 123 & 58\\ \hline
+$I = (\lambda ywvsd.wvsd)z$ & 13 & 195 & 87\\ \hline
+\end{tabular}
+\caption{Reduction steps needed for normal reduction, explicit substitution, and bxgc}
+\label{tb:diffff}
+\end{table}
+
+Compared with Table \ref{tb:diff}, Table \ref{tb:diffff} lists additional the number of steps needed by explicit substitution and garbage collection. As we can see, there is no garbage collection performed for the term $(\lambda x.x)y$ and $(\lambda abc.ac(bc))(\lambda xy.x)$. When $I = \lambda y.y$, the garbage collection takes place at the 2nd and 6th reduction step when the term is \verb|\v.((\y.y)<x:=(\y.y)v>)(((\y.y)x)<x:=(\y.y)v>)| and \verb|\v.((\y.y)<x:=(\y.y)v>)(x<x:=(\y.y)v>)|. There is no free occurrence of $x$ in \verb|\y.y| in both cases. So the substitution is the garbage and is removed. Therefore, the substitution would no be pushed into the abstraction and it reduces 2 reduction steps.
+
+For the term $(\lambda fx.f(fx))(\lambda fx.f(fx))$, there is no garbage collection performed because of the repeated free occurence of $f$ and $x$. When the term $I$ is gradually enlarged, the number of steps reduced by garbage collection becomes larger. It decreases more than a half when $I = (\lambda ywv.wv)z$. The more the number of reduction steps needed by explicit substitution, the more steps reduced by garbage collection. We can see the difference below:
+  
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{pics/zhang_02}
+\caption{Reduction steps needed for normal reduction, bx, and bxgc}
+\label{fig:betaxgc}
+\end{figure}
 
 
+The figure above illustrates the difference in the number of steps needed among normal $\beta$-reduction, $\xrightarrow[bx]{}$, and $\xrightarrow[bxgc]{}$. There is not too much difference between $\xrightarrow[bx]{}$ and $\xrightarrow[bxgc]{}$ for the first 4 terms. The garbage collection has a significant impact as the term $I$ grows larger. As we can see from the graph, the difference between $\xrightarrow[bx]{}$ and $\xrightarrow[bxgc]{}$ becomes larger from $I = (\lambda yw.w)z$ to $I = (\lambda ywvsd.wvsd)z$.
 
+Although the garbage collection can remove any useless substitutions from $\lambda$xgc-terms and avoid redundant explicit substitution steps. It takes much more reduction steps than normal $\beta$-reduction. The number of steps needed by explicit substitution and garbage collection is approximately $nlogn$(only rough estimated).
 
-
+It is worth mentioning that the reduction path of a term by different reduction strategies also affects the number of reduction steps needed for $\xrightarrow[bx]{}$ and $\xrightarrow[bxgc]{}$. The shortest $\xrightarrow[bxgc]{}$ path of the term $I = \lambda y.y$ is 8, using applicative order reduction. It costs 12 steps for the normal order reduction whereas all the $\beta$-reduction paths of it consist of 4 steps.  
 
 
 
