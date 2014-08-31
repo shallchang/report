@@ -6,11 +6,11 @@ An exmaple of a type system is the Java language. A Java program consists of cla
 
 The lambda calculus as treated in Chapter 1 is referred to as a \textit{type-free} theory. Because every expression may be applied to every other expression. For example, the $\lambda x.x$ may be applied to any argument $x$ and generates the same $x$. 
 
-The typed version of lambda calculus(or called Combinatory Logic, a variant of the lambda calculus) is introduced essentially in Curry\cite{curry1934functionality} and in Church(1940). Types are objects of a syntactic nature and may be assigned to lambda terms. If M is a lambda term and a type A is assigned to M, then we say \textit{`M has type A'}; the notation used is $`M:A'$. For example, in a typed system one has $\lambda x.x : (A \rightarrow A)$, which means the function $\lambda x.x$ should take an argument in type $A$ and return a value of type $A$. In general, $A \rightarrow B$ is the type of functions from $A$ to $B$.
+The typed version of lambda calculus(or called Combinatory Logic, a variant of the lambda calculus) is introduced essentially in Curry\cite{curry1934functionality} and in Church\cite{church1940formulation}. Types are objects of a syntactic nature and may be assigned to lambda terms. If M is a lambda term and a type A is assigned to M, then we say \textit{`M has type A'}; the notation used is $`M:A'$. For example, in a typed system one has $\lambda x.x : (A \rightarrow A)$, which means the function $\lambda x.x$ should take an argument in type $A$ and return a value of type $A$. In general, $A \rightarrow B$ is the type of functions from $A$ to $B$.
 
 \section{The System $\lambda \rightarrow $-Curry}
 
-In Curry and Feys(1958) and Curry et al. the type assignment theory was modified in a natural way to the lambda calculus assigning elements of a given set $\mathbb{T}$ of types to type free lambda terms. For this reason these calculi are sometimes called systems of type assignment. If the type $\sigma \in \mathbb{T}$ is assigned to the term $M \in \Lambda$ which writes as $\vdash M : \sigma$, sometime with a under subcript such as $\vdash _\lambda$ to denote the particular system. Usually a set of assumptions $\Gamma$ is needed to derive a type assignment write as $\Gamma \vdash M : \sigma$(read as `$\Gamma$ yields $M$ in $\sigma$').
+In Curry and Feys\cite{curry1972combinatory} and Curry et al\cite{curry1972combinatory2}, the type assignment theory was modified in a natural way to the lambda calculus assigning elements of a given set $\mathbb{T}$ of types to type free lambda terms. For this reason these calculi are sometimes called systems of type assignment. If the type $\sigma \in \mathbb{T}$ is assigned to the term $M \in \Lambda$ which writes as $\vdash M : \sigma$, sometime with a under subcript such as $\vdash _\lambda$ to denote the particular system. Usually a set of assumptions $\Gamma$ is needed to derive a type assignment write as $\Gamma \vdash M : \sigma$(read as `$\Gamma$ yields $M$ in $\sigma$').
 
 \begin{def1}
 \normalfont (i) The set of $types$, notation $\mathbb{T}$, 
@@ -27,9 +27,10 @@ stands for
 (\sigma _1 \rightarrow (\sigma _2 \rightarrow ... \rightarrow (\sigma _{n-1} \rightarrow \sigma _n)))
 \end{equation*}
 
-we use association to the right.
+we use association to the right, and the rightmost and outermost parentheses are normally omitted. 
 
 (ii) $\alpha,\beta,\gamma,...$ denote arbitrary type variables.
+
 
 
 \begin{def1}
@@ -37,20 +38,19 @@ we use association to the right.
 \end{def1}
 (ii) A $context$ $\Gamma$ is a set of statements with only distinct (term) variables as subjects; In \cite{svb2001type}, the notion $\Gamma,M:\sigma$ is used for the context $\Gamma \cup \{M:\sigma\}$ where either $M:\sigma \in \Gamma$ or $M$ does not occur in $\Gamma$, and we use $M:\sigma$ as shorthand for $\emptyset,M:\sigma$.
 
+The notion of \textit{context} will be used to collect all statements used for the free variables of a term when typing that term\cite{svb2001type}. 
+
 
 \begin{def1}
-\normalfont (CF. [\cite{curry1934functionality}, \cite{curry1972combinatory}]) Curry type assignment and $derivations$ can be defined using following derivation rules.  
+\normalfont (CF. [\cite{curry1934functionality}, \cite{curry1972combinatory}]) \textit{Curry type assignment} and $derivations$ can be defined using following derivation rules.  
 \end{def1}
+\begin{align*}
+&(1):\frac{}{\Gamma ,M:\sigma \vdash _cM:\sigma} \\
+&(2):\frac{\Gamma ,x:\sigma \vdash _cM:\beta}{\Gamma \vdash _c(\lambda x.M):\sigma \rightarrow \beta} \\
+&(3):\frac{\Gamma \vdash _cM_1:\sigma \rightarrow \beta\ \ \ \ \ \Gamma \vdash _cM_2:\sigma}{\Gamma \vdash _c(M_1M_2):\beta} 
+\end{align*}
 
-\begin{equation*}
-(1):\frac{}{\Gamma ,M:\sigma \vdash _cM:\sigma} 
-\end{equation*}
-\begin{equation*}
-(2):\frac{\Gamma ,x:\sigma \vdash _cM:\beta}{\Gamma \vdash _c(\lambda x.M):\sigma \rightarrow \beta} 
-\end{equation*}
-\begin{equation*}
-(3):\frac{\Gamma \vdash _cM_1:\sigma \rightarrow \beta\ \ \ \ \ \Gamma \vdash _cM_2:\sigma}{\Gamma \vdash _c(M_1M_2):\beta} 
-\end{equation*}
+It is built up from assumptions $x:\sigma$, and it forms a natural deduction system. Following is an example that shows how a statement can be derived by assumptions using deduction rules defined above:
 
 \begin{exmp}\label{exp}
 \normalfont (i)Let $\sigma \in \mathbb{T}$. Then $\Gamma \vdash \lambda fx.f(fx):(\sigma \rightarrow \sigma)\rightarrow \sigma \rightarrow \sigma$, is shown by the following derivation:
@@ -87,10 +87,47 @@ $$
 As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$ and $A$, and either of them can be substituted by the other one. So, $A \rightarrow B \neq A$, and there are two statements of subject $x$ in context $\Gamma$ with distinct predicates. Those two statements would be conflict according to the definition of context. Therefore, the `self-application' is untypable. 
 
 
-
-\section{Subject Reduction}
-
 \section{Properties of $\lambda \rightarrow $}
+
+\begin{lemma}
+\normalfont GENERATION LEMMA
+\end{lemma}
+\begin{align*}
+  &(i)\ \Gamma \vdash x:\sigma \Rightarrow (x:\sigma)\in \Gamma \\
+  &(ii)\ \Gamma \vdash MN:\gamma \Rightarrow \exists \sigma[\Gamma \vdash M:(\sigma \rightarrow \gamma)\ \& \ \Gamma \vdash N:\sigma]\\
+  &(iii)\ \Gamma \vdash \lambda x.M:\rho \Rightarrow \exists \sigma ,\gamma[\Gamma ,x:\sigma \vdash M:\gamma\ \& \ \rho \equiv (\sigma \rightarrow \gamma)] 
+\end{align*}
+
+
+\begin{lemma}
+\normalfont SUBSTITUTION LEMMA
+\end{lemma}
+\begin{align*}
+   \exists \sigma[\Gamma,x:\sigma \vdash M:\gamma \ \& \ \Gamma \vdash N:\sigma]\Rightarrow M[x:=N]:\gamma
+\end{align*}
+
+
+\begin{theorem}
+\normalfont \textsc{SUBJECT REDUCTION THEOREM}
+\end{theorem}
+
+\textit{Suppose M $\twoheadrightarrow$ M'. Then} 
+\begin{align*}
+   \Gamma \vdash M:\sigma \Rightarrow \Gamma \vdash M':\sigma
+\end{align*}
+
+\noindent PROOF.
+
+\begin{align*}
+   &\Gamma \vdash (\lambda x.M)N:\sigma & \Rightarrow (Generation lemma)\\
+   &\Gamma \vdash (\lambda x.M):\gamma \rightarrow \sigma \& \Gamma \vdash N:\gamma &  \Rightarrow (Generation Lemma)\\
+   &\Gamma ,x:\gamma \vdash M:\sigma \& \Gamma \vdash N:\gamma & \Rightarrow (Substitution Lemma)\\
+   &\Gamma \vdash M[x:=N]:\sigma
+\end{align*} 
+
+
+
+\section{The principal type property}
 
 \begin{def1}{\label{def:tsub}}
 \normalfont (Type substitution(van Bakel\cite{svb2001type})) The substitution $(\varphi \mapsto C): $, where $\varphi$ is a type variable and $C \in \mathbb{T}$ is defined as following:

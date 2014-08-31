@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{barendregt1984lambda}
 Hendrik~Pieter Barendregt.
@@ -12,11 +12,21 @@ Roel Bloo and Kristoffer~H Rose.
 \newblock In {\em In CSN-95: Computer Science in the Netherlands}. Citeseer,
   1995.
 
+\bibitem{church1940formulation}
+Alonzo Church.
+\newblock A formulation of the simple theory of types.
+\newblock {\em The journal of symbolic logic}, 5(02):56--68, 1940.
+
 \bibitem{curry1934functionality}
 Haskell~B Curry.
 \newblock Functionality in combinatory logic.
 \newblock {\em Proceedings of the National Academy of Sciences of the United
   States of America}, 20(11):584, 1934.
+
+\bibitem{curry1972combinatory2}
+Haskell~B Curry, J~Roger Hindley, and Jonathan~P Seldin.
+\newblock {\em Combinatory Logic: Vol.: 2}.
+\newblock North-Holland Publishing Company, 1972.
 
 \bibitem{curry1972combinatory}
 Haskell~Brooks Curry, Robert Feys, William Craig, J~Roger Hindley, and
@@ -28,6 +38,16 @@ Haskell~Brooks Curry, Robert Feys, William Craig, J~Roger Hindley, and
 Chris Hankin.
 \newblock Lambda calculi: a guide for computer scientists.
 \newblock 1994.
+
+\bibitem{miran2011}
+Miran Lipovaca.
+\newblock {\em Learn you a Haskell for great good!}
+\newblock No Starch Press, 2011.
+
+\bibitem{paulson1996ml}
+Lawrence~C Paulson.
+\newblock {\em ML for the Working Programmer}.
+\newblock Cambridge University Press, 1996.
 
 \bibitem{sestoft1996}
 Peter Sestoft.

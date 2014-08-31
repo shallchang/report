@@ -3,57 +3,59 @@
 \contentsline {chapter}{\hbox to\@tempdima {\hfil }Introduction}{v}
 \contentsline {chapter}{\numberline {1}Lambda Calculus}{1}
 \contentsline {section}{\numberline {1.1}$\lambda $-terms}{1}
-\contentsline {section}{\numberline {1.2}$\beta $-reduction}{3}
-\contentsline {section}{\numberline {1.3}Head Normal Form}{4}
-\contentsline {section}{\numberline {1.4}Reduction strategies}{4}
-\contentsline {subsection}{\numberline {1.4.1}Normal Order Reduction}{5}
-\contentsline {subsection}{\numberline {1.4.2}Call-by-Name Reduction}{6}
-\contentsline {subsection}{\numberline {1.4.3}Call-by-Value Reduction}{7}
-\contentsline {subsection}{\numberline {1.4.4}Head Reduction}{8}
-\contentsline {subsection}{\numberline {1.4.5}Applicative Order Reduction}{9}
-\contentsline {section}{\numberline {1.5}Comparisons between Different Reduction Strategies }{10}
-\contentsline {section}{\numberline {1.6}$\lambda $-calculus with Explicit Substitution and Garbage Collection}{10}
-\contentsline {subsection}{\numberline {1.6.1}The explicit substitution calculi}{10}
-\contentsline {section}{\numberline {1.7}Normal $\beta $-reduction vs Explicit Substitution ans garbage collection}{12}
-\contentsline {subsection}{\numberline {1.7.1}$\xrightarrow [\beta ]{}$ vs $\xrightarrow [bx]{}$}{12}
-\contentsline {subsection}{\numberline {1.7.2}$\xrightarrow [\beta ]{}$ vs $\xrightarrow [bx]{}$ vs $\xrightarrow [bxgc]{}$}{13}
+\contentsline {section}{\numberline {1.2}Substitution}{2}
+\contentsline {section}{\numberline {1.3}$\beta $-reduction}{3}
+\contentsline {section}{\numberline {1.4}Head Normal Form}{4}
+\contentsline {section}{\numberline {1.5}Reduction strategies}{4}
+\contentsline {subsection}{\numberline {1.5.1}Normal Order Reduction}{5}
+\contentsline {subsection}{\numberline {1.5.2}Call-by-Name Reduction}{6}
+\contentsline {subsection}{\numberline {1.5.3}Call-by-Value Reduction}{7}
+\contentsline {subsection}{\numberline {1.5.4}Head Reduction}{8}
+\contentsline {subsection}{\numberline {1.5.5}Applicative Order Reduction}{9}
+\contentsline {section}{\numberline {1.6}Comparisons between Different Reduction Strategies }{10}
+\contentsline {section}{\numberline {1.7}$\lambda $-calculus with Explicit Substitution and Garbage Collection}{10}
+\contentsline {subsection}{\numberline {1.7.1}The explicit substitution calculi}{11}
+\contentsline {subsection}{\numberline {1.7.2}Reduction in $\lambda $xgc-calculus}{12}
+\contentsline {section}{\numberline {1.8}Normal $\beta $-reduction vs Explicit Substitution and garbage collection}{12}
+\contentsline {subsection}{\numberline {1.8.1}$\xrightarrow [\beta ]{}$ vs $\xrightarrow [bx]{}$}{13}
+\contentsline {subsection}{\numberline {1.8.2}$\xrightarrow [\beta ]{}$ vs $\xrightarrow [bx]{}$ vs $\xrightarrow [bxgc]{}$}{14}
 \contentsline {chapter}{\numberline {2}The Curry type assignment system}{16}
 \contentsline {section}{\numberline {2.1}The System $\lambda \rightarrow $-Curry}{16}
-\contentsline {section}{\numberline {2.2}Subject Reduction}{18}
-\contentsline {section}{\numberline {2.3}Properties of $\lambda \rightarrow $}{18}
-\contentsline {chapter}{\numberline {3}A Purely-Functional Programming Language --- Haskell}{19}
-\contentsline {section}{\numberline {3.1}Functional Programming}{19}
-\contentsline {section}{\numberline {3.2}Haskell}{19}
-\contentsline {subsection}{\numberline {3.2.1}Pattern Matching}{20}
-\contentsline {subsection}{\numberline {3.2.2}Guards}{20}
-\contentsline {subsection}{\numberline {3.2.3}Local Definition}{20}
-\contentsline {subsection}{\numberline {3.2.4}Self-defined Types}{21}
-\contentsline {section}{\numberline {3.3}Model the $\lambda $-calculus and the Curry Type Assignment System in Haskell}{21}
-\contentsline {subsection}{\numberline {3.3.1}Data Types}{21}
-\contentsline {subsection}{\numberline {3.3.2}Interpretation}{22}
-\contentsline {subsection}{\numberline {3.3.3}Main mechanism}{22}
-\contentsline {section}{\numberline {3.4}Issues and Weakness of Implementation in Haskell }{22}
-\contentsline {chapter}{\numberline {4}The $\lambda $-calculus and Curry Type Assignment System Implementation in Java}{23}
-\contentsline {section}{\numberline {4.1}Different operational order between Haskell and Java}{23}
-\contentsline {section}{\numberline {4.2}$\lambda $-calculus Representation}{24}
-\contentsline {subsection}{\numberline {4.2.1}$\lambda $-terms}{24}
-\contentsline {subsection}{\numberline {4.2.2}Interpreter}{25}
-\contentsline {section}{\numberline {4.3}Curry Type Assignment System Representation}{26}
-\contentsline {subsection}{\numberline {4.3.1}Types}{26}
-\contentsline {subsection}{\numberline {4.3.2}Type substitution}{27}
-\contentsline {subsection}{\numberline {4.3.3}Other data types}{27}
-\contentsline {subsection}{\numberline {4.3.4}Core type assignment mechanism implementation}{28}
-\contentsline {section}{\numberline {4.4}Explicit substitution and garbage collection}{29}
-\contentsline {section}{\numberline {4.5}Syntax}{29}
-\contentsline {chapter}{\numberline {5}GUI development}{30}
-\contentsline {section}{\numberline {5.1}Layout}{30}
-\contentsline {section}{\numberline {5.2}Functionalities}{31}
-\contentsline {subsection}{\numberline {5.2.1}`Normalize' tracer}{31}
-\contentsline {subsection}{\numberline {5.2.2}`Trace' tracer}{32}
-\contentsline {subsection}{\numberline {5.2.3}`Single-step' tracer}{32}
-\contentsline {subsection}{\numberline {5.2.4}Deal with non-terminating terms by trace}{33}
-\contentsline {subsection}{\numberline {5.2.5}Explicit Substitution}{34}
-\contentsline {chapter}{\numberline {6}Java vs Haskell, Pros and Cons}{35}
-\contentsline {section}{\numberline {6.1}Pros}{35}
-\contentsline {section}{\numberline {6.2}Cons}{35}
-\contentsline {chapter}{\numberline {7}Conclusion}{36}
+\contentsline {section}{\numberline {2.2}Properties of $\lambda \rightarrow $}{18}
+\contentsline {section}{\numberline {2.3}The principal type property}{18}
+\contentsline {chapter}{\numberline {3}A Purely-Functional Programming Language --- Haskell}{20}
+\contentsline {section}{\numberline {3.1}Functional Programming}{20}
+\contentsline {section}{\numberline {3.2}Haskell}{20}
+\contentsline {subsection}{\numberline {3.2.1}Pattern Matching}{21}
+\contentsline {subsection}{\numberline {3.2.2}Guards}{21}
+\contentsline {subsection}{\numberline {3.2.3}Local Definition}{21}
+\contentsline {subsection}{\numberline {3.2.4}Self-defined Types}{22}
+\contentsline {section}{\numberline {3.3}Model the $\lambda $-calculus and the Curry Type Assignment System in Haskell}{22}
+\contentsline {subsection}{\numberline {3.3.1}Data Types}{22}
+\contentsline {subsection}{\numberline {3.3.2}Parser}{23}
+\contentsline {subsection}{\numberline {3.3.3}Main mechanism}{24}
+\contentsline {section}{\numberline {3.4}Issues and Weakness of Implementation in Haskell }{24}
+\contentsline {chapter}{\numberline {4}The $\lambda $-calculus and Curry Type Assignment System Implementation in Java}{25}
+\contentsline {section}{\numberline {4.1}Different operational order between Haskell and Java}{25}
+\contentsline {section}{\numberline {4.2}$\lambda $-calculus Representation}{26}
+\contentsline {subsection}{\numberline {4.2.1}$\lambda $-terms}{26}
+\contentsline {subsection}{\numberline {4.2.2}Interpreter}{27}
+\contentsline {section}{\numberline {4.3}Curry Type Assignment System Representation}{28}
+\contentsline {subsection}{\numberline {4.3.1}Types}{28}
+\contentsline {subsection}{\numberline {4.3.2}Type substitution}{29}
+\contentsline {subsection}{\numberline {4.3.3}Other data types}{29}
+\contentsline {subsection}{\numberline {4.3.4}Core type assignment mechanism implementation}{30}
+\contentsline {section}{\numberline {4.4}Explicit substitution and garbage collection}{31}
+\contentsline {section}{\numberline {4.5}Syntax}{31}
+\contentsline {chapter}{\numberline {5}GUI development}{32}
+\contentsline {section}{\numberline {5.1}Layout}{32}
+\contentsline {section}{\numberline {5.2}Functionalities}{33}
+\contentsline {subsection}{\numberline {5.2.1}`Normalize' tracer}{33}
+\contentsline {subsection}{\numberline {5.2.2}`Trace' tracer}{34}
+\contentsline {subsection}{\numberline {5.2.3}`Single-step' tracer}{34}
+\contentsline {subsection}{\numberline {5.2.4}Deal with non-terminating terms by trace}{35}
+\contentsline {subsection}{\numberline {5.2.5}Explicit Substitution}{36}
+\contentsline {chapter}{\numberline {6}Java vs Haskell, Pros and Cons}{37}
+\contentsline {section}{\numberline {6.1}Pros}{37}
+\contentsline {section}{\numberline {6.2}Cons}{37}
+\contentsline {chapter}{\numberline {7}Conclusion}{38}

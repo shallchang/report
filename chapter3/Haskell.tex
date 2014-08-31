@@ -4,7 +4,7 @@ This chapter will introduce functional programming and a purely-functional progr
 \section{Functional Programming}
 Functional programming uses functions, other than objects or procedures, as the fundamental building blocks of a program. It is a programming paradigm that treats computation as the evaluation of expressions and avoids mutable data and state, in contrast with imperative programming where programs are composed of statements which change global state when executed. Functional programming has its roots in lambda calculus. Lambda calculus provides a theoretical framework for describing functions and their evaluation. Although it is a mathematical abstraction rather than a programming language, it forms the basis of almost all functional programming languages. There are several functional programming languages such as Miranda, Haskell, and OCaml that is defined based on lambda calculus. 
 \section{Haskell}
-Haskell is an advanced purely-functional programming language, which has non-strict semantcis and strong static typing. In imperative languages(C, C++, Java...), a sequence of tasks are generated and executed in a program. When they are executed, it can change state. It has a control flow structures for doing some action several times. In purely functional programming, we do not need to tell the computer what to do but rather to tell it what each function is. It also cannot set a variables to something and then set it to something else later. In purely functional languages, a function has no side-effects. The only task for a function is to take the arguments, perform operations, and return the result.  
+Haskell is an advanced purely-functional programming language, which has non-strict semantics and strong static typing. In imperative languages(C, C++, Java...), a sequence of tasks are generated and executed in a program. When they are executed, it can change state. It has a control flow structures for doing some action several times. In purely functional programming, we do not need to tell the computer what to do but rather to tell it what each function is. It also cannot set a variables to something and then set it to something else later. In purely functional languages, a function has no side-effects. The only task for a function is to take the arguments, perform operations, and return the result.  
 
 Haskell is lazy, which means that it will not execute functions and calculate things unless it is specifically told to do so. If you compile and run a haskell program, it does not call any functions nor perform any execution. The only thing you can do is call a specific function(it may call other functions) and pass parameters into it, then that function is executed and a result is returned.   
 
@@ -12,7 +12,7 @@ Haskell is statically typed. When we compile a haskell program, the compiler kno
 
 Haskell is elegant and concise, because it uses a lot of high level concepts. Haskell programs are usually shorter than their imperative language equivalents. In addition, shorter programs are easier to develop than longer ones and have less bugs. 
 
-In this project, Haskell is self-studied thanks to the course note of COMP120.1 of Imperial College. In this section, some main features of Haskell would be introduced by examples.
+In this project, Haskell is self-studied thanks to the course note of COMP120.1 of Imperial College. In this section, some main features of Haskell introduced in Miran\cite{miran2011}, would be introduced with examples.
 
 \subsection{Pattern Matching}
 Pattern matching consists of listing patterns to which some data should conform and then checking to see if it does conform to any of them and deconstructing the data according to those patterns. When defining functions, we can define separate function bodies for different patterns. This leads to really neat code that is simple and readable. We can pattern match on any data type. A successful match binds the formal parameters in the pattern. The matching process itself occurs ``top-down'' and ``left-right''. Failure of a pattern anywhere in one function body results in failure of the whole matching process, and the next function body is then tried to match. For instance, if [2, 3] is matched against [1, a], then 2 fails to match with 1, so the result is a failed match. Following is another example that defines a function using pattern matching:
@@ -23,11 +23,11 @@ Pattern matching consists of listing patterns to which some data should conform 
                      factorial n = n * factorial (n-1)
 \end{verbatim}
 
-The code above defines a funtion that calculate the factorial of the input. It uses pattern matching that lists all the possible patterns that can be matched. Here, only two cases, 1 or n. It firstly matches the first function body to check whether the input is 1; if not, goes to next function body and calls itself again.   
+The code above defines a function that calculate the factorial of the input. It uses pattern matching that lists all the possible patterns that can be matched. Here, only two cases, 1 or n. It firstly matches the first function body to check whether the input is 1; if not, goes to next function body and calls itself again.   
 
 \subsection{Guards}
 
-Patterns are used to specify data should form to some form and deconstruct it, whereas guards are used to check whether some properties of an argument are true or false. It is similar to an if statement, and more likely to a `swtich' block in Java. Following is an example of using guards:
+Patterns are used to specify data should form to some form and deconstruct it, whereas guards are used to check whether some properties of an argument are true or false. It is similar to an if statement, and more likely to a `switch' block in Java. Following is an example of using guards:
 \begin{verbatim}
                      max :: (Ord a) => a -> a -> a
                      max a b | a > b     = a
@@ -37,7 +37,7 @@ The function above returns the maximum value between the inputs $a$ and $b$. Not
 
 \subsection{Local Definition}
 
-The `where' block is used to simplify complex codes with newly defined variables. It avoids repeated expressions: an expression is only calculated onece and it is binded to a name than then the name can be referred to instead of the whole expression. 
+The `where' block is used to simplify complex codes with newly defined variables. It avoids repeated expressions: an expression is only calculated once and it is binded to a name than then the name can be referred to instead of the whole expression. 
 
 \begin{verbatim}
                     divA :: Float -> Char
@@ -47,7 +47,7 @@ The `where' block is used to simplify complex codes with newly defined variables
                            | otherwise  = 'D'
 \end{verbatim}
 
-The function above firstly calculte the input parameter $a$ divided by 2, and decides which sector it is in and returns a character. It repeatly defines the expression \verb|a/2| for three times. We can avoid that by using `where' statement as below: 
+The function above firstly calculate the input parameter $a$ divided by 2, and decides which sector it is in and returns a character. It repeated defines the expression \verb|a/2| for three times. We can avoid that by using `where' statement as below: 
 \begin{verbatim}
                     divA :: Float -> Char
                     divA a | b > 10  = 'A' 
@@ -76,30 +76,31 @@ Following is another example that defines a data type \textbf{Shape}
                 deriving(Show, Eq)  
 \end{verbatim}
 
-A \textbf{Shape} can either be a \textbf{Rectangle} or a \textbf{Circle} or a \textbf{Triangle}. The \textbf{Rectangle} value constructor has two fields which are floats. Fields after a value constructor are basically the parameters that type contains. Here, the two fields of \textbf{Rectangle} are length and width. Similarly, \textbf{Circle} has one field which is the radius. \textbf{Triangle} has three fields which stands for the length of its three edges. The `deriving' statement after the data type declaration enables the defined data type to be shown and to be compared to check if two shapes are the same. For exmaple, `Circle 2.4 == Circle 2.5' would return false. 
+A \textbf{Shape} can either be a \textbf{Rectangle} or a \textbf{Circle} or a \textbf{Triangle}. The \textbf{Rectangle} value constructor has two fields which are floats. Fields after a value constructor are basically the parameters that type contains. Here, the two fields of \textbf{Rectangle} are length and width. Similarly, \textbf{Circle} has one field which is the radius. \textbf{Triangle} has three fields which stands for the length of its three edges. The `deriving' statement after the data type declaration enables the defined data type to be shown and to be compared to check if two shapes are the same. For example, `Circle 2.4 == Circle 2.5' would return false. 
 
 \section{Model the $\lambda$-calculus and the Curry Type Assignment System in Haskell}
 
-Since the lambda calculus lies at the basis of functional languages like Haskell. Implement lambda calculus in Haskell is quite a straight forward way. In this project, both the untyped and typed lambda calculus are implemented. The implementatoin is mainly in three parts: data types declaration, interpretation, and main mechanism.
+Since the lambda calculus lies at the basis of functional languages like Haskell. Implement lambda calculus in Haskell is quite a straight forward work. In this project, both the typed and untyped lambda calculus are implemented. In addition, the $\lambda$xgc-calculi is also implemented based on the ordinary $\lambda$-calculus. The implementation consists three main parts: data types declaration, parser, and the main mechanism.
 
 \subsection{Data Types}
 
+The ordinary $\lambda$-calculus data types have already been introduced in Section \ref{sec:reductionstrategy}. Based on that, the $\lambda$xgc-terms are defined as following: 
 \begin{verbatim}
-              type Name = Char  
-              data Term = Var Name | Abs Name Term | App Term Term
-                          deriving (Show, Eq)
+       type Name = Char  
+       data Term = Var Name | Abs Name Term | App Term Term | XSub Term Term Term
+                   deriving (Show, Eq)
 \end{verbatim}
+There is an additional term called \textsf{XSub} which stands for the explicit substitution terms of the form $M\langle x := N\rangle$. It is worth mentioning that if a $\lambda$xgc-term does not contain any subterms of the form $M\langle x := N\rangle$, then it is `pure'. The abstraction in $\lambda$xgc-calculus is different from the ordinary $\lambda$-calculus: an abstraction in $\lambda$xgc-calculus can also in the form $\lambda x.M\langle x := N\rangle$.
 
-
-
+The data types of the Curry type assignment system are defined as following:
 \begin{verbatim}
               data Type = TP Type Type | TVar [Char]
                           deriving (Show, Eq)
             
-              type Predicate = Type
+              type Predicate = Type             --redundant  
+              type Subject = Term               --redundant 
               type Context = [Statement]
               type Statement = (Subject, Predicate)
-              type Subject = Term
               type Derivation = (Context, [Statement], Statement)
               type PPc = (Context, Type)
 
@@ -107,17 +108,74 @@ Since the lambda calculus lies at the basis of functional languages like Haskell
                           deriving (Show, Eq)
 \end{verbatim}
 
-\subsection{Interpretation}
+A type can be either a single type such as $A, B,...$ or formed by several types $(A\rightarrow B)\rightarrow C$. So the data type \textsf{Type} can either be a \textsf{TP} or \textsf{TVar}. The `deriving' statement enables this data type can be printed and compared with each other. Furthermore, there are several other concepts in Curry type assignment system such as \textsf{predicate, subject, context, statement}. The \textsf{predicate} and \textsf{subject} definition is redundant since we can directly use \textsf{Type} and \textsf{Term} to represent them. The type PPc is created to represent the result generated by principle pair algorithm, which contains a context and a type assigned to the input term. A type substitution   
 
+
+
+\subsection{Parser}
+
+To allow interactions and inputs from the users, the program needs syntax rules to define how information should be written and it needs a parser to parse the input string. Following is the parser in Haskell implementation. It only allows simplified term that parentheses and repeated $\lambda$ are omitted. So the term $((\lambda x.\lambda y.y)(\lambda z.z))(\lambda w.w)$ should be input as $(\lambda xy.y)(\lambda z.z)(\lambda w.w)$.  
+
+\begin{verbatim}
+      to_term ::[Char] -> Term       --parse a string into lambda term
+      to_term (a:exp) | a == '/' = to_abs exp  -- / as lambda. 
+                                               -- Abstraction starts with /
+      to_term [a] = to_var [a]       --single character, variable   
+      to_term exp = to_app exp       --otherwise, application
+
+      to_var ::[Char] -> Term        --parse a character into variable
+      to_var [a] = Var a
+
+      to_abs ::[Char] -> Term        --parse a string into abstraction
+      to_abs ('.' :rest) = if tail rest == [] then to_var rest 
+                    --if rest is a single character, then parse it into variable
+                           else to_app rest
+                    --otherwise, it is an application
+      to_abs (a:rest) = Abs a (to_abs rest)
+        
+      to_app ::[Char] -> Term        --parse the function and argument       
+      to_app exp = App (to_term lhs)(to_term rhs) 
+                   where (lhs, rhs) = div_sub exp
+
+      div_sub :: [Char] -> ([Char], [Char])  --divide a term into 2 parts
+      div_sub expr | last expr == ')' && last lhs == ')' && head (tail expr) == '/'
+                     = (to_expr lhs, rhs)  
+                   | last expr == ')'       
+                     = (lhs, rhs)
+                   | head (tail expr) == '/' && last (init expr) == ')' 
+                     = (to_expr (init expr), [last expr])
+                   | otherwise = (init expr, [last expr])   
+                     where (lhs, rhs) = split (init expr) [] 1
+
+      to_expr :: [Char] -> [Char]   --extract the expression from a string
+      to_expr ex | last ex == ')' && lhs == [] = rhs
+                 | otherwise = ex
+                   where (lhs, rhs) = split (init ex) [] 1
+
+      split :: [Char] -> [Char] -> Integer -> ([Char], [Char])
+      {-|
+         it marks the rightmost ')' and finds the matching '(' and extract the term out
+         without brackets
+      -}
+      split left right n
+                 | n == 1 && last left == '(' = (new_left, right)
+                 | last left == '(' = split new_left new_right (n-1)
+                 | last left == ')' = split new_left new_right (n+1)
+                 | otherwise = split new_left new_right n
+                   where new_left = init left 
+                         new_right = (last left : right)
+\end{verbatim}
 
 \subsection{Main mechanism}
+The main mechanism of $\lambda$-calculus, $\lambda$xgc-calculus, and Curry type assignment only contains 300 lines of code in Haskell. The full implementation code can be found in Appendix A.   
+
 
 
 
 
 \section{Issues and Weakness of Implementation in Haskell }
 
-The functional programming languages are elegant and concise. The implementation of untyped lambda calculus and Curry type assignment system only contains several hundred lines of code in Haskell. Each function is defined by pattern matching and readable. It clearly shows what each function do according to the input pattern. Local definitions are utilized to avoid duplicate execution on expressions, it makes the program run faster. However, it has some issues; and as an application or software, it has less usability.
+The functional programming languages are elegant and concise. The implementation of untyped lambda calculus, explicit substitution, and Curry type assignment system only contains several hundred lines of code in Haskell. Each function is defined by pattern matching and readable. It clearly shows what each function do according to the input pattern. Local definitions are utilized to avoid duplicate execution on expressions, it makes the program run faster. However, it has some issues; and as an application or software, it has less usability.
 
 
 
