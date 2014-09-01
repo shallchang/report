@@ -196,19 +196,17 @@ Notice that, an expression in head normal form may contain redexes in argument p
 
 In general, there are several different $\beta$-reductions possible for a given term. In this project, there are 5 different reduction strategies studied and implemented: normal order, call-by-name, call-by-value, head reduction, and applicative order. Figure X generally summarizes and compares the property of different strategies:
  
-\begin{center}
-\begin{table}[ht!]
-\begin{tabular}{|c|c|c|c|}\hline
-Reduction Strategy & Reduction Order & Reach $\beta$-normal form & Form Reached\\ \hline
-Normal Order & leftmost outermost & Yes & normal form\\ \hline
-Call-by-name & leftmost outermost & No  & weak head normal form\\ \hline
-Call-by-value & leftmost innermost & No & weak normal form\\ \hline
-Head Reduction & inside lambda abstractions & No & head normal form\\ \hline
-Applicative Order & leftmost innermost & Yes & normal form\\ \hline
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|}
+\hline
+Reduction Strategy & Reduction Order                                                                                            & Reach $\beta$-normal form & Form Reached          \\ \hline
+Normal Order       & leftmost outermost                                                                                         & Yes                       & normal form           \\ \hline
+Call-by-Name       & \begin{tabular}[c]{@{}l@{}}leftmost outermost\\ not inside an abstraction\end{tabular}                     & No                        & weak head normal form \\ \hline
+Call-by-Value      & \begin{tabular}[c]{@{}l@{}}leftmost innermost \\ not inside an abstraction\end{tabular}                    & No                        & weak normal form      \\ \hline
+Head Reduction     & \begin{tabular}[c]{@{}l@{}}reduction inside lambda\\ abstractions but only in\\ head position\end{tabular} & No                        & head normal form      \\ \hline
+Applicative Order  & leftmost innermost                                                                                         & Yes                       & normal form           \\ \hline
 \end{tabular}
-\caption{Reduction Strategies}
 \end{table}
-\end{center}
 
 Lambda terms are modeled as Haskell constructed data, representing variable names by character:
 
