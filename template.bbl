@@ -49,6 +49,11 @@ Lawrence~C Paulson.
 \newblock {\em ML for the Working Programmer}.
 \newblock Cambridge University Press, 1996.
 
+\bibitem{rojas1997}
+Raul Rojas.
+\newblock A tutorial introduction to the lambda calculus.
+\newblock FU Berlin, WS-97/98, 1997.
+
 \bibitem{sestoft1996}
 Peter Sestoft.
 \newblock Standard ml on the web server: Visualizing lambda calculus reduction.

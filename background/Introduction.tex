@@ -1,0 +1,18 @@
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{\numberline{}Introduction}
+
+The lambda calculus can be called the smallest universal programming language of the world\cite{rojas1997}. It is an example of formal system which consists a language of $\lambda$-terms and some auxiliary notions such as free variable and subterms, and the transformation theory. It was introduced by Alonzo Church in the 1930s as a way of formalizing the concepts of effective computability. Lambda calculus is a formalism that can be used to express and evaluate any executable function. It is thus equivalent to Turing machines. Most of the functional programming languages today, like Miranda, Haskell, are based on the lambda calculus. Imperative programming languages such as Fortran, Java, C are based on the way a Turing machine is instructed: by a sequence of statements. 
+
+There are typed and untyped variants of lambda calculus. In type lambda calculus, types are usually objects of a syntactic nature that are assigned to lambda term. A type system consists a set of rules that assign a property called a \textit{type} to the various constructs --- such as variable, expression, functions or modules. There are several reasons to add types to a program, one of the most important reason to add type properties to a program is to reduce bugs. It is possible to build an abstract interpretation of programs by treating terms as objects. The abstractions can be regarded as the interface of objects, by checking whether the interfaces have been connected properly we can decide whether the program is defined in a consistent way.
+
+Because of the infinite explicit rewrite rules for $\beta$-reduction rule schema, the lambda calculus is not a comprehensive computational model in the sense that the number of $\beta$-reduction steps required to compute something does not correspond well to the number of computation steps needed by any reasonable `real' computer\cite{bloo1995preservation}. A new lambda calculus with explicit substitution, $\lambda$xgc, is introduced by Bloo and Rose\cite{bloo1995preservation} in 1995. It retains the use of ordinary variable names and includes reduction rules for explicit garbage collection. The lambda calculus with explicit substitution is a conservative extension which preserves strong normalisation of the untyped lambda calculus.
+
+Implementing untyped lambda calculus in functional programming language is simple and straightforward, since those functional programming languages are built based on the lambda calculus. However, extend the untyped lambda calculus into typed is a matter of patient specification. This project firstly implements the untyped lambda calculus in Haskell, and extends it into typed variant by Curry type assignment system. Moreover, it also provides multiple contracting(or normalizing) paths of a $\lambda$-term: normal order, call-by-name, call-by-value, head reduction, and applicative order. Furthermore, the typed lambda calculus is then extended into typed lambda calculus with explicit substitution and garbage collection. However, since Haskell is `lazy', the implementation is lack of usability as a tool. Therefore, we transfer the Haskell implementation into Java, with usable GUI.         
+
+
+
+
+
+
+
+

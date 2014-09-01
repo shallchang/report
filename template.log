@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  1 SEP 2014 15:15
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  1 SEP 2014 22:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -423,18 +423,18 @@ File: p2e-pdftex.def 2011/04/05 v0.1t Driver-dependant file (RN,HjG,JT)
 (./template.aux)
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -552,10 +552,10 @@ LaTeX Font Info:    Try loading font information for U+stmry on input line 5.
 
  [2] [3
 
-] [4
+] (./background/Introduction.tex
+[4
 
-]
-(./chapter1/lambdacalculus.tex [5
+]) (./chapter1/lambdacalculus.tex [5
 
 ]
 Chapter 1.
@@ -835,10 +835,10 @@ Chapter 7.
 
 ] (./template.aux) ) 
 Here is how much of TeX's memory you used:
- 5731 strings out of 494966
- 84179 string characters out of 3178674
- 160893 words of memory out of 3000000
- 8766 multiletter control sequences out of 15000+200000
+ 5736 strings out of 494966
+ 84269 string characters out of 3178674
+ 160897 words of memory out of 3000000
+ 8767 multiletter control sequences out of 15000+200000
  22826 words of font info for 89 fonts, out of 3000000 for 9000
  36 hyphenation exceptions out of 8191
  44i,25n,42p,1449b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -859,7 +859,7 @@ m/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 /msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
 msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/stmaryrd/stmary10.
 pfb>
-Output written on template.pdf (44 pages, 730606 bytes).
+Output written on template.pdf (44 pages, 733217 bytes).
 PDF statistics:
  239 PDF objects out of 1000 (max. 8388607)
  151 compressed objects within 2 object streams
