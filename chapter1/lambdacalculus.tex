@@ -18,13 +18,13 @@ The Lambda Calculus is an example of a formal system which consists a language o
 \item if $M$ is a lambda term, and $x$ is a variable, then $(\lambda x.M)$ is a lambda term
 \item if $M$ and $N$ are both lambda terms, then \textit{(MN)} is a lambda term
 \end{itemize}
-A lambda term is valid if and only if it can be obtained by repeated application of these rules. However, some parentheses can be omitted in certain forms. For example the leftmost, outermost brackets are usually omitted.
+A lambda term is valid if and only if it can be obtained by repeated application of these rules. However, some parentheses can be omitted in certain forms. For example the leftmost, outer-most brackets are usually omitted.
 
 \textbf{A lambda abstraction $\lambda x.M$} takes a single input x and returns a term M. Thus, it defines an \textbf{anonymous} function. For example $\lambda x.x^2$ is a lambda abstraction for the function $f(x) = x^2$ using the term $x^2$ for M, then we can say that $f = \lambda x.x^2$. The function is anonymous since we write $(x^2)2$ rather than $f3$.
 
 \textbf{An application $(MN)$} applies the input term N to the function M. For example $(\lambda x.x^2)2$ is an application that applies 2 to the function $f(x) = x^2$, it return $2^2$ which equals 4.
 
-As mentioned above, leftmost, outermost brackets are usually omitted. Therefore, $M_1M_2(M_3M_4)$ stands for $((M_1\cdot M_2)(M_3\cdot M_4))$. Similarly, $\lambda$ can be omitted in repeated abstractions, for example $\lambda x_1x_2.M$ stands for $\lambda x_1.(\lambda x_2.M)$.
+As mentioned above, leftmost, outer-most brackets are usually omitted. Therefore, $M_1M_2(M_3M_4)$ stands for $((M_1\cdot M_2)(M_3\cdot M_4))$. Similarly, $\lambda$ can be omitted in repeated abstractions, for example $\lambda x_1x_2.M$ stands for $\lambda x_1.(\lambda x_2.M)$.
 
 \begin{def1}
 \normalfont \textbf{(free and bound variables)} The set of free and bound variables are defined inductively by the following function:
@@ -81,10 +81,10 @@ With the property of alpha equivalence, we can define the \textit{$\alpha$-conve
 In some sense, the $\alpha$-conversion is defined by the spirit of the (5) substitution rule. If we have a function $\lambda x.M$, then we can apply a substitution to this function: $(\lambda x.M)[z:=x]$. According to the fifth substitution rule, it is unfolded to $(\lambda z.M[z:=x])$. Using the $\alpha$-conversion, we can always rename the bound variables of a term. 
 
 \begin{def1}
-\normalfont \textbf{(Variable Convention\cite{hankin1994lambda})} \textit{If $M_1$,...,$M_n$ occur in a certain context then in these terms all bound variables are chosen to be different from free variables.}
+\normalfont \textbf{(Variable Convention \cite{hankin1994lambda})} \textit{In a $\lambda$-term, all bound variables are chosen to be different from free variables.}
 \end{def1}
 
-The alpha-conversion is built based on the variable convention. Alpha convertion is used to allow bound variable names to be changed. For example, alpha-conversion of $\lambda x.x$ might get $\lambda y.y$. Terms that differ only by alpha-conversion are called alpha-equivalence(or alpha-congruence) as mentioned in the definition \ref{def1}. By the assumption that free and bound variables are always different(variable convention), and that alpha-conversion will take place whenever a variable is both free and bound. The definition of term substitution becomes:
+The alpha-conversion is built based on the variable convention. Alpha conversion is used to allow bound variable names to be changed. For example, alpha-conversion of $\lambda x.x$ might get $\lambda y.y$. Terms that differ only by alpha-conversion are called alpha-equivalence(or alpha-congruence) as mentioned in the definition \ref{def1}. By the assumption that free and bound variables are always different(variable convention), and that alpha-conversion will take place whenever a variable is both free and bound. The definition of term substitution becomes:
 \begin{equation*}
 \begin{array}{rll}
 x[x:=N]&=N & ~\\
@@ -98,16 +98,14 @@ By this definition of term substitution, the \textit{variable capture} is avoide
 \begin{equation*}
 \lambda y.M[x:=N]
 \end{equation*}
-y can only be bound in N according to variable convention rule, otherwise, if y is also free in N, it would be renamed by another variable. 
+$y$ can only be bound in $N$ according to variable convention rule, otherwise, if $y$ is also free in $N$, it would be renamed by another variable. 
 
 Here is an example of its use:
 \begin{equation*}
 \begin{array}{ll}
-&(\lambda xyz.xzy)(\lambda xz.x)\\
-=& \lambda yz.(\lambda xz.x)zy \\
-=& \lambda yz.(\lambda xw.x)zy\ \ by\ the\ variable\ convention \\
-=& \lambda yz.(\lambda w.z)y\\
-=& \lambda yz.z\\
+&(\lambda xy.xy)(\lambda xy.xy)\\
+\Rightarrow& \lambda y.(\lambda xy.xy)y \\
+\Rightarrow & \lambda yz.yz\ \ \mathrm{by\ the\ alpha \ convension} \\
 \end{array}
 \end{equation*}
 
@@ -163,10 +161,10 @@ For the notion $'M = _\beta N'$, we say '$M$ $\beta$-equivalent to $N$'.
 
 \begin{equation*}
 \begin{array}{ll}
-&(\lambda x.x^2)3\\
-=& (x^2)[x:=3] \\
-=& 3^2 \\
-=&9 \\
+&(\lambda abc.ac(bc))(\lambda xy.x)\\
+\Rightarrow& \lambda bc.(\lambda xy.x)c(bc) \\
+\Rightarrow& \lambda bc.(\lambda y.c)(bc)\\
+\Rightarrow& \lambda bc.c \\
 \end{array}
 \end{equation*}
 
@@ -192,35 +190,37 @@ Notice that, an expression in head normal form may contain redexes in argument p
 
 
 \section{Reduction strategies}\label{sec:reductionstrategy}
-\noindent Recall that a term is said to be in $\beta$-normal form if it has no $\beta$-redexes, that is, subterms of the shape ($\lambda$x.M)N. A term has a $\beta$-normal form if it can be reduced to a term in $\beta$ in $\beta$-normal form. It is clear that if a term has a $\beta$-normal form, then we can get to the $\beta$-normal form by exhaustively reducing all $\beta$-redexes of the term, then reducing all $\beta$-redexes of all resulting terms, and so forth until we get the $\beta$-normal form. A \textbf{$\beta$-reduction strategy} is a function that selects, whenever a term has multiple $\beta$-redexes, which one should be reduced first. If a term is in $\beta$-normal form, then no $\beta$-reduction is to be done. Notice that, a $\beta$-reduction strategy may or may not have the property that adhering to the strategy will ensure that we(eventually) reach a $\beta$-normal form, if one exists. 
+\noindent Recall that a term is said to be in $\beta$-normal form if it has no $\beta$-redexes, that is, subterms of the shape ($\lambda$x.M)N. A term has a $\beta$-normal form if it can be reduced to a term in $\beta$ in $\beta$-normal form. It is clear that if a term has a $\beta$-normal form, then we can get to the $\beta$-normal form by exhaustively reducing all $\beta$-redexes of the term, then reducing all $\beta$-redexes of all resulting terms, and so forth until we get the $\beta$-normal form. A \textbf{$\beta$-reduction strategy} is a function that selects, whenever a term has multiple $\beta$-redexes, which one should be reduced first. If a term is in $\beta$-normal form, then no $\beta$-reduction is to be done. Notice that, a $\beta$-reduction strategy may or may not have the property that adhering to the strategy will ensure that we(eventually) can normalize a $\lambda$-term. 
 
-In general, there are several different $\beta$-reductions possible for a given term. In this project, there are 5 different reduction strategies studied and implemented: normal order, call-by-name, call-by-value, head reduction, and applicative order. Figure X generally summarizes and compares the property of different strategies:
+In general, there are several different $\beta$-reductions possible for a given term. In this project, there are 5 different reduction strategies studied and implemented: normal order, call-by-name, call-by-value, head reduction, and applicative order. Table \ref{tb:rd} generally summarizes and compares the property of different strategies:
  
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|}
 \hline
 Reduction Strategy & Reduction Order                                                                                            & Reach $\beta$-normal form & Form Reached          \\ \hline
-Normal Order       & leftmost outermost                                                                                         & Yes                       & normal form           \\ \hline
-Call-by-Name       & \begin{tabular}[c]{@{}l@{}}leftmost outermost\\ not inside an abstraction\end{tabular}                     & No                        & weak head normal form \\ \hline
-Call-by-Value      & \begin{tabular}[c]{@{}l@{}}leftmost innermost \\ not inside an abstraction\end{tabular}                    & No                        & weak normal form      \\ \hline
+Normal Order       & leftmost outer-most                                                                                         & Yes                       & normal form           \\ \hline
+Call-by-Name       & \begin{tabular}[c]{@{}l@{}}leftmost outer-most\\ not inside an abstraction\end{tabular}                     & No                        & weak head normal form \\ \hline
+Call-by-Value      & \begin{tabular}[c]{@{}l@{}}leftmost inner-most \\ not inside an abstraction\end{tabular}                    & No                        & weak normal form      \\ \hline
 Head Reduction     & \begin{tabular}[c]{@{}l@{}}reduction inside lambda\\ abstractions but only in\\ head position\end{tabular} & No                        & head normal form      \\ \hline
-Applicative Order  & leftmost innermost                                                                                         & Yes                       & normal form           \\ \hline
+Applicative Order  & leftmost inner-most                                                                                         & Yes                       & normal form           \\ \hline
 \end{tabular}
+\caption{Property of different reduction strategies}
+\label{tb:rd}
 \end{table}
 
-Lambda terms are modeled as Haskell constructed data, representing variable names by character:
+It would be introduced in Chapter \ref{chap:haskell}, lambda terms are modelled as Haskell constructed data, representing variable names by character:
 
 \begin{verbatim}
-type Name = Char  
+             type Name = Char  
 
-data Term = Var Name | Abs Name Term | App Term Term
-            deriving (Show, Eq)
+             data Term = Var Name | Abs Name Term | App Term Term
+                         deriving (Show, Eq)
 \end{verbatim}
 
 
 \subsection*{Operational Semantics}
 
-A sequence of computational steps of a valid program is the operational semantics for the programming language. The final step of a terminating sequence returns the resulting value of the program. Operational semantics can be classified into two types: \textbf{structural operational semantics(SOS or small-step semantics)} and \textbf{natural semantics(NS or big-step semantics)}. The structural operational semantics describes each single step of a computation in a program, while the natural semantics describes the overall resulting value generated by the program. Following, we use both SOS and NS to define the behaviour of each reduction strategy. The small-step semantics gives reduction rules of the strategy, when the big-step semantics describes how the final term is reached.  
+Operational semantics are a category of formal programming language semantics in which certain desired properties of a program, such as correctness, safety or security, are verified by constructing proofs from logical statements about its execution and procedures, rather than by attaching mathematical meanings to its terms (denotational semantics) \cite{operational}. The final step of a terminating sequence returns the resulting value of the program. Operational semantics can be classified into two types: \textbf{structural operational semantics(SOS or small-step semantics)} and \textbf{natural semantics(NS or big-step semantics)}. The structural operational semantics describes each single step of a computation in a program, while the natural semantics describes the overall resulting value generated by the program. Following, we use both SOS and NS to define the behaviour of each reduction strategy. The small-step semantics gives reduction rules of the strategy, when the big-step semantics describes how the final term is reached.  
 
 \subsection*{Recursion}
 
@@ -234,77 +234,13 @@ Although a reduction strategy may or may not have the property that ensures it r
                                 recur_eval (evalcbn t)
 \end{verbatim}
 
-The Haskell function above defines the recursive reduction using Call-by-Name strategy. It uses the small-step function defined in Section \ref{subsec:cbn}. The recursion will terminate if the input $\lambda$-term cannot be reduced further, otherwise, it would print-out the term after a single step reduction and continue reducing the resulting term.
+The Haskell function above defines the recursive reduction using Call-by-Name strategy. It uses the small-step function defined in Section \ref{subsec:cbn}. It uses `guards' to list two cases: 1. The recursion will terminate if the input $\lambda$-term cannot be reduced further. 2. Otherwise, it would print-out the term after a single step reduction and continue reducing the resulting term.
 
-
-
-\subsection{Normal Order Reduction}{\label{subsec:normal}}
-
-The normal order reduction $e\xrightarrow{no} e'$ continually applies te rule for $\beta$-reduction on the redex in leftmost outermost position until no more $\beta$-reduction can be performed. At that point, the resulting term is in normal form. When reducing an application $(e_1e_2)$, the function term $e_1$ must be reduced using call-by-name. Since the strategy is outermost, when $e_1$ is reduced to an abstraction $(\lambda x.e)$, then the redex $((\lambda x.e)e_2)$ must be reduced before redexes in e.
-
-\begin{equation*}
-\llceil x \rrfloor ^{ls} _{no} = x
-\end{equation*}
-\begin{equation*}
-\frac{\llceil e \rrfloor ^{ls} _{no} = e'}{\llceil (\lambda x.e) \rrfloor ^{ls} _{no} = (\lambda x.e')}
-\end{equation*}
-\begin{equation*}
-\frac{\llceil e_1 \rrfloor ^{ls} _{cbn} = (\lambda x.e)\ \ \ \ \ \ \ \ \ \llceil e[e_2/x] \rrfloor ^{ls} _{no} = e'}{\llceil (e_1e_2) \rrfloor ^{ls} _{no} = e'}
-\end{equation*}
-\begin{equation*}
-\frac{\llceil e_1 \rrfloor ^{ls} _{cbn} = e'_1\neq (\lambda x.e)\ \ \ \ \ \ \ \ \llceil e'_1 \rrfloor ^{ls} _{no} = e''_1\ \ \ \ \ \ \ \ \llceil e_2 \rrfloor ^{ls} _{no} = e'_2}{\llceil (e_1e_2) \rrfloor ^{ls} _{no} = (e''_1e'_2)}
-\end{equation*}
-
-\begin{center}
-Normal Order: Big-step operational semantics
-\end{center}
-
-\begin{equation*}
-\frac{}{(\lambda x.M)N \rightarrow _\beta M[N/x]}\ \  
-\frac{M \rightarrow _\beta N}{MP \rightarrow _\beta NP}\ \ 
-\frac{M \rightarrow _\beta N}{PM \rightarrow _\beta PN}(P\ \textit{contains no redex})\ \ 
-\frac{M \rightarrow _\beta N}{(\lambda x.M) \rightarrow _\beta (\lambda x.N)}
-\end{equation*}
-\begin{center}
-Normal Order: Small-step operational semantics
-\end{center}
-
-Normal order reduction is \textit{normalizing}, since it reduces the $\lambda$-term until there is no redex, redex in abstractions is also contracted. So, the normal order reduction will terminate with the normal form as result. 
-
-The corresponding Haskell function \verb|evalnormal :: Term -> Term| below implements the normal order reduction. Notice that, it uses the function evalcbn defined in \ref{subsec:cbn}:
-
-\begin{verbatim}
-       --normal order reduction
-       evalnormal :: Term -> Term
-       evalnormal (Var x) = Var x
-       evalnormal (Abs x t) = (Abs x (evalnormal t))
-       evalnormal (App (Abs x t) v) = subs t (Var x, v)
-       evalnormal (App x t) | x == evalnormal x = (App x (evalnormal t))
-                            | otherwise = (App (evalnormal x) t)
-\end{verbatim}
-
-The first function clause above handles variables $x$. It is not a $\beta$-reduction step, since a variable is not a redex. It returns itself which indicates no reduction can be done. It also conforms the pattern matching mechanism in Haskell. Similarly, the second function clause handles abstractions $(\lambda x.e)$ and implements the fourth small-step rule. The third function handles applications $(e_1e_2)$, when $e_1$ is an abstraction, then the substitution will take place. It applies argument to function and returns the resulting value. Finally, the fourth function handles applications $(e_1e_2)$ when $e_1$ is not an abstraction. Since the normal reduction is leftmost outermost, it reduces the function $e_1$ first. If $e_1$ cannot be reduced(returns itself), then it operates the argument $e_2$. 
-
-\begin{exmp}
-\normalfont Folllowing is the running example of normal order reduction in Haskell. We use ``/'' to represent the $\lambda$ symbol:
-\end{exmp}
-
-\begin{verbatim}
-           (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
-       ==> (/b.b)((/x.x)(/y.(/z.z)w))
-       ==> (/x.x)(/y.(/z.z)w)
-       ==> /y.(/z.z)w
-       ==> /y.w
-       Reduced to:/y.w
-\end{verbatim}
-
-
-As we can see, it uses leftmost outermost strategy. The leftmost outermost redex $(\lambda a.a)(\lambda b.b)$ is first reduced. Then the whole reduced term is a redex $b[(\lambda x.x)(\lambda y.(\lambda z.z)w)/b]$, the argument $((\lambda x.x)(\lambda y.(\lambda z.z)w))$ replaces the free occurrence of $b$ in $b$. After that, the same substitution takes place. Finally, it reaches into the redex $(\lambda z.z)w$ in the abstraction $\lambda y.(\lambda z.z)w$ and generates the resulting term $\lambda y.w$ in normal form.
 
 
 \subsection{Call-by-Name Reduction}{\label{subsec:cbn}}
 
-The Call-by-Name reduction $e\xrightarrow{cbn} e'$ reduces the leftmost outermost redex not insde a lambda abstraction first. That is, the arguments to a function are not evaluated before the function is called. The redex in $e$ of the asbtraction $(\lambda x.e)$ will never be reduced. 
+The Call-by-Name reduction reduces the leftmost outer-most redex not insde a lambda abstraction first. That is, the arguments to a function are not evaluated before the function is called. The redex in $e$ of the asbtraction $(\lambda x.e)$ will never be reduced. 
 
 
 \begin{equation*}
@@ -364,10 +300,73 @@ The first two function clauses handle the variables and abstractions, it returns
 
 It is easy to see that the first three reduction steps are the same as normal order reduction. In this example, it stops at $\lambda y.(\lambda z.z)w$. Since the difference between normal order and call-by-name is the redex inside abstractions will never be reduced in call-by-name, and the argument will not be reduced before the function is called. 
 
+\subsection{Normal Order Reduction}{\label{subsec:normal}}
+
+The normal order reduction continually applies rules for $\beta$-reduction on the redex in leftmost outer-most position until no more $\beta$-reduction can be performed. At that point, the resulting term is in normal form. When reducing an application $(e_1e_2)$, the function term $e_1$ must be reduced using call-by-name. Since the strategy is outer-most, when $e_1$ is reduced to an abstraction $(\lambda x.e)$, then the redex $((\lambda x.e)e_2)$ must be reduced before redexes in e.
+
+\begin{equation*}
+\llceil x \rrfloor ^{ls} _{no} = x
+\end{equation*}
+\begin{equation*}
+\frac{\llceil e \rrfloor ^{ls} _{no} = e'}{\llceil (\lambda x.e) \rrfloor ^{ls} _{no} = (\lambda x.e')}
+\end{equation*}
+\begin{equation*}
+\frac{\llceil e_1 \rrfloor ^{ls} _{cbn} = (\lambda x.e)\ \ \ \ \ \ \ \ \ \llceil e[e_2/x] \rrfloor ^{ls} _{no} = e'}{\llceil (e_1e_2) \rrfloor ^{ls} _{no} = e'}
+\end{equation*}
+\begin{equation*}
+\frac{\llceil e_1 \rrfloor ^{ls} _{cbn} = e'_1\neq (\lambda x.e)\ \ \ \ \ \ \ \ \llceil e'_1 \rrfloor ^{ls} _{no} = e''_1\ \ \ \ \ \ \ \ \llceil e_2 \rrfloor ^{ls} _{no} = e'_2}{\llceil (e_1e_2) \rrfloor ^{ls} _{no} = (e''_1e'_2)}
+\end{equation*}
+
+\begin{center}
+Normal Order: Big-step operational semantics
+\end{center}
+
+\begin{equation*}
+\frac{}{(\lambda x.M)N \rightarrow _\beta M[N/x]}\ \  
+\frac{M \rightarrow _\beta N}{MP \rightarrow _\beta NP}\ \ 
+\frac{M \rightarrow _\beta N}{PM \rightarrow _\beta PN}(P\ \textit{contains no redex})\ \ 
+\frac{M \rightarrow _\beta N}{(\lambda x.M) \rightarrow _\beta (\lambda x.N)}
+\end{equation*}
+\begin{center}
+Normal Order: Small-step operational semantics
+\end{center}
+
+Normal order reduction is \textit{normalizing}, since it reduces the $\lambda$-term until there is no redex, redex in abstractions is also contracted. So, the normal order reduction will terminate with the normal form as result. 
+
+The corresponding Haskell function \verb|evalnormal :: Term -> Term| below implements the normal order reduction. Notice that, it uses the function evalcbn defined in \ref{subsec:cbn}:
+
+\begin{verbatim}
+       --normal order reduction
+       evalnormal :: Term -> Term
+       evalnormal (Var x) = Var x
+       evalnormal (Abs x t) = (Abs x (evalnormal t))
+       evalnormal (App (Abs x t) v) = subs t (Var x, v)
+       evalnormal (App x t) | x == evalnormal x = (App x (evalnormal t))
+                            | otherwise = (App (evalnormal x) t)
+\end{verbatim}
+
+The first function clause above handles variables $x$. It is not a $\beta$-reduction step, since a variable is not a redex. It returns the argument which indicates no reduction can be done. Similarly, the second function clause handles abstractions $(\lambda x.e)$ and implements the fourth small-step rule. The third function handles applications $(e_1e_2)$, when $e_1$ is an abstraction, then the substitution will take place. It applies argument to function and returns the resulting value. Finally, the fourth function handles applications $(e_1e_2)$ when $e_1$ is not an abstraction. Since the normal reduction is left-most outer-most, it reduces the function $e_1$ first. If $e_1$ cannot be reduced(returns itself), then it operates the argument $e_2$. 
+
+\begin{exmp}
+\normalfont Folllowing is the running example of normal order reduction in Haskell. We use ``/'' to represent the $\lambda$ symbol:
+\end{exmp}
+
+\begin{verbatim}
+           (/a.a)(/b.b)((/x.x)(/y.(/z.z)w))
+       ==> (/b.b)((/x.x)(/y.(/z.z)w))
+       ==> (/x.x)(/y.(/z.z)w)
+       ==> /y.(/z.z)w
+       ==> /y.w
+       Reduced to:/y.w
+\end{verbatim}
+
+
+As we can see, it uses left-most outer-most strategy. The left-most outer-most redex $(\lambda a.a)(\lambda b.b)$ is first reduced. Then the whole reduced term is a redex $b[(\lambda x.x)(\lambda y.(\lambda z.z)w)/b]$, the argument $((\lambda x.x)(\lambda y.(\lambda z.z)w))$ replaces the free occurrence of $b$ in $b$. After that, another substitution takes place. Finally, it reaches into the redex $(\lambda z.z)w$ in the abstraction $\lambda y.(\lambda z.z)w$ and generates the resulting term $\lambda y.w$ in normal form.
+
 
 \subsection{Call-by-Value Reduction}{\label{subsec:cbv}}
 
-Call-by-Value reduction is the most common reduction strategy. In Call-by-Value, the argument expression is evaluated, and the resulting value is bound to the corresponding variable in the function. It first reduces the leftmost innermost redex not inside an abstraction. It never reduces a redex when the argument is not a \textit{value}. It differs from Call-by-Name only by reducing the argument $e_2$ of the application $(e_1e_2)$ before the substitution take place. 
+Call-by-Value reduction is the most common reduction strategy. In Call-by-Value, the argument expression is evaluated, and the resulting value is bound to the corresponding variable in the function. It first reduces the left-most inner-most redex not inside an abstraction. It never reduces a redex when the argument is not a \textit{value}. It differs from Call-by-Name only by reducing the argument $e_2$ of the application $(e_1e_2)$ before the substitution take place. 
 
 
 \begin{equation*}
@@ -389,13 +388,15 @@ Call-by-Value: Big-step operational semantics
 \begin{equation*}
 \frac{}{(\lambda x.M)N \rightarrow _\beta M[N/x]}(\textit{N in normal form})\ \ \ \  
 \frac{M \rightarrow _\beta N}{MP \rightarrow _\beta NP}(M\ \textit{not an abstraction})\ \ \ \
+\end{equation*}
+\begin{equation*}
 \frac{M \rightarrow _\beta N}{VM \rightarrow _\beta VN}(M\ \textit{not an abstraction})\ \ \ 
 \end{equation*}
 \begin{center}
 Call-by-Value: Small-step operational semantics
 \end{center}
 
-Notice that, the third rule specifies that the call-by-value reduction always reduces the argument first before the substitution take place. If $V$ is an abstraction, so it cannot be reduced by call-by-name reduction, then it applies to the third rule. If $V$ is not an abstraction, if it can be reduced then it applies to the second rule; if it cannot be reduced, then applies to the third rule. 
+Notice that, the third rule specifies that the call-by-value reduction always reduces the argument first before the substitution take place. If $V$ is an abstraction, so it cannot be reduced by call-by-name reduction, then the third rule is applied. If $V$ is not an abstraction, if it can be reduced then it applies to the second rule; if it cannot be reduced, then applies to the third rule. 
 
 Call-by-Value generates terms in weak head normal form only. The implementation of the rules by an Haskell function \verb|evalcbv :: Term -> Term| is as follows:
 
@@ -410,7 +411,7 @@ Call-by-Value generates terms in weak head normal form only. The implementation 
                                  | otherwise = (App (evalcbv x) y)   
 \end{verbatim}
 
-The functions are similar to Call-by-Name, the only difference is the argument is reduced before the substitution take place as indicated in the function clause 3.
+The functions are similar to Call-by-Name. The first two function clauses defines that the reduction cannot be performed on variable and abstraction in call-by-name. The code of call-by-value only differs from call-by-name on the third function clause. For call-by-value, the argument is reduced before the substitution take places as indicated in the function clause 3.
 
 \begin{exmp}
 \normalfont The sample example run in Haskell by the Call-by-Value strategy is as follows:
@@ -429,7 +430,7 @@ As we can see, the reduction procedure is different from previous. It differs fr
 
 \subsection{Head Reduction}
 
-The head reduction performs reductions inside lambda abstractions, but only in head position. Notice that, the \textit{head reduction} strategy introduced in this project is the same as defined by Barendregt \cite{barendregt1984lambda}, however it differs from Sessoft's \cite{sestoft2002demonstrating} \textit{head spine reduction} which is implemented by Paulson's \textbf{headNF} function\cite{paulson1996ml}. In the leftmost head reduction, only head redexes are reduced. A redex $((\lambda x.e_0)e_1)$ is a \textit{head redex} if it is proceeded to the left only by lambda abstractions of non-redexes, as in $\lambda x_1...\lambda x_n.(\lambda x.e_0)e_1...e_m$ when $n \geqslant 0\ and\ m \geqslant 1$.
+The head reduction performs reductions inside lambda abstractions, but only in head position. Notice that, the \textit{head reduction} strategy introduced in this project is the same as defined by Barendregt \cite{barendregt1984lambda}, however it differs from Sessoft's \cite{sestoft2002demonstrating} \textit{head spine reduction} which is implemented by Paulson's \textbf{headNF} function \cite{paulson1996ml}. In the left-most head reduction, only head redexes are reduced. Recall that, a redex $((\lambda x.e_0)e_1)$ is a \textit{head redex} if it is proceeded to the left only by lambda abstractions of non-redexes, as in $\lambda x_1...\lambda x_n.(\lambda x.e_0)e_1...e_m$ when $n \geqslant 0\ and\ m \geqslant 1$.
 
 
 \begin{equation*}
@@ -489,7 +490,7 @@ The reduction procedure is the same as normal order reduction. Notice that, in t
 
 \subsection{Applicative Order Reduction}
 
-Applicative order reduction $e\xrightarrow{ao} e'$ reduces the leftmost innermost redex first. A function's arguments are always reduced before the function is called. Applicative order always attempts to apply functions to normal forms. It differs from Call-by-Value only by reducing also under abstractions:
+Applicative order reduction reduces the left-most inner-most redex first. A function's arguments are always reduced before the function is called. Applicative order always attempts to apply functions to normal forms. It differs from Call-by-Value only by reducing also under abstractions:
 
 
 \begin{equation*}
@@ -539,7 +540,7 @@ apporder (App x y) | x == apporder x = (App x (apporder y))
                    | otherwise = (App (apporder x) y)  
 \end{verbatim}
 
-The function definitions of applicative order reduction is quite different with others. Since it reduces the leftmost \textbf{innermost} redex first, and the arguments are always reduced before the function, it needs more `guards' for those cases. As we can see from the third function clause, it uses guards to list 3 possible cases: 1. reduce the function if possible 2. reduce the argument if the function cannot be reduced. 3. both function and argument cannot be reduced, substitution takes place. 
+The function definitions of applicative order reduction is quite different with others. Since it reduces the left-most \textbf{inner-most} redex first, and the arguments are always reduced before the function, it needs more `guards' for those cases. As we can see from the third function clause, it uses guards to list 3 possible cases: 1. reduce the function if possible 2. reduce the argument if the function cannot be reduced. 3. both function and argument cannot be reduced, substitution takes place. 
 
 
 \begin{exmp}
@@ -555,10 +556,7 @@ The function definitions of applicative order reduction is quite different with 
          Reduced to:/y.w
 \end{verbatim}
 
-Since applicative order reduction reduces the leftmost innermost redex first, it firstly reduces the redex \verb|(/a.a)(/b.b)|. It always reduces the arguments before the function, so it reduces the argument \verb|((/x.x)(/y.(/z.z)w))| next until it contains no redex(in normal form). When the argument is in the normal form \verb|(/y.w)|, the substitution takes place and finally it reaches the normalized term \verb|(/y.w)|.
-
-
-\section{Comparisons between Different Reduction Strategies }
+Since applicative order reduction reduces the left-most inner-most redex first, it firstly reduces the redex \verb|(/a.a)(/b.b)|. It always reduces the arguments before the function, so it reduces the argument \verb|((/x.x)(/y.(/z.z)w))| next until it contains no redex(in normal form). When the argument is in the normal form \verb|(/y.w)|, the substitution takes place and finally it reaches the normalized term \verb|(/y.w)|.
 
 
 \section{$\lambda$-calculus with Explicit Substitution and Garbage Collection}
@@ -588,7 +586,8 @@ The $\lambda$xgc-terms include as a subset the ordinary $\lambda$-terms $\Lambda
 \begin{array}{lcllcl}
 FV_{xgc}(x)           & = & \{x\}             & BV_{xgc}(x)           &=& \emptyset\\
 FV_{xgc}(\lambda x.M) & = & FV_{xgc}(M)\backslash \{x\} & BV_{xgc}(\lambda x.M) &=& BV(M)\cup \{x\}\\
-FV_{xgc}(MN)          & = & FV_{xgc}(M)\cup FV_{xgc}(N) & BV_{xgc}(MN)          &=& BV_{xgc}(M)\cup BV_{xgc}(N)\\
+FV_{xgc}(MN)          & = & FV_{xgc}(M)\cup FV_{xgc}(N) & BV_{xgc}(MN)          &=& BV_{xgc}(M) \\ 
+                        &&&&&\cup BV_{xgc}(N)\\
 FV_{xgc}(M\langle x:=N\rangle)          & = & (FV_{xgc}(M)\backslash \{x\})\cup FV_{xgc}(N) & BV_{xgc}(M\langle x:=N\rangle)    &=& BV_{xgc}(M)\cup {x} \\
                                    &&&&&\cup BV_{xgc}(N)
 \end{array}
@@ -602,7 +601,7 @@ The last free and bound variable set definition of substitution is new. All the 
 
 \begin{itemize}
 \item \textbf{($\alpha$-equivalent)} Two terms are $\alpha$-equivalent, written $M\equiv N$, is as for $\lambda$-calculus plus (the new) $M\langle x:=N\rangle \equiv P\langle y:=Q\rangle$ if $N \equiv Q$ and $M[x:=z]\equiv P[y:=z]$ for $z \notin FV(M)$
-\item \textbf{(Garbage)} The substitution $\langle x:=N\rangle$ in $M\langle x:=N\rangle$ is called \textit{garbage} if $x \notin FV(M)$
+\item \textbf{(Garbage)} $\langle x:=N\rangle$ in $M\langle x:=N\rangle$ is called \textit{garbage} if $x \notin FV(M)$
 \end{itemize}
 
 
@@ -643,29 +642,29 @@ Recall that if a $\lambda$xgc-term does not contain any subterms of the form $M\
 \normalfont The sample run of normal order reduction with explicit substitution and garbage collection is as following(`$\backslash$' as $\lambda$):
 \end{exmp}
 \begin{verbatim}
-                  (1)           (\x.(\y.x)x)(\z.q)           whole term is a redex
-                  (2)       ==> ((\y.x)x)<x:=\z.q>           xgc-reduction
-                  (3)       ==> ((\y.x)<x:=\z.q>)(x<x:=\z.q>)
-                  (4)       ==> (\y.x<x:=\z.q>)(x<x:=\z.q>)
-                  (5)       ==> (x<x:=\z.q>)<y:=x<x:=\z.q>>  garbage collection
-                  (6)       ==> x<x:=\z.q>
-                  (7)       ==> \z.q          
+                (1)           (\x.(\y.x)x)(\z.q)           whole term is a redex
+                (2)       ==> ((\y.x)x)<x:=\z.q>           xgc-reduction
+                (3)       ==> ((\y.x)<x:=\z.q>)(x<x:=\z.q>)
+                (4)       ==> (\y.x<x:=\z.q>)(x<x:=\z.q>)
+                (5)       ==> (x<x:=\z.q>)<y:=x<x:=\z.q>>  garbage collection
+                (6)       ==> x<x:=\z.q>
+                (7)       ==> \z.q          
 \end{verbatim}
 
-Recall that, the normal order reduction reduces the leftmost outermost redex first. At the beginning, the whole term \verb|(\x.(\y.x)x)(\z.q)| is a redex, and the function of the application is an abstraction. Therefore, the \textit{substitution generation} $\overrightarrow{b}$ is performed. Further, the substitution is pushed into the application and multiple explicit substitution steps are performed. At step (4), another \textit{substitution generation} $\overrightarrow{b}$ is performed Since there is no $y$ in \verb|x<x:=\z.q>|, the substitution \verb|<y:=x<x:=\z.q>>| is the garbage and removed. Finally, $x$ is substituted by \verb|\z.q|.
+Recall that, the normal order reduction reduces the left-most outer-most redex first. At the beginning, the whole term \verb|(\x.(\y.x)x)(\z.q)| is a redex, and the function of the application is an abstraction. Therefore, the \textit{substitution generation} $\overrightarrow{b}$ is performed. Further, the substitution is pushed into the application and multiple explicit substitution steps are performed. At step (4), another \textit{substitution generation} $\overrightarrow{b}$ is performed Since there is no \texttt{y} in \verb|x<x:=\z.q>|, the substitution \verb|<y:=x<x:=\z.q>>| is garbage and removed. Finally, \texttt{x} is substituted by \verb|\z.q|.
 
 \begin{exmp}
 \normalfont Below is another sample run by applicative order reduction with explicit substitution and garbage collection:
 \end{exmp}
 \begin{verbatim}
-             (1)           (\x.(\y.x)x)(\z.q)      reduce the innermost redex (\y.x)x
-             (2)       ==> (\x.x<y:=x>)(\z.q)      garbage collection
-             (3)       ==> (\x.x)(\z.q)
-             (4)       ==> x<x:=\z.q>
-             (5)       ==> \z.q
+            (1)           (\x.(\y.x)x)(\z.q)  reduce the inner-most redex (\y.x)x
+            (2)       ==> (\x.x<y:=x>)(\z.q)  garbage collection
+            (3)       ==> (\x.x)(\z.q)
+            (4)       ==> x<x:=\z.q>
+            (5)       ==> \z.q
 \end{verbatim}
 
-Recall that, the applicative order reduction reduces the leftmost innermost redex first. The redex \verb|(\y.x)x| is the leftmost and innermost redex at beginning. Therefore, the \textit{substitution generation} is performed inside the function. Since there is no free occurrence of $y$ in $x$, the substitution \verb|<y:=x>| is the garbage. At step (3), another \textit{substitution generation} is performed and finally we get the term \verb|\z.q|. 
+Recall that, the applicative order reduction reduces the left-most inner-most redex first. The redex \verb|(\y.x)x| is the left-most and inner-most redex at beginning. Therefore, the \textit{substitution generation} is performed inside the function. Since there is no free occurrence of $y$ in $x$, the substitution \verb|<y:=x>| is the garbage. At step (3), another \textit{substitution generation} is performed and finally we get the term \verb|\z.q|. 
 
 
 \section{Normal $\beta$-reduction vs Explicit Substitution and garbage collection}

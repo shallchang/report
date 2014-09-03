@@ -5,17 +5,17 @@ Hendrik~Pieter Barendregt.
 \newblock {\em The lambda calculus}, volume~3.
 \newblock North-Holland Amsterdam, 1984.
 
+\bibitem{barendregt1984introduction}
+Henk~P Barendregt and Erik Barendsen.
+\newblock Introduction to lambda calculus.
+\newblock {\em Nieuw archief voor wisenkunde}, 4(2):337--372, 1984.
+
 \bibitem{bloo1995preservation}
 Roel Bloo and Kristoffer~H Rose.
 \newblock Preservation of strong normalisation in named lambda calculi with
   explicit substitution and garbage collection.
 \newblock In {\em In CSN-95: Computer Science in the Netherlands}. Citeseer,
   1995.
-
-\bibitem{church1940formulation}
-Alonzo Church.
-\newblock A formulation of the simple theory of types.
-\newblock {\em The journal of symbolic logic}, 5(02):56--68, 1940.
 
 \bibitem{curry1934functionality}
 Haskell~B Curry.
@@ -39,6 +39,12 @@ Chris Hankin.
 \newblock Lambda calculi: a guide for computer scientists.
 \newblock 1994.
 
+\bibitem{hindley1969principal}
+Roger Hindley.
+\newblock The principal type-scheme of an object in combinatory logic.
+\newblock {\em Transactions of the american mathematical society}, pages
+  29--60, 1969.
+
 \bibitem{miran2011}
 Miran Lipovaca.
 \newblock {\em Learn you a Haskell for great good!}
@@ -48,6 +54,11 @@ Miran Lipovaca.
 Lawrence~C Paulson.
 \newblock {\em ML for the Working Programmer}.
 \newblock Cambridge University Press, 1996.
+
+\bibitem{robinson1965machine}
+John~Alan Robinson.
+\newblock A machine-oriented logic based on the resolution principle.
+\newblock {\em Journal of the ACM (JACM)}, 12(1):23--41, 1965.
 
 \bibitem{rojas1997}
 Raul Rojas.
@@ -68,5 +79,9 @@ Peter Sestoft.
 Steffen van Bakel.
 \newblock Type systems for programming language, course notes.
 \newblock 2001.
+
+\bibitem{operational}
+Wikipedia.
+\newblock Operational semantics, 2006.
 
 \end{thebibliography}

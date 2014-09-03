@@ -1,12 +1,12 @@
 \chapter{The Curry type assignment system}
 
-A type system consists a set of rules that assign a property called a \textit{type} to the various constructs --- such as variable, expression, functions or modules. There are several reasons to add types to a program, one of the most important reason to add type properties to a program is to reduce bugs. It is possible to build an abstract interpretation of programs by treating terms as objects. The abstractions can be regarded as the interface of objects, by checking whether the interfaces have been connected properly we can decide whether the program is defined in a consistent way. Moreover, type systems provide a form of documentation and improve the readability of a program. Since a program can be abstracted, there are less information in the structure of a program. Furthermore, it also enables independent compilation before the implementation of a program runs. The types of functions and arguments can be checked during the generation of codes. Type-checking during implementation enables dynamic  debugging which largely reduces the debugging workload at run-time. If a program is error-free, it is safe to run:"Typed programs cannot go wrong". It also allows multiple dispatch which is the feature of some objected-oriented programming languages in which a function or method can be dynamically dispatched based on the run time type of more than one of its arguments.
+A type system consists a set of rules that assign a property called a \textit{type} to the various constructs --- such as variable, expression, functions or modules. There are several reasons to add types to a program, one of the most important reason to add type properties to a program is to avoid bugs. It is possible to build an abstract interpretation of programs by treating terms as objects. The abstractions can be regarded as the interface of objects, by checking whether the interfaces have been connected properly we can decide whether the program is defined in a consistent way. Moreover, type systems provide a form of documentation and improve the readability of a program. Since a program can be abstracted, there are less information in the structure of a program. Furthermore, it also enables independent compilation before the implementation of a program runs. The types of functions and arguments can be checked during the generation of codes. Type-checking during implementation enables dynamic  debugging which largely reduces the debugging workload at run-time. If a program is error-free, it is safe to run:``Typed programs cannot go wrong''. It also allows multiple dispatch which is the feature of some objected-oriented programming languages in which a function or method can be dynamically dispatched based on the run time type of more than one of its arguments.
  
-An exmaple of a type system is the Java language. A Java program consists of classes which contains a set of function definitions. A function is invoked by an instance of a class that the function belongs to. The interface of a function states the type of the return value, the name of the function and a list of values that are passed to the function. The code of an invoking function states the object instance on which this particular method is to be invoked, and the name of this function along with the names of variables that hold values to pass to it. The Java compiler checks the type of each argument that passed into the function, against the type declared for each varaible in the interface of the invoked function. If the types do not match, the compiler throws a compile-time error.
+An example of a type system is the Java language. A Java program consists of classes which contains a set of function definitions. A function is invoked by an instance of a class that the function belongs to. The interface of a function states the type of the return value, the name of the function and a list of values that are passed to the function. The code of an invoking function states the object instance on which this particular method is to be invoked, and the name of this function along with the names of variables that hold values to pass to it. The Java compiler checks the type of each argument that passed into the function, against the type declared for each varaible in the interface of the invoked function. If the types do not match, the compiler throws a compile-time error.
 
 The lambda calculus as treated in Chapter 1 is referred to as a \textit{type-free} theory. Because every expression may be applied to every other expression. For example, the $\lambda x.x$ may be applied to any argument $x$ and generates the same $x$. 
 
-The typed version of lambda calculus(or called Combinatory Logic, a variant of the lambda calculus) is introduced essentially in Curry\cite{curry1934functionality} and in Church\cite{church1940formulation}. Types are objects of a syntactic nature and may be assigned to lambda terms. If M is a lambda term and a type A is assigned to M, then we say \textit{`M has type A'}; the notation used is $`M:A'$. For example, in a typed system one has $\lambda x.x : (A \rightarrow A)$, which means the function $\lambda x.x$ should take an argument in type $A$ and return a value of type $A$. In general, $A \rightarrow B$ is the type of functions from $A$ to $B$.
+The typed version of lambda calculus( a variant of the lambda calculus) is introduced essentially in Curry\cite{curry1934functionality}. Types are objects of a syntactic nature and may be assigned to lambda terms. If M is a lambda term and a type A is assigned to M, then we say \textit{`M has type A'}; the notation used is $`M:A'$. For example, in a typed system one has $\lambda x.x : (A \rightarrow A)$, which means the function $\lambda x.x$ should take an argument in type $A$ and return a value of type $A$. In general, $A \rightarrow B$ is the type of functions from $A$ to $B$.
 
 \section{The System $\lambda \rightarrow $-Curry}
 
@@ -34,14 +34,14 @@ we use association to the right, and the rightmost and outermost parentheses are
 
 
 \begin{def1}
-\normalfont (i) A \textit{statement} is of the form $M : \sigma$, where $M\in \Lambda$ and $\sigma \in \mathbb{T}$(pronounced as $`M\ in\ \sigma'$). $M$ is called the $subject$ and $A$ the $predicate$ of $M : A$.  
+\normalfont (i) A \textit{statement} is of the form $M : \sigma$, where $M\in \Lambda$ and $\sigma \in \mathbb{T}$(pronounced as $`M\ has\ type\ \sigma'$). $M$ is called the $subject$ and $\sigma$ the $predicate$ of $M : \sigma$.  
 \end{def1}
-(ii) A $context$ $\Gamma$ is a set of statements with only distinct (term) variables as subjects; In \cite{svb2001type}, the notion $\Gamma,M:\sigma$ is used for the context $\Gamma \cup \{M:\sigma\}$ where either $M:\sigma \in \Gamma$ or $M$ does not occur in $\Gamma$, and we use $M:\sigma$ as shorthand for $\emptyset,M:\sigma$.
+(ii) A $context$ $\Gamma$ is a set of statements with only distinct (term) variables as subjects; In \cite{svb2001type}, the notion $\Gamma,x:\sigma$ is used for the context $\Gamma \cup \{x:\sigma\}$ where either $x:\sigma \in \Gamma$ or $x$ does not occur in $\Gamma$, and we use $x:\sigma$ as shorthand for $\emptyset,x:\sigma$.
 
 The notion of \textit{context} will be used to collect all statements used for the free variables of a term when typing that term\cite{svb2001type}. 
 
 
-\begin{def1}
+\begin{def1}\label{def:derivation}
 \normalfont (CF. [\cite{curry1934functionality}, \cite{curry1972combinatory}]) \textit{Curry type assignment} and $derivations$ can be defined using following derivation rules.  
 \end{def1}
 \begin{align*}
@@ -84,13 +84,13 @@ $$
 $$
 
 
-As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$ and $A$, and either of them can be substituted by the other one. So, $A \rightarrow B \neq A$, and there are two statements of subject $x$ in context $\Gamma$ with distinct predicates. Those two statements would be conflict according to the definition of context. Therefore, the `self-application' is untypable. 
+As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$ and $A$, and neither of them can be substituted by the other one. So, $A \rightarrow B \neq A$, and there are two statements of subject $x$ in context $\Gamma$ with distinct predicates. Those two statements would be conflict according to the definition of context. Therefore, the `self-application' is untypable. 
 
 
 \section{Properties of $\lambda \rightarrow $}
 
 \begin{lemma}
-\normalfont GENERATION LEMMA
+\normalfont (Barendregt \cite{barendregt1984introduction}) GENERATION LEMMA
 \end{lemma}
 \begin{align*}
   &(i)\ \Gamma \vdash x:\sigma \Rightarrow (x:\sigma)\in \Gamma \\
@@ -100,15 +100,16 @@ As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$
 
 
 \begin{lemma}
-\normalfont SUBSTITUTION LEMMA
+\normalfont (van Bakel \cite{svb2001type}) SUBSTITUTION LEMMA
 \end{lemma}
 \begin{align*}
    \exists \sigma[\Gamma,x:\sigma \vdash M:\gamma \ \& \ \Gamma \vdash N:\sigma]\Rightarrow M[x:=N]:\gamma
 \end{align*}
 
+Proof by induction on the derivation of $\Gamma,x:\sigma \vdash M:\gamma$.
 
 \begin{theorem}
-\normalfont \textsc{SUBJECT REDUCTION THEOREM}
+\normalfont (Barendregt \cite{barendregt1984introduction}) \textsc{SUBJECT REDUCTION THEOREM}
 \end{theorem}
 
 \textit{Suppose M $\twoheadrightarrow$ M'. Then} 
@@ -116,12 +117,12 @@ As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$
    \Gamma \vdash M:\sigma \Rightarrow \Gamma \vdash M':\sigma
 \end{align*}
 
-\noindent PROOF.
+\noindent PROOF (Barendregt \cite{barendregt1984introduction}).
 
 \begin{align*}
-   &\Gamma \vdash (\lambda x.M)N:\sigma & \Rightarrow (Generation lemma)\\
-   &\Gamma \vdash (\lambda x.M):\gamma \rightarrow \sigma \& \Gamma \vdash N:\gamma &  \Rightarrow (Generation Lemma)\\
-   &\Gamma ,x:\gamma \vdash M:\sigma \& \Gamma \vdash N:\gamma & \Rightarrow (Substitution Lemma)\\
+   &\Gamma \vdash (\lambda x.M)N:\sigma & \Rightarrow \mathrm{(Generation lemma)}\\
+   &\Gamma \vdash (\lambda x.M):\gamma \rightarrow \sigma \& \Gamma \vdash N:\gamma &  \Rightarrow \mathrm{(Generation Lemma)}\\
+   &\Gamma ,x:\gamma \vdash M:\sigma \& \Gamma \vdash N:\gamma & \Rightarrow \mathrm{ (Substitution Lemma)}\\
    &\Gamma \vdash M[x:=N]:\sigma
 \end{align*} 
 
@@ -129,8 +130,11 @@ As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$
 
 \section{The principal type property}
 
+The principal type schemes for Curry's system were first defined in \cite{hindley1969principal}. The principal type property indicates that, amongst all the types that can be assigned to a term, there is a `principal' one that all other types can be created from it. The types are `created' by substitution rules which defines the operation that a type variable is replaced by a type in a consistent way.
+
+
 \begin{def1}{\label{def:tsub}}
-\normalfont (Type substitution(van Bakel\cite{svb2001type})) The substitution $(\varphi \mapsto C): $, where $\varphi$ is a type variable and $C \in \mathbb{T}$ is defined as following:
+\normalfont (Type substitution(van Bakel\cite{svb2001type})) a) The substitution $(\varphi \mapsto C): $, where $\varphi$ is a type variable and $C \in \mathbb{T}$ is defined as following:
 \end{def1}
 
 \begin{equation*}
@@ -141,79 +145,127 @@ As we can see, the term variable $x$ is assigned to two types: $A \rightarrow B$
 \end{array}
 \end{equation*}
 
+b) If $S_1$, $S_2$ are substitutions, then So is $S_1\circ S_2$, where $S_1\circ S_2A=S_1(S_2A)$
+
+c) \texttt{S}$\Gamma = \{x:$\texttt{S}$B | x:B \in \Gamma\}$
+
+d) $S\langle \Gamma, A\rangle=\langle S\Gamma, SA\rangle$
+
+For the Curry type assignment system, the principal type property is expressed by: for each typeable term $M$, there exists a \textit{principal pair} of context $\Pi$ and type $P$ such that $\Pi \vdash M:P$, and for all context $\Gamma$, and types $A$, if $\Gamma \vdash M:A$, then there exists a substitution \texttt{S} such that \texttt{S}$\Pi=\Gamma$ and \texttt{S}$P=A$ \cite{svb2001type}.
+
+In type theory, \textit{Polymorphism} is an important feature of programming languages. Polymorphism enables different types of entities implements the same interface but with different properties. A polymorphic type is a type whose operations can also be applied to values of some other type, or types. The principal type property for type assignment system plays an important role in programming languages that model polymorphic functions.   
+
+Principal types for $\lambda$-terms are defined using the notion of unification of types that was defined by Robinson in \cite{robinson1965machine}. Given two types, the unification operation always maps the arguments to a smallest common instance with respect to substitution. It can be defined as follows:
 
 \begin{def1}\label{eq:rob}
-\normalfont Let $Id_s$ be the substitution that replaces all type variables by themselves:
+\normalfont (van Bakel \cite{svb2001type}) Let $Id_s$ be the substitution that replaces all type variables by themselves:
 \end{def1}
 
 \noindent (i) Robinson's unification algorithm. Unification of Curry types is defined by:
 
 \begin{equation*}
 \begin{array}{llll}
-unify & \varphi            & \varphi          & = (\varphi \mapsto \varphi)\\
-unify & \varphi            & B                & = (\varphi \mapsto B), if\ \varphi \ does\ not\ occur\ in\ B\\
-unify & A                  & \varphi          & = unify\ \ \varphi\ \ A\\
-unify & (A\rightarrow B)   & (C\rightarrow D) & = S_1\circ S_2\\
-&&&\ \ \ where\ S_1 = unify\ \ A\ \ C\\
-&&&\ \ \ \ \ \ \ \ \ \ \ \ S_2 = unify\ (S_1B)\ (S_1D)
+\mathrm{unify} & \varphi            & \varphi          & = (\varphi \mapsto \varphi)\\
+\mathrm{unify} & \varphi            & B                & = (\varphi \mapsto B), if\ \varphi \mathrm{\ does\ not\ occur}\ in\ B\\
+\mathrm{unify} & A                  & \varphi          & = \mathrm{unify}\ \ \varphi\ \ A\\
+\mathrm{unify} & (A\rightarrow B)   & (C\rightarrow D) & = S_1\circ S_2\\
+&&&\ \ \ \mathrm{unify}\ S_1 = \mathrm{unify}\ \ A\ \ C\\
+&&&\ \ \ \ \ \ \ \ \ \ \ S_2 = \mathrm{unify}\ (S_1B)\ (S_1D)
 \end{array}
 \end{equation*}
 
 
-\noindent (ii) UnifyContexts
+\noindent (ii) By defining the operation \texttt{UnifyContexts}, the operation \texttt{unify} can be generalised to contexts:
 
 \begin{equation*}
 \begin{array}{llll}
-UnifyContexts & (\Gamma _0,x:A) & (\Gamma _1,x:B) & = S_1\circ S_2\\
-&&&\ \ \ where\ S_1 = unify\ \ A\ \ B\\
-&&&\ \ \ \ \ \ \ \ \ \ \ \ S_2 = UnifyContexts\ (S_1\Gamma _0)\ (S_1\Gamma _1)\\
-UnifyContexts & (\Gamma _0,x:A) & \Gamma _1 & = UnifyContexts\ \Gamma _0\ \Gamma _1, if\ x\ does\ not\ occur\ in\ \Gamma _1\\
-UnifyContexts & \varnothing & \Gamma _1 & =  Id_s
+\mathrm{UnifyContexts} & (\Gamma _0,x:A) & (\Gamma _1,x:B) & = S_1\circ S_2\\
+&&&\ \ \ \mathrm{where}\ S_1 = \mathrm{unify}\ \ A\ \ B\\
+&&&\ \ \ \ \ \ \ \ \ \ \ \ S_2 = \mathrm{UnifyContexts}\ (S_1\Gamma _0)\ (S_1\Gamma _1)\\
+\mathrm{UnifyContexts} & (\Gamma _0,x:A) & \Gamma _1 & = \mathrm{UnifyContexts}\ \Gamma _0\ \Gamma _1, \mathrm{if\ x\ does\ not\ occur\ in\ \Gamma _1}\\
+\mathrm{UnifyContexts} & \varnothing & \Gamma _1 & =  Id_s
 \end{array}
 \end{equation*}
 
 
+In order to find the principal pair for $\lambda$-terms, the principal pair algorithm is introduced. The principal algorithm defined below in Definition \ref{def:ppc}
+
 
 \begin{def1}{\label{def:ppc}}
-\normalfont  Principle  Pair  Algorithm  for  $\Lambda$
+\normalfont (van Bakel \cite{svb2001type}) Principle  Pair  Algorithm  for  $\Lambda$
 \end{def1}
 
 \begin{equation*}
 \begin{array}{llll}
 pp_c & x & = & \langle x:\varphi,\varphi \rangle\\
-&&& where\ \ \varphi=fresh\\
-pp_c & (\lambda x.M) & = & \langle \Pi,A \rightarrow P \rangle,\ if\ pp_cM=\langle \Pi \cup \{x:A\},P \rangle\\
-&&& \langle \Pi,\varphi \rightarrow P \rangle,\ if\ pp_cM=\langle \Pi ,P \rangle\ \ \ \ x\not\in \Pi\\
-&&&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ where\ \varphi=fresh\\
+&&& \mathrm{where}\ \ \varphi=\mathrm{fresh}\\
+pp_c & (\lambda x.M) & = & \langle \Pi,A \rightarrow P \rangle,\ \mathrm{if}\ pp_c\ M=\langle \Pi \cup \{x:A\},P \rangle\\
+&&& \langle \Pi,\varphi \rightarrow P \rangle,\ \mathrm{if}\ pp_c\ M=\langle \Pi ,P \rangle\ \ \ \ x\not\in \Pi\\
+&&&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mathrm{where}\ \varphi=\mathrm{fresh}\\
 pp_c & (MN) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,\varphi \rangle\\
-&&& where\ \ \ \varphi \ \ \ \ \ \ \ = fresh\\
-&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _1,P_1\rangle = pp_cM\\
-&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _2,P_2\rangle = pp_cN\\
-&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ = unify\ P_1\ \ (P_2 \rightarrow \varphi)\\
-&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ = UnifyContexts\ (S_1\Pi _1)\ (S_1\Pi _2)\\
+&&& \mathrm{where}\ \ \ \varphi \ \ \ \ \ \ \ = \mathrm{fresh}\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _1,P_1\rangle = pp_c\ M\\
+&&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _2,P_2\rangle = pp_c\ N\\
+&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ = \mathrm{unify}\ P_1\ \ (P_2 \rightarrow \varphi)\\
+&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ = \mathrm{UnifyContexts}\ (S_1\Pi _1)\ (S_1\Pi _2)\\
 \end{array}
 \end{equation*}
+
+\section{Typing $\lambda$xgc-terms}
+
+Since we have extended the lambda calculus by the explicit substitution and garbage collection, $\lambda$xgc-terms also need to be typed. On the basis of the ordinary Curry type assignment system, we add a new derivation rule and the principal pair algorithm for $\lambda$xgc-term in the form  $M\langle x:=N\rangle$.
+
+\begin{def1}
+\normalfont \textit{($\lambda$xgc-term type assignment)} $derivations$ can be defined using following derivation rule.  
+\end{def1}
+\begin{equation*}
+(4):\frac{\Gamma, {x:\sigma} \vdash M:\beta\ \ \ \ \ \Gamma \vdash _cN:\sigma}{\Gamma \vdash _cM\langle x:=N\rangle \beta} 
+\end{equation*}
+
+Notice that, here we only list the derivation rule that has been added to the ordinary derivation rules defined in Definition \ref{def:derivation}. Therefore, the derivation rules 1,2,3,4 forms the derivation rule set for $\lambda$xgc-calculus.
+
+In $M\langle x:=N\rangle$, $x$ can be substituted by $N$, so they must have the same type. Then substitute all the free occurrence of $x$ in $M$ will not change the type of $M$. 
 
 
 \begin{def1}{\label{def:ppcxgc}}
 \normalfont  Principle  Pair  Algorithm  for  $\Lambda$x
 \end{def1}
 
+
 \begin{equation*}
 \begin{array}{llll}
-pp_c & (M\langle x:=N\rangle) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,P_1 \rangle\\
-&&& where\ \ P_3 \ \ \ \ \ \ \ = fresh \ \ \ \ \ \ \ \ \ \ \ \ \ if\ x\ \not\in FV(M)\\
-&&& \ \ \ \ \ \ \ \ \ \ \Pi _1 \ \ \ \ \ \ \ = \Pi _3 \cup \{x:P_3\}\ \ \ if\ x\ \in FV(M)\\
+pp_c & (M\langle x:=N\rangle) & = & S_1\circ S_2\langle \Pi _1\cup \Pi _2,P_1 \rangle \ \ \ \mathrm{if}\ x\ \not\in FV(M)\\
+&&& S_1\circ S_2\langle \Pi _3\cup \Pi _2,P_1 \rangle \ \ \ \mathrm{if}\ x\ \in FV(M)\\
+&&& \mathrm{where} \ \ P_3 \ \ \ \ \ \ \ = \mathrm{fresh} \ \ \ \ \ \ \ \ \ \ \ \ \ \mathrm{if}\ x\ \not\in FV(M)\\
+&&& \ \ \ \ \ \ \ \ \ \ \Pi _1 \ \ \ \ \ \ \ = \Pi _3 \cup \{x:P_3\}\ \ \ \mathrm{if}\ x\ \in FV(M)\\
 &&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _1,P_1\rangle = pp_c\ M\\
 &&& \ \ \ \ \ \ \ \ \ \ \langle \Pi _2,P_2\rangle = pp_c\ N\\
-&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ \ = unify\ P_2\ \ P_3\\
-&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ \ = UnifyContexts\ (S_1\Pi _1)\ (S_1\Pi _2)\\
+&&& \ \ \ \ \ \ \ \ \ \ S_1 \ \ \ \ \ \ \ \ = \mathrm{unify}\ P_2\ \ P_3\\
+&&& \ \ \ \ \ \ \ \ \ \ S_2 \ \ \ \ \ \ \ \ = \mathrm{UnifyContexts}\ (S_1\Pi _1)\ (S_1\Pi _2)\\
 \end{array}
 \end{equation*}
 
-\begin{equation*}
-(4):\frac{\Gamma, {x:\sigma} \vdash M:\beta\ \ \ \ \ \Gamma \vdash _cN:\sigma}{\Gamma \vdash _cM\langle x:=N\rangle \beta} 
-\end{equation*}
+
+Based on the ordinary principal pair algorithm, we add the algorithm for $\lambda$xgc-term in the form $M\langle x:=N\rangle$. The type of term $M\langle x:=N\rangle$ is eventually the type assigned to $M$. Recall that, the context is used to collect all the statements used for the free variables of a term when typing that term. If $x$ is a free variable in $M$, the statement of $x$ in $\Pi_1$ should be removed.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
