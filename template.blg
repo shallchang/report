@@ -1,6 +1,7 @@
 This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: template.aux
+A level-1 auxiliary file: cover.aux
 The style file: plain.bst
 Database file #1: ref.bib
 Warning--entry type for "operational" isn't style-file defined
@@ -13,7 +14,7 @@ Warning--empty booktitle in svb2001type
 Warning--empty publisher in svb2001type
 You've used 16 entries,
             2118 wiz_defined-function locations,
-            581 strings with 5869 characters,
+            582 strings with 5878 characters,
 and the built_in function-call counts, 4356 in all, are:
 = -- 413
 > -- 156

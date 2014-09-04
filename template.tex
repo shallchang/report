@@ -15,24 +15,22 @@
 \usepackage{qtree}
 \usepackage{url}
 
+%\linespread{1.2}
+
 \newtheorem{def1}{\textbf{Definition}}[chapter]
 \newtheorem{exmp}{\textit{Example}}[section]
 \newtheorem{lemma}{\textit{Lemma}}[chapter]
 \newtheorem{theorem}{\textbf{Theorem}}[chapter]
 
 \begin{document}
-
+\include{cover}
 \pagenumbering{roman}
 \tableofcontents
 
 \relax
 
 \input{background/Abstract}
-
-\chapter*{Acknowledgements}
-\addcontentsline{toc}{chapter}{\numberline{}Acknowledgements}
-
-
+\input{background/Acknowlegements}
 \input{background/Introduction}
 \input{chapter1/lambdacalculus}
 \input{chapter2/currytype}
@@ -46,5 +44,9 @@
 
 \bibliographystyle{plain}
 \bibliography{ref}
+
+
+\input{appendix/AppendixA}
+
 
 \end{document}

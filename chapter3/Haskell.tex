@@ -82,7 +82,7 @@ A \textbf{Shape} can either be a \textbf{Rectangle} or a \textbf{Circle} or a \t
 
 Since the lambda calculus lies at the basis of functional languages like Haskell. Implement lambda calculus in Haskell is quite a straight forward work. In this project, both the typed and untyped lambda calculus are implemented. In addition, the $\lambda$xgc-calculi is also implemented based on the ordinary $\lambda$-calculus. The implementation consists three main parts: data types declaration, parser, and the main mechanism.
 
-\subsection{Data Types}
+\subsection{Data Types}\label{subs:dt}
 
 The ordinary $\lambda$-calculus data types have already been introduced in Section \ref{sec:reductionstrategy}. Based on that, the $\lambda$xgc-terms are defined as following: 
 \begin{verbatim}
@@ -138,8 +138,8 @@ To allow interactions and inputs from the users, the program needs syntax rules 
                    where (lhs, rhs) = div_sub exp
 
       div_sub :: [Char] -> ([Char], [Char])  --divide a term into 2 parts
-      div_sub expr | last expr == ')' && last lhs == ')' && head (tail expr) == '/'
-                     = (to_expr lhs, rhs)  
+      div_sub expr | last expr == ')' && last lhs == ')' && head (tail expr) 
+                     == '/' = (to_expr lhs, rhs)  
                    | last expr == ')'       
                      = (lhs, rhs)
                    | head (tail expr) == '/' && last (init expr) == ')' 
@@ -154,8 +154,8 @@ To allow interactions and inputs from the users, the program needs syntax rules 
 
       split :: [Char] -> [Char] -> Integer -> ([Char], [Char])
       {-|
-         it marks the rightmost ')' and finds the matching '(' and extract the term out
-         without brackets
+         it marks the rightmost ')' and finds the matching '(' and extract 
+         the term out without brackets
       -}
       split left right n
                  | n == 1 && last left == '(' = (new_left, right)
@@ -166,16 +166,31 @@ To allow interactions and inputs from the users, the program needs syntax rules 
                          new_right = (last left : right)
 \end{verbatim}
 
+The input parser has a main function named \verb|to_term|. It firstly parses the input string and determines whether it is a variable or an abstraction or an application, then it calls the corresponding parser function: \verb|to_var, to_abs, or to_app|. The function \verb|to_abs| and \verb|to_app| have recursive calls of others since an abstraction and application may contain several subterms.   
+
+The auxiliary functions defined can fully parse an input string into a $\lambda$-term structure in Haskell. The function \verb|div_sub| divides an application into 2 parts which are function and argument. \verb|to_expr| function can extract the expression from a string without brackets, that is, ($\lambda x.x$) is extracted as $\lambda x.x$.
+Finally, the \verb|split| function implements the main extraction algorithm that matches the left bracket and right bracket to extract a term.
+
+
 \subsection{Main mechanism}
-The main mechanism of $\lambda$-calculus, $\lambda$xgc-calculus, and Curry type assignment only contains 300 lines of code in Haskell. The full implementation code can be found in Appendix A.   
-
-
-
+The main mechanisms of $\lambda$-calculus, $\lambda$xgc-calculus, different reduction strategies, and Curry type assignment system only contain approximately three hundred lines of code in Haskell. The full implementation code can be found in Appendix \ref{ap:a}.   
 
 
 \section{Issues and Weakness of Implementation in Haskell }
 
-The functional programming languages are elegant and concise. The implementation of untyped lambda calculus, explicit substitution, and Curry type assignment system only contains several hundred lines of code in Haskell. Each function is defined by pattern matching and readable. It clearly shows what each function do according to the input pattern. Local definitions are utilized to avoid duplicate execution on expressions, it makes the program run faster. However, it has some issues; and as an application or software, it has less usability.
+The functional programming languages are elegant and concise. The implementation of untyped lambda calculus, explicit substitution, and Curry type assignment system only contains several hundred lines of code in Haskell. Each function is defined in pattern matching and readable. It clearly shows what each function does according to the input pattern. Local definitions are utilized to avoid duplicate execution on expressions, it makes the program run faster. However, it has some issues: 
+\begin{itemize}
+\item A function cannot return results in various types: Since functions in Haskell are  strictly typed, that is, the types of input and output value are pre-defined. It is hard to deal with `self-application' when typing a $\lambda$-term. When we unify two statements with the same subject but different predicate, the function should return an exception or a \texttt{null} value which states they cannot be unified. Therefore, the implementation in Haskell cannot handle the `self-application' terms such as $xx$. The principal pair algorithm implemented would return the context $x:A\rightarrow B, x:A \vdash xx:B$ instead of a warning information. The `self-application' problem is perfectly handled in the Java implementation.  
+
+\item As a tool and a program, the implementation in Haskell does not have enough functionality. Although it interacts with user in terms of the input $\lambda$-terms, it should have other functionality such as switch among reduction strategies, enable and disable explicit substitution and garbage collection. It is extremely difficult to manage the format of output on the console. 
+
+\item A graphical user interface is a type of interface that allows users to interact with programs through graphical icons and visual indicators such as secondary notation, as opposed to text-based interfaces, typed command labels or text navigation. A graphical user interface can largely improve the usability of a program. `Haskell has at least four toolkits for programming a graphical interface. However, Java Graphics APIs--AWT and Swing--provide a huge set of reusable GUI components, such as button, text field, label, panel and frame for building GUI applications. It is believed to be an interesting task to implement a GUI in Haskell for the program. 
+
+\end{itemize}
+
+However, some issues may be solved by higher-level Haskell programming skills. Apart from the small issues listed above, the implementation in Haskell is concise and readable because of the pattern matching. The entire implementation only contains four hundred lines of code, whereas in Java, it would contain thousands lines of code which needs more work and a patience of specification.   
+
+
 
 
 

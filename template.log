@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  3 SEP 2014 22:42
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.23)  4 SEP 2014 22:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -423,21 +423,22 @@ Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 \c@exmp=\count122
 \c@lemma=\count123
 \c@theorem=\count124
- (./template.aux)
+ (./template.aux
+(./cover.aux))
 \openout1 = `template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -533,7 +534,13 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
+\openout2 = `cover.aux'.
 
+
+(./cover.tex [1
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 (./template.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 5.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -549,13 +556,14 @@ LaTeX Font Info:    Try loading font information for U+stmry on input line 5.
 (/usr/share/texlive/texmf-dist/tex/latex/stmaryrd/Ustmry.fd) [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+])
 \tf@toc=\write4
 \openout4 = `template.toc'.
 
- (./background/Abstract.tex [2]) [3
 
-]
+(./background/Abstract.tex [2]) (./background/Acknowlegements.tex [3
+
+])
 (./background/Introduction.tex [4
 
 ]) (./chapter1/lambdacalculus.tex [5
@@ -599,7 +607,7 @@ N\OT1/cmr/m/n/10.95 )(\OML/cmm/m/it/10.95 P\OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/1
 0.95 x \OT1/cmr/m/n/10.95 :=
  []
 
-[11] [12] <pics/zhang_01.png, id=70, 796.576pt x 605.462pt>
+[11] [12] <pics/zhang_01.png, id=74, 796.576pt x 605.462pt>
 File: pics/zhang_01.png Graphic file (type png)
 
 <use pics/zhang_01.png>
@@ -610,7 +618,7 @@ Package pdftex.def Info: pics/zhang_01.png used on input line 702.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [13] [14 <./pics/zhang_01.png (PNG copy)>]
-<pics/zhang_02.png, id=78, 796.576pt x 605.462pt>
+<pics/zhang_02.png, id=82, 796.576pt x 605.462pt>
 File: pics/zhang_02.png Graphic file (type png)
  <use pics/zhang_02.png>
 Package pdftex.def Info: pics/zhang_02.png used on input line 736.
@@ -624,226 +632,263 @@ Chapter 2.
 Chapter 3.
 [21
 
-] [22] [23]
-Overfull \hbox (7.6706pt too wide) in paragraph at lines 141--141
-[]      \OT1/cmtt/m/n/10.95 div_sub expr | last expr == ')' && last lhs == ')' 
-&& head (tail expr) == '/'[] 
- []
-
-[24]
-Overfull \hbox (30.66534pt too wide) in paragraph at lines 157--157
-[]         \OT1/cmtt/m/n/10.95 it marks the rightmost ')' and finds the matchin
-g '(' and extract the term out[] 
- []
-
-) (./chapter4/Java.tex [25]
+] [22] [23] [24] [25]) (./chapter4/Java.tex [26]
 Chapter 4.
-
-Overfull \hbox (7.6706pt too wide) in paragraph at lines 10--10
-[]\OT1/cmtt/m/n/10.95 ppc (Abs x y) r | contains (Var x) pi = ((removeItem (Var
- x, a) pi, (TP a p)), tl1)[] 
- []
-
-[26
+[27
 
 ]
-Overfull \hbox (24.91666pt too wide) in paragraph at lines 49--49
-[]             \OT1/cmtt/m/n/10.95 return new PPC(receiver.getSubject(), new TP
-(f, receiver.getPredicate()),[] 
+Overfull \hbox (24.91666pt too wide) in paragraph at lines 32--32
+[]    \OT1/cmtt/m/n/10.95 (2)      PPC receiver = ppc(((Abstraction) term).getT
+erm(), counter.substring(1));[] 
  []
 
-<pics/Term.png, id=120, 525.965pt x 329.23pt>
-File: pics/Term.png Graphic file (type png)
- <use pics/Term.png>
-Package pdftex.def Info: pics/Term.png used on input line 68.
-(pdftex.def)             Requested size: 368.17297pt x 230.45941pt.
- [27]
-<pics/LC.png, id=124, 232.87pt x 181.67876pt>
+
+Overfull \hbox (24.91666pt too wide) in paragraph at lines 50--50
+[]    \OT1/cmtt/m/n/10.95 (2)      PPC receiver = ppc(((Abstraction) term).getT
+erm(), counter.substring(1));[] 
+ []
+
+<pics/Term2.png, id=127, 570.13pt x 357.335pt>
+File: pics/Term2.png Graphic file (type png)
+ <use pics/Term2.png>
+Package pdftex.def Info: pics/Term2.png used on input line 72.
+(pdftex.def)             Requested size: 456.10463pt x 285.86838pt.
+ [28]
+[29 <./pics/Term2.png>] <pics/LC.png, id=134, 232.87pt x 181.67876pt>
 File: pics/LC.png Graphic file (type png)
- <use pics/LC.png>
-Package pdftex.def Info: pics/LC.png used on input line 90.
+
+<use pics/LC.png>
+Package pdftex.def Info: pics/LC.png used on input line 96.
 (pdftex.def)             Requested size: 139.72307pt x 109.00809pt.
- [28 <./pics/Term.png> <./pics/LC.png>] <pics/Type.png, id=128, 276.03125pt x 1
-81.67876pt>
-File: pics/Type.png Graphic file (type png)
 
-<use pics/Type.png>
-Package pdftex.def Info: pics/Type.png used on input line 121.
-(pdftex.def)             Requested size: 193.22055pt x 127.17424pt.
-
-Overfull \hbox (6.45032pt too wide) in paragraph at lines 126--127
+Overfull \hbox (6.45032pt too wide) in paragraph at lines 127--128
 []\OT1/cmr/m/n/10.95 Type as-sign-ment sys-tem as-signs types to $\OML/cmm/m/it
 /10.95 ^^U$\OT1/cmr/m/n/10.95 -terms. In $\U/msb/m/n/10.95 T$\OT1/cmr/m/n/10.95
  , a type can ei-ther be a sin-gle type($\OML/cmm/m/it/10.95 A; B; :::$\OT1/cmr
 /m/n/10.95 )
  []
 
-[29 <./pics/Type.png>] <pics/TSub.png, id=132, 233.87375pt x 140.525pt>
+<pics/Type.png, id=135, 276.03125pt x 181.67876pt>
+File: pics/Type.png Graphic file (type png)
+ <use pics/Type.png>
+Package pdftex.def Info: pics/Type.png used on input line 134.
+(pdftex.def)             Requested size: 193.22055pt x 127.17424pt.
+ [30 <./pics/LC.png>] <pics/TSub.png, id=139, 233.87375pt x 140.525pt>
 File: pics/TSub.png Graphic file (type png)
 
 <use pics/TSub.png>
-Package pdftex.def Info: pics/TSub.png used on input line 144.
+Package pdftex.def Info: pics/TSub.png used on input line 152.
 (pdftex.def)             Requested size: 163.71048pt x 98.3668pt.
- <pics/Statement.png, id=133, 140.525pt x 130.4875pt>
+
+Underfull \vbox (badness 1584) has occurred while \output is active []
+
+ [31 <./pics/Type.png> <./pics/TSub.png>]
+<pics/Statement.png, id=144, 140.525pt x 130.4875pt>
 File: pics/Statement.png Graphic file (type png)
-
-<use pics/Statement.png>
-Package pdftex.def Info: pics/Statement.png used on input line 156.
+ <use pics/Statement.png>
+Package pdftex.def Info: pics/Statement.png used on input line 164.
 (pdftex.def)             Requested size: 84.31564pt x 78.29309pt.
- <pics/Context.png, id=134, 240.9pt x 93.34875pt>
-File: pics/Context.png Graphic file (type png)
 
-<use pics/Context.png>
-Package pdftex.def Info: pics/Context.png used on input line 162.
+<pics/Context.png, id=145, 240.9pt x 93.34875pt>
+File: pics/Context.png Graphic file (type png)
+ <use pics/Context.png>
+Package pdftex.def Info: pics/Context.png used on input line 170.
 (pdftex.def)             Requested size: 144.5411pt x 56.00967pt.
 
-Overfull \hbox (3.69853pt too wide) in paragraph at lines 162--163
+Overfull \hbox (3.69853pt too wide) in paragraph at lines 170--171
  [][] 
  []
 
-<pics/PPC.png, id=135, 145.54375pt x 146.5475pt>
+<pics/PPC.png, id=146, 145.54375pt x 146.5475pt>
 File: pics/PPC.png Graphic file (type png)
  <use pics/PPC.png>
-Package pdftex.def Info: pics/PPC.png used on input line 168.
+Package pdftex.def Info: pics/PPC.png used on input line 176.
 (pdftex.def)             Requested size: 72.77168pt x 73.27356pt.
- [30 <./pics/TSub.png> <./pics/Statement.png> <./pics/Context.png> <./pics/PPC.
-png>]
-<pics/LCType.png, id=139, 330.23375pt x 201.75375pt>
+
+<pics/LCType.png, id=147, 330.23375pt x 201.75375pt>
 File: pics/LCType.png Graphic file (type png)
  <use pics/LCType.png>
-Package pdftex.def Info: pics/LCType.png used on input line 186.
+Package pdftex.def Info: pics/LCType.png used on input line 194.
 (pdftex.def)             Requested size: 198.14177pt x 121.05318pt.
 
-<pics/TermRaw.png, id=140, 119.44624pt x 61.22874pt>
-File: pics/TermRaw.png Graphic file (type png)
- <use pics/TermRaw.png>
-Package pdftex.def Info: pics/TermRaw.png used on input line 212.
-(pdftex.def)             Requested size: 83.61179pt x 42.8598pt.
+[32 <./pics/Statement.png> <./pics/Context.png> <./pics/PPC.png> <./pics/LCType
+.png>] <pics/flow.png, id=151, 1317.92375pt x 602.25pt>
+File: pics/flow.png Graphic file (type png)
+ <use pics/flow.png>
+Package pdftex.def Info: pics/flow.png used on input line 226.
+(pdftex.def)             Requested size: 263.58008pt x 120.44786pt.
 
-[31 <./pics/LCType.png>]) (./chapter5/GUI.tex [32 <./pics/TermRaw.png>]
+<pics/Termxgc.png, id=153, 477.785pt x 548.0475pt>
+File: pics/Termxgc.png Graphic file (type png)
+ <use pics/Termxgc.png>
+Package pdftex.def Info: pics/Termxgc.png used on input line 234.
+(pdftex.def)             Requested size: 382.22852pt x 438.4386pt.
+
+Overfull \hbox (32.3987pt too wide) in paragraph at lines 240--241
+\OT1/cmr/m/n/10.95 in the \OT1/cmr/bx/n/10.95 most sim-pli-fied form\OT1/cmr/m/
+n/10.95 . So the $\OML/cmm/m/it/10.95 ^^U$\OT1/cmr/m/n/10.95 -term $((\OML/cmm/
+m/it/10.95 ^^Ux:^^Uy:xy\OT1/cmr/m/n/10.95 )(\OML/cmm/m/it/10.95 ^^Uf:fx\OT1/cmr
+/m/n/10.95 ))\OML/cmm/m/it/10.95 x$ \OT1/cmr/m/n/10.95 should be in-put as []\O
+T1/cmtt/m/n/10.95 (\xy.xy)(\f.fx)w\OT1/cmr/m/n/10.95 .
+ []
+
+[33 <./pics/flow.png>]) (./chapter5/GUI.tex [34 <./pics/Termxgc.png>]
 Chapter 5.
-<pics/GUILax.png, id=148, 722.7pt x 432.61626pt>
+<pics/GUILax.png, id=161, 722.7pt x 432.61626pt>
 File: pics/GUILax.png Graphic file (type png)
  <use pics/GUILax.png>
 Package pdftex.def Info: pics/GUILax.png used on input line 9.
 (pdftex.def)             Requested size: 469.47049pt x 281.03221pt.
- [33
+ [35
 
- <./pics/GUILax.png>] <pics/normalize.png, id=152, 1105.12875pt x 245.91875pt>
+ <./pics/GUILax.png>] <pics/normalize.png, id=165, 1105.12875pt x 245.91875pt>
 File: pics/normalize.png Graphic file (type png)
 
 <use pics/normalize.png>
 Package pdftex.def Info: pics/normalize.png used on input line 37.
 (pdftex.def)             Requested size: 469.47049pt x 104.46716pt.
- <pics/trace.png, id=153, 1107.13625pt x 202.7575pt>
+ <pics/trace.png, id=166, 1107.13625pt x 202.7575pt>
 File: pics/trace.png Graphic file (type png)
 
 <use pics/trace.png>
 Package pdftex.def Info: pics/trace.png used on input line 50.
 (pdftex.def)             Requested size: 469.47049pt x 85.97743pt.
- [34 <./pics/normalize.png>]
-<pics/single1.png, id=157, 1105.12875pt x 226.8475pt>
+ [36 <./pics/normalize.png>]
+<pics/single1.png, id=170, 1105.12875pt x 226.8475pt>
 File: pics/single1.png Graphic file (type png)
  <use pics/single1.png>
 Package pdftex.def Info: pics/single1.png used on input line 62.
 (pdftex.def)             Requested size: 469.47049pt x 96.36563pt.
 
-<pics/single2.png, id=158, 1107.13625pt x 200.75pt>
+<pics/single2.png, id=171, 1107.13625pt x 200.75pt>
 File: pics/single2.png Graphic file (type png)
  <use pics/single2.png>
 Package pdftex.def Info: pics/single2.png used on input line 71.
 (pdftex.def)             Requested size: 469.47049pt x 85.12616pt.
 
-<pics/single3.png, id=159, 1106.1325pt x 227.85126pt>
+<pics/single3.png, id=172, 1106.1325pt x 227.85126pt>
 File: pics/single3.png Graphic file (type png)
  <use pics/single3.png>
 Package pdftex.def Info: pics/single3.png used on input line 80.
 (pdftex.def)             Requested size: 469.47049pt x 96.70512pt.
 
-<pics/sestoft1.png, id=160, 173.64874pt x 77.28876pt>
+<pics/sestoft1.png, id=173, 173.64874pt x 77.28876pt>
 File: pics/sestoft1.png Graphic file (type png)
  <use pics/sestoft1.png>
 Package pdftex.def Info: pics/sestoft1.png used on input line 91.
 (pdftex.def)             Requested size: 86.82416pt x 38.64427pt.
 
-<pics/sestoft2.png, id=161, 150.5625pt x 65.24374pt>
+<pics/sestoft2.png, id=174, 150.5625pt x 65.24374pt>
 File: pics/sestoft2.png Graphic file (type png)
  <use pics/sestoft2.png>
 Package pdftex.def Info: pics/sestoft2.png used on input line 93.
 (pdftex.def)             Requested size: 90.33818pt x 39.14653pt.
 
-<pics/sestoft3.png, id=162, 153.57375pt x 61.22874pt>
+<pics/sestoft3.png, id=175, 153.57375pt x 61.22874pt>
 File: pics/sestoft3.png Graphic file (type png)
  <use pics/sestoft3.png>
 Package pdftex.def Info: pics/sestoft3.png used on input line 95.
 (pdftex.def)             Requested size: 92.14494pt x 36.73752pt.
 
-<pics/sestoft4.png, id=163, 158.5925pt x 65.24374pt>
+<pics/sestoft4.png, id=176, 158.5925pt x 65.24374pt>
 File: pics/sestoft4.png Graphic file (type png)
  <use pics/sestoft4.png>
 Package pdftex.def Info: pics/sestoft4.png used on input line 97.
 (pdftex.def)             Requested size: 95.15622pt x 39.14653pt.
 
-[35 <./pics/trace.png> <./pics/single1.png> <./pics/single2.png>]
-<pics/nonterminate.png, id=167, 1105.12875pt x 602.25pt>
+[37 <./pics/trace.png> <./pics/single1.png> <./pics/single2.png>]
+<pics/nonterminate.png, id=181, 1105.12875pt x 602.25pt>
 File: pics/nonterminate.png Graphic file (type png)
 
 <use pics/nonterminate.png>
 Package pdftex.def Info: pics/nonterminate.png used on input line 111.
 (pdftex.def)             Requested size: 469.47049pt x 255.83798pt.
 
-<pics/explicit.png, id=168, 1106.1325pt x 366.36874pt>
+<pics/explicit.png, id=182, 1106.1325pt x 366.36874pt>
 File: pics/explicit.png Graphic file (type png)
  <use pics/explicit.png>
 Package pdftex.def Info: pics/explicit.png used on input line 122.
 (pdftex.def)             Requested size: 469.47049pt x 155.49501pt.
 
-[36 <./pics/single3.png> <./pics/sestoft1.png> <./pics/sestoft2.png> <./pics/se
+[38 <./pics/single3.png> <./pics/sestoft1.png> <./pics/sestoft2.png> <./pics/se
 stoft3.png> <./pics/sestoft4.png> <./pics/nonterminate.png>])
-(./chapter6/compare.tex [37 <./pics/explicit.png>]
+(./chapter6/compare.tex [39 <./pics/explicit.png>]
 Chapter 6.
-) (./chapter7/conclusion.tex [38
+) (./chapter7/conclusion.tex [40
 
 ]
 Chapter 7.
-) (./template.bbl [39
+) (./template.bbl [41
 
-])
+]) (./appendix/AppendixA.tex [42
+
+]
+Appendix A.
+
+Underfull \vbox (badness 2221) has occurred while \output is active []
+
+ [43
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [44]
+Overfull \hbox (7.6706pt too wide) in paragraph at lines 117--117
+[]\OT1/cmtt/m/n/10.95 ppc (Abs x y) r | contains (Var x) pi = ((removeItem (Var
+ x, a) pi, (TP a p)), tl1)[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [45]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [46]
+Overfull \hbox (1.9219pt too wide) in paragraph at lines 252--252
+[]                            \OT1/cmtt/m/n/10.95 = Abs 'z' (subs (subs m (Var 
+y, Var 'z')) (Var x, n) )[] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [47])
 \tf@thm=\write5
 \openout5 = `template.thm'.
 
- [40
 
-] (./template.aux) ) 
+[48] (./template.aux (./cover.aux)) ) 
 Here is how much of TeX's memory you used:
- 5819 strings out of 494966
- 85315 string characters out of 3178674
- 162034 words of memory out of 3000000
- 8843 multiletter control sequences out of 15000+200000
+ 5842 strings out of 494966
+ 85638 string characters out of 3178674
+ 163556 words of memory out of 3000000
+ 8851 multiletter control sequences out of 15000+200000
  22826 words of font info for 89 fonts, out of 3000000 for 9000
  36 hyphenation exceptions out of 8191
  44i,25n,42p,1450b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
-x12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
-/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
-msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/stmaryrd/stmary10.
-pfb>
-Output written on template.pdf (45 pages, 736734 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/stmaryrd
+/stmary10.pfb>
+Output written on template.pdf (54 pages, 874288 bytes).
 PDF statistics:
- 242 PDF objects out of 1000 (max. 8388607)
- 153 compressed objects within 2 object streams
+ 277 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 116 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
 
